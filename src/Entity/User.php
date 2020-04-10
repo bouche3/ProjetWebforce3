@@ -5,11 +5,17 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"pseudo"}, message="Ce pseudo est déjà utilisé")
+ * @UniqueEntity(fields={"email"}, message="Cet email est déjà utilisé")
+ *
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,17 +25,22 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Le pseudo est obligatoire")
+     * @Assert\Length(min="2", minMessage="Le pseudo doit avoir au moins {{ limit }} caractères")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom est obligatoire")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $firstname;
 
@@ -39,7 +50,9 @@ class User
     private $registrationDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="L'email n'est pas valide")
      */
     private $email;
 
@@ -49,7 +62,47 @@ class User
     private $password;
 
     /**
+     * @var string|null
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
+     * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme")
+     *
+     */
+    private $plainpassword;
+
+    /**
+     * @return string|null
+     */
+    public function getPlainpassword(): ?string
+    {
+        return $this->plainpassword;
+    }
+
+    /**
+     * @param string|null $plainpassword
+     * @return User
+     */
+    public function setPlainpassword(?string $plainpassword): User
+    {
+        $this->plainpassword = $plainpassword;
+        return $this;
+    }
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     *     mimeTypes={"image/png", "image/jpeg", "image"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
+     * * @Assert\Image(
+     *     minWidth = 10,
+     *     minWidthMessage="L'image ne doit pas faire moins de {{ min_width }}px de largeur",
+     *     maxWidth = 400,
+     *     maxWidthMessage="L'image ne doit pas dépasser {{ max_width }}px de largeur",
+     *     minHeight = 10,
+     *     minHeightMessage="L'image ne doit pas faire moins de {{ min_height }}px de hauteur",
+     *     maxHeight = 400,
+     *     maxHeightMessage="L'image ne doit pas dépasser {{ max_height }}px de hauteur")
      */
     private $avatar;
 
@@ -72,6 +125,12 @@ class User
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->registrationDate = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->pseudo;
     }
 
     public function getId(): ?int
@@ -151,12 +210,12 @@ class User
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar()
     {
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): self
+    public function setAvatar($avatar): self
     {
         $this->avatar = $avatar;
 
@@ -173,6 +232,39 @@ class User
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return [$this->status];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // inutile ici car l'algo de cryptage utilisé en contient déjà un
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        //L'authentifiant est le pseudo
+        return $this->pseudo;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // N'est utile que lorsqu'il y a des données sensibles dans les objets User
     }
 
     /**

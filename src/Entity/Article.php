@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -27,12 +28,14 @@ class Article
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Merci de selectionner le pays de votre aventure")
      */
     private $countryid;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TravelCategory", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Merci de selectionner le type de votre aventure")
      */
     private $categoryid;
 
@@ -43,6 +46,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci d'indiquer un titre à votre aventure")
      */
     private $title;
 
@@ -74,8 +78,21 @@ class Article
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Template", inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Merci de selectionner une mise en page pour votre aventure")
+     */
+    private $nameTemplate;
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     public function __construct()
     {
+        $this->setDate(new \DateTime());
         $this->comments = new ArrayCollection();
     }
 
@@ -219,6 +236,18 @@ class Article
                 $comment->setArticleid(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNameTemplate(): ?Template
+    {
+        return $this->nameTemplate;
+    }
+
+    public function setNameTemplate(?Template $nameTemplate): self
+    {
+        $this->nameTemplate = $nameTemplate;
 
         return $this;
     }
