@@ -37,7 +37,7 @@ class ArticleController extends AbstractController
 
         if(is_null($id)){
             $article = new Article();
-//            $article->setUserid($this->getUser());
+            $article->setUserid($this->getUser());
         }
         else{
             $article = $manager->find(Article::class, $id);
@@ -55,16 +55,22 @@ class ArticleController extends AbstractController
         if($form->isSubmitted()){
             if($form->isValid()){
 
-//                $manager->persist($article);
-//                $manager->flush();
+                $manager->persist($article);
+                $manager->flush();
+                dump($article);
 
-                if($article->getNameTemplate() == 'Template orienté image'){
+                if($article->getNameTemplate()->getId() == 1){
+                    return $this->redirectToRoute(
+                        'app_admin_article_renderarticleimage',
+                    [
+                        'id'=>$article->getId()
+                    ]
+                );
+                }
+                elseif($article->getNameTemplate()->getId() == 2){
                     return $this->redirectToRoute('app_index_index');
                 }
-                elseif($article->getNameTemplate() == 'Template orienté texte'){
-                    return $this->redirectToRoute('app_index_index');
-                }
-                elseif ($article->getNameTemplate() == 'Template orienté mixte'){
+                elseif ($article->getNameTemplate()){
                     return $this->redirectToRoute('app_index_index');
                 }
 
@@ -82,8 +88,9 @@ class ArticleController extends AbstractController
     /**
      * @Route("/i/{id}", requirements={"id": "\d+"})
      */
-    public function renderArticle()
+    public function renderArticleImage()
     {
+
         return $this->render('admin/article/render_i_article.html.twig');
     }
 }
