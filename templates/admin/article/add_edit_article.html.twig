@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Ajouter-modifier un article{% endblock %}
+
+{% block body %}
+    <h1>AJOUTER-MODIFIER UN ARTICLE</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.categoryid) }}
+    {{ form_row(form.countryid) }}
+    {{ form_row(form.city) }}
+
+    <div class="form_head">
+        <div class="form_template">
+            <img src="{{ asset('img/template_image.png') }}" alt="image_du_template_image" />
+        </div>
+        <div class="form_template">
+            <img src="{{ asset('img/template_texte.png') }}" alt="image_du_template_texte" />
+        </div>
+        <div class="form_template">
+            <img src="{{ asset('img/template_mixte.png') }}" alt="image_du_template_mixte" />
+        </div>
+    </div>
+
+    {{ form_row(form.nameTemplate) }}
+
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ path('app_admin_article_index') }}" class="btn btn-outline-secondary">Retour</a>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+
