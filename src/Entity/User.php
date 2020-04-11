@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -19,12 +20,16 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Le pseudo est obligatoire")
+     * @Assert\Length(min="2", minMessage="Le pseudo doit avoir au moins {{ limit }} caractères")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $lastname;
 
@@ -39,7 +44,9 @@ class User
     private $registrationDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="L'email n'est pas valide")
      */
     private $email;
 
@@ -49,6 +56,14 @@ class User
     private $password;
 
     /**
+     * @var string|null
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
+     * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme")
+     *
+     */
+    private $confirmPassword;
+    /**
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
@@ -72,6 +87,11 @@ class User
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->registrationDate = new \DateTime();
+    }
+    public function __toString()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     public function getId(): ?int
@@ -150,6 +170,23 @@ class User
 
         return $this;
     }
+    /**
+     * @return string|null
+     */
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * @param string|null $confirmPassword
+     * @return User
+     */
+    public function setConfirmPassword(?string $confirmPassword): User
+    {
+        $this->confirmPassword = $confirmPassword;
+        return $this;
+    }
 
     public function getAvatar(): ?string
     {
@@ -174,6 +211,7 @@ class User
 
         return $this;
     }
+
 
     /**
      * @return Collection|Article[]
@@ -236,5 +274,6 @@ class User
 
         return $this;
     }
+
 
 }

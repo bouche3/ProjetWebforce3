@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form.pseudo }}
+    {{ form.fistname }}
+    {{ form.lastname }}
+    {{ form.email }}
+    {{ form.password }}
+    {{ form.confirmpassword }}
+    {{ form.avatar }}
+    {{ form.status }}
+
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">
+            Enregistrer
+        </button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

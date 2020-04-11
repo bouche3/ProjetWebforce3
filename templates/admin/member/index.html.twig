@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block body %}
+    <h1>Gestion membre</h1>
+
+    <a href="{{ path('app_admin_member_edit') }}"
+       class="btn btn-outline-primary mb-3">
+        Ajouter une membre
+    </a>
+    <table class="table table-stripped">
+        <tr>
+            <th>Id</th>
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th width="250px"></th>
+        </tr>
+        {% for member in memberDetails  %}
+            <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.pseudo }}</td>
+                <td>{{ member.firstname}}</td>
+                <td>{{ member.lastname }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.status }}</td>
+
+            <td>
+                <a class="btn btn-primary"
+                   href="{{ path('app_admin_member_edit',{'id':member.id}) }}">
+                    Modifier
+                </a>
+                <a class="btn btn-primary"
+                   href="{{ path('app_admin_member_edit',{'id':member.id}) }}">
+                    supprimer
+                </a>
+
+            </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Etes-vous sûr de vouloir supprimer cette membre ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-confirm-delete">Oui</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $('.btn-delete').click(function(event){
+                event.preventDefault();
+                var $btn=$(this);
+                $('#modal-delete').modal('show');
+                $('#btn-confirm-delete').click(function(){
+                    window.location.href=$btn.attr('href');
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
