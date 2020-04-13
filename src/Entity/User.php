@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -54,17 +55,47 @@ class User
      * @ORM\Column(type="string", length=10)
      */
     private $password;
-
     /**
      * @var string|null
      * @Assert\NotBlank(message="Le mot de passe est obligatoire")
      * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme")
      *
      */
-    private $confirmPassword;
+    private $plainpassword;
+
     /**
-     *
+     * @return string|null
+     */
+    public function getPlainpassword(): ?string
+    {
+        return $this->plainpassword;
+    }
+
+    /**
+     * @param string|null $plainpassword
+     * @return User
+     */
+    public function setPlainpassword(?string $plainpassword): User
+    {
+        $this->plainpassword = $plainpassword;
+        return $this;
+    }
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     *     mimeTypes={"image/png", "image/jpeg", "image"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
+     * * @Assert\Image(
+     *     minWidth = 10,
+     *     minWidthMessage="L'image ne doit pas faire moins de {{ min_width }}px de largeur",
+     *     maxWidth = 400,
+     *     maxWidthMessage="L'image ne doit pas dépasser {{ max_width }}px de largeur",
+     *     minHeight = 10,
+     *     minHeightMessage="L'image ne doit pas faire moins de {{ min_height }}px de hauteur",
+     *     maxHeight = 400,
+     *     maxHeightMessage="L'image ne doit pas dépasser {{ max_height }}px de hauteur")
      */
     private $avatar;
 
@@ -91,7 +122,7 @@ class User
     }
     public function __toString()
     {
-        return $this->firstname . ' ' . $this->lastname;
+        return $this->pseudo;
     }
 
     public function getId(): ?int
@@ -168,23 +199,6 @@ class User
     {
         $this->password = $password;
 
-        return $this;
-    }
-    /**
-     * @return string|null
-     */
-    public function getConfirmPassword(): ?string
-    {
-        return $this->confirmPassword;
-    }
-
-    /**
-     * @param string|null $confirmPassword
-     * @return User
-     */
-    public function setConfirmPassword(?string $confirmPassword): User
-    {
-        $this->confirmPassword = $confirmPassword;
         return $this;
     }
 
@@ -276,4 +290,35 @@ class User
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 }

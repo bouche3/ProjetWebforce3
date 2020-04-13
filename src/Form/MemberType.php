@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,6 +23,7 @@ class MemberType extends AbstractType
                 [
                     'label'=>'Pseudo'
                 ]
+
             )
             ->add(
                 'lastname',
@@ -36,37 +39,36 @@ class MemberType extends AbstractType
                     'label'=>'firstname'
                 ]
             )
-            //->add('registrationDate')
+
             ->add(
                 'email',
-                TextType::class,
+              EmailType::class,
                 [
                     'label'=>'email'
                 ]
             )
             ->add(
-                'confirmPassword',
+                'plainpassword',
                 RepeatedType::class,
                 [
-                    'type'=>PasswordType::class,
-                    'first_options'=>[
-                        'label'=>'Password',
-                        'help'=>'Le mot de passe ne doit contenir que des lettres, des chiffres ou _'
-                            . ' et faire entre 6 et 20 caractères'
+                    'type' => PasswordType::class,
+                    'first_options' => [
+                        'label' => 'Mot de passe',
+                        'help' => 'Le mot de passe doit faire entre 6 et 10 caractères et peut comporter des lettres, des chiffres et des caractères spéciaux'
                     ],
-                    'second_options'=>[
-                        'label'=>'Confirmation du mot de passe'
-
+                    'second_options' => [
+                        'label' => 'Confirmation du mot de passe'
                     ],
                     'invalid_message' => 'La confirmation ne correspond pas au mot de passe'
                 ]
-
             )
             ->add(
                 'avatar',
-                TextType::class,
+                FileType::class,
+
                 [
-                    'label'=>'Avatar'
+                    'label'=>'Avatar',
+                    'required'=>false
                 ]
 
             )

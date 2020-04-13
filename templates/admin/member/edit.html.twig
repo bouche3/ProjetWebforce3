@@ -4,19 +4,22 @@
 
 {% block body %}
     {{ form_start(form) }}
-    {{ form.pseudo }}
-    {{ form.fistname }}
-    {{ form.lastname }}
-    {{ form.email }}
-    {{ form.password }}
-    {{ form.confirmpassword }}
-    {{ form.avatar }}
-    {{ form.status }}
+    {{ form_row(form.pseudo) }}
+    {{ form_row(form.firstname)}}
+    {{ form_row(form.lastname)}}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainpassword) }}
+    {{ form_row(form.avatar) }}
+    {{ form_row(form.status) }}
 
     <div class="text-right">
         <button type="submit" class="btn btn-primary">
             Enregistrer
         </button>
+        <a href="{{ path('app_admin_member_index') }}"
+           class="btn btn-outline-secondary">
+            Retour
+        </a>
     </div>
     {{ form_end(form) }}
 {% endblock %}
