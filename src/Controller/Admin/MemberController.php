@@ -1,21 +1,19 @@
 <?php
 
-
-namespace App\Controller\Admin;
-
-
 namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\MemberType;
+use App\Form\SearchMemberType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 /**
  *
  *class MemberController
@@ -28,14 +26,26 @@ class MemberController extends AbstractController
     /**
      * @Route("/")
      */
-    public function index(UserRepository $repository)
+    public function index(Request $request,UserRepository $repository)
     {
+        $searchForm=$this->createForm(SearchMemberType::class);
+
+        $searchForm->handleRequest($request);
+
+        //les données par le formulaire
+        dump($searchForm->getData());
+
         // toutes les members triées sur l'id
-        $memberDetails = $repository->findBy([], ['id' => 'ASC']);
+       //$memberDetails = $repository->findBy([], ['id' => 'ASC']);
+        $memberDetails=$repository->search((array)$searchForm->getData());
 
         return $this->render(
             'admin/member/index.html.twig',
-            ['memberDetails' => $memberDetails]
+
+            [
+                'memberDetails' => $memberDetails,
+                'search_form'=>$searchForm->createView()
+            ]
         );
     }
 
@@ -44,6 +54,7 @@ class MemberController extends AbstractController
      */
     public function edit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder,$id)
     {
+        $originalImage = null;
         if (is_null($id))
         {
             //creation of the new member
@@ -55,11 +66,21 @@ class MemberController extends AbstractController
             {
             //Modification of the member
             $member = $manager->find(User::class, $id);
-            //if the id doesnt exsist in the database
+            //if the id doesnt exist in the database
             if (is_null($member))
             {
                 //404 - page not found error
                 throw new NotFoundHttpException();
+            }
+            if(!is_null($member->getAvatar()))
+            {
+                //nom du fichier venant de la bdd
+                $originalImage=$member->getAvatar();
+                //le champ de formulaire attend un object file
+                $member->setAvatar(
+                    new File(
+                        $this->getParameter('upload_dir').$member->getAvatar()
+                    ));
             }
         }
 
@@ -81,6 +102,34 @@ class MemberController extends AbstractController
                 );
 
                $member->setPassword($encodedPassword);
+                //On enregistre l'avatar s'il y en a un qui a été uploadé
+                /**
+                 * @var UploadedFile|null $avatar
+                 */
+               $avatar = $member->getAvatar();
+
+
+                //Si une avatar a été uploadée
+                if (!is_null($avatar)){
+                    $filename = uniqid() . '.' . $avatar->guessExtension();
+
+                    $avatar->move(
+                        $this->getParameter('upload_dir'),
+                        $filename
+                    );
+
+                    $member->setAvatar($filename);
+                    // suppression de l'ancienne image en modification s'il y en a une
+                    if (!is_null($originalImage)) {
+                        unlink($this->getParameter('upload_dir') . $originalImage);
+                    }
+                }
+             else {
+                // pour la modification, sans upload,
+                // on remet le nom de l'image venant de la bdd
+                $member->setAvatar($originalImage);
+            }
+
 
                 $manager->persist($member);
                 $manager->flush();
@@ -95,7 +144,8 @@ class MemberController extends AbstractController
 
         return $this->render('admin/member/edit.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'original_image'=>$originalImage
             ]
         );
 
@@ -105,16 +155,19 @@ class MemberController extends AbstractController
      */
     public function delete(EntityManagerInterface $manager, User $user)
     {
-        if(!$user->getArticles()->isEmpty())
-        {
-            $this->addFlash('warning',"Le membre n'est pas disponible");
+        // suppression de l'avatar si l'member en a une
+        if (!is_null($user->getAvatar())) {
+            $avatar = $this->getParameter('upload_dir') . $user->getAvatar();
+
+            if (file_exists($avatar)) {
+                unlink($avatar);
+            }
         }
-        else
-        {
+           //suppression en BDD
             $manager->remove($user);
             $manager->flush();
             $this->addFlash('success',"Le membre est supprimée");
-        }
+
         return $this->redirectToRoute('app_admin_member_index');
 
     }
