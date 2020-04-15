@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Article{% endblock %}
+
+{% block body %}
+
+    <h1>ARTICLE</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.banner) }}
+    {{ form_row(form.introduction) }}
+    {{ form_row(form.img1) }}
+    {{ form_row(form.content1) }}
+    {{ form_row(form.img2) }}
+    {{ form_row(form.content2) }}
+    {{ form_row(form.conclusion) }}
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

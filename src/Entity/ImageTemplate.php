@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageTemplateRepository")
@@ -20,6 +21,10 @@ class ImageTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $banner;
 
@@ -30,61 +35,109 @@ class ImageTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img3;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img4;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img5;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img6;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img7;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img8;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img9;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img10;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img11;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img12;
 
@@ -158,10 +211,6 @@ class ImageTemplate
      */
     private $articles;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     public function __construct()
     {
@@ -173,12 +222,12 @@ class ImageTemplate
         return $this->id;
     }
 
-    public function getBanner(): ?string
+    public function getBanner()
     {
         return $this->banner;
     }
 
-    public function setBanner(?string $banner): self
+    public function setBanner($banner): self
     {
         $this->banner = $banner;
 
@@ -197,144 +246,144 @@ class ImageTemplate
         return $this;
     }
 
-    public function getImg1(): ?string
+    public function getImg1()
     {
         return $this->img1;
     }
 
-    public function setImg1(?string $img1): self
+    public function setImg1($img1): self
     {
         $this->img1 = $img1;
 
         return $this;
     }
 
-    public function getImg2(): ?string
+    public function getImg2()
     {
         return $this->img2;
     }
 
-    public function setImg2(?string $img2): self
+    public function setImg2($img2): self
     {
         $this->img2 = $img2;
 
         return $this;
     }
 
-    public function getImg3(): ?string
+    public function getImg3()
     {
         return $this->img3;
     }
 
-    public function setImg3(?string $img3): self
+    public function setImg3($img3): self
     {
         $this->img3 = $img3;
 
         return $this;
     }
 
-    public function getImg4(): ?string
+    public function getImg4()
     {
         return $this->img4;
     }
 
-    public function setImg4(?string $img4): self
+    public function setImg4($img4): self
     {
         $this->img4 = $img4;
 
         return $this;
     }
 
-    public function getImg5(): ?string
+    public function getImg5()
     {
         return $this->img5;
     }
 
-    public function setImg5(?string $img5): self
+    public function setImg5($img5): self
     {
         $this->img5 = $img5;
 
         return $this;
     }
 
-    public function getImg6(): ?string
+    public function getImg6()
     {
         return $this->img6;
     }
 
-    public function setImg6(?string $img6): self
+    public function setImg6($img6): self
     {
         $this->img6 = $img6;
 
         return $this;
     }
 
-    public function getImg7(): ?string
+    public function getImg7()
     {
         return $this->img7;
     }
 
-    public function setImg7(?string $img7): self
+    public function setImg7($img7): self
     {
         $this->img7 = $img7;
 
         return $this;
     }
 
-    public function getImg8(): ?string
+    public function getImg8()
     {
         return $this->img8;
     }
 
-    public function setImg8(?string $img8): self
+    public function setImg8($img8): self
     {
         $this->img8 = $img8;
 
         return $this;
     }
 
-    public function getImg9(): ?string
+    public function getImg9()
     {
         return $this->img9;
     }
 
-    public function setImg9(?string $img9): self
+    public function setImg9($img9): self
     {
         $this->img9 = $img9;
 
         return $this;
     }
 
-    public function getImg10(): ?string
+    public function getImg10()
     {
         return $this->img10;
     }
 
-    public function setImg10(?string $img10): self
+    public function setImg10($img10): self
     {
         $this->img10 = $img10;
 
         return $this;
     }
 
-    public function getImg11(): ?string
+    public function getImg11()
     {
         return $this->img11;
     }
 
-    public function setImg11(?string $img11): self
+    public function setImg11($img11): self
     {
         $this->img11 = $img11;
 
         return $this;
     }
 
-    public function getImg12(): ?string
+    public function getImg12()
     {
         return $this->img12;
     }
 
-    public function setImg12(?string $img12): self
+    public function setImg12($img12): self
     {
         $this->img12 = $img12;
 
@@ -528,15 +577,4 @@ class ImageTemplate
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 }
