@@ -5,7 +5,7 @@
 
         <meta charset="utf-8" />
         <title>{% block title %}BlogTrotter{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- balise responscive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- balise responsive -->
         <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- balise compatibilité vieux navigateurs  -->
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -23,12 +23,12 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="">
+                            <a href="{{ path('app_index_index') }}">
                                 Accueil
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ path('app_about_index') }}">
                                 A propos
                             </a>
                         </li>
@@ -52,8 +52,35 @@
                         {% else %}
                         <li>
                             <a href="">
-                                Espace Membre
+                                {% if app.user.avatar is null %}
+                                    <img src="{{ asset('photo/profile.png') }}" alt="Avatar">
+                                {% else %}
+                                    <img src="{{ asset('photo/' ~ app.user.avatar) }}" alt="Avatar">
+                                {% endif %}
+                                {{ app.user.pseudo }}
                             </a>
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Créer un article
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Mes articles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Mes informations
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Modifier mon mot de passe
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li>
@@ -61,6 +88,23 @@
                                 Administration
                             </a>
                         </li>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('app_admin_article_index') }}">
+                                        Gestion des articles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Gestion des commentaires
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Gestion des membres
+                                    </a>
+                                </li>
+                            </ul>
                         {% endif %}
                         <li>
                             <a href="{{ path('app_user_logout') }}">

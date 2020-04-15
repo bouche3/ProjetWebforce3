@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - A propos{% endblock %}
+
+{% block body %}
+
+
+
+    <section>
+
+        <h1>A propos du site</h1>
+        <br>
+        <p>
+            BlogTrotter est un site fait par des passionnés de voyages pour des passionnés de voyages !
+        </p>
+
+        <p>
+            Nous l'avons créé au départ pour nous partager nos expériences et nous échanger des astuces.
+            C'est à force d'en parler avec nos proches que nous nous sommes rendus compte qu'il fallait à tout prix
+            ouvrir ce site au plus grand nombre possible.
+        </p>
+
+        <p>
+            BlogTrotter est alors devenu une vraie communauté de voyageurs et d'aventuriers.
+        </p>
+
+        <hr>
+
+        <div>
+            <img src="{{ asset('img/apropos_rra.jpg') }}" alt="Photo Ressa">
+            <h4>Ressa Rambaud</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel magna efficitur, scelerisque augue id,
+                pretium ex. Phasellus tellus risus, maximus nec posuere id, lacinia vel lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent ultricies purus tortor. Curabitur sed mauris sit amet ante consequat efficitur. Maecenas sit amet lobortis enim. Mauris ipsum nunc, faucibus vel elit ut, eleifend tincidunt neque.
+            </p>
+        </div>
+        <div>
+            <img src="{{ asset('img/apropos_sal.jpg') }}" alt="Photo Stéphane">
+            <h4>Stéphane Albertini</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel magna efficitur, scelerisque augue id,
+                pretium ex. Phasellus tellus risus, maximus nec posuere id, lacinia vel lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent ultricies purus tortor. Curabitur sed mauris sit amet ante consequat efficitur. Maecenas sit amet lobortis enim. Mauris ipsum nunc, faucibus vel elit ut, eleifend tincidunt neque.
+            </p>
+        </div>
+        <div>
+            <img src="{{ asset('img/apropos_abi.jpg') }}" alt="Photo Alexandre" width="250">
+            <h4>Alexandre Bianchi</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel magna efficitur, scelerisque augue id,
+                pretium ex. Phasellus tellus risus, maximus nec posuere id, lacinia vel lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent ultricies purus tortor. Curabitur sed mauris sit amet ante consequat efficitur. Maecenas sit amet lobortis enim. Mauris ipsum nunc, faucibus vel elit ut, eleifend tincidunt neque.
+            </p>
+        </div>
+    </section>
+
+
+{% endblock %}

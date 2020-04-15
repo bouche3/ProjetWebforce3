@@ -57,19 +57,19 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ImageTemplate", inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $templateImageid;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\MixteTemplate", inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $templateMixedid;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TextTemplate", inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $templateTextid;
 

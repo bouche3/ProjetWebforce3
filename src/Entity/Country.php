@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CountryRepository")
@@ -24,7 +25,9 @@ class Country
     private $countryName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Continent", inversedBy="countries")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank(message="Merci de selectionner le continent de votre aventure")
      */
     private $continentName;
 
@@ -36,6 +39,11 @@ class Country
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->countryName;
     }
 
     public function getId(): ?int
@@ -55,12 +63,12 @@ class Country
         return $this;
     }
 
-    public function getContinentName(): ?string
+    public function getContinentName(): ?Continent
     {
         return $this->continentName;
     }
 
-    public function setContinentName(string $continentName): self
+    public function setContinentName(?Continent $continentName): self
     {
         $this->continentName = $continentName;
 

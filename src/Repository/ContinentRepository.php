@@ -2,26 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Country;
+use App\Entity\Continent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Country|null find($id, $lockMode = null, $lockVersion = null)
- * @method Country|null findOneBy(array $criteria, array $orderBy = null)
- * @method Country[]    findAll()
- * @method Country[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Continent|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Continent|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Continent[]    findAll()
+ * @method Continent[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CountryRepository extends ServiceEntityRepository
+class ContinentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Country::class);
+        parent::__construct($registry, Continent::class);
     }
 
     // /**
-    //  * @return Country[] Returns an array of Country objects
+    //  * @return Continent[] Returns an array of Continent objects
     //  */
     /*
     public function findByExampleField($value)
@@ -38,7 +37,7 @@ class CountryRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Country
+    public function findOneBySomeField($value): ?Continent
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

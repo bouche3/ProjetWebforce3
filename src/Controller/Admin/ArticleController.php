@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Article;
+use App\Form\SearchArticleType;
 use App\Form\TemplateType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +25,25 @@ class ArticleController extends AbstractController
 {
     /**
      * @Route("/")
+     * @param ArticleRepository $repository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(ArticleRepository $repository, Request $request)
     {
-        return $this->render('admin/article/index.html.twig');
+
+        $searchForm = $this->createForm(SearchArticleType::class);
+
+        $searchForm->handleRequest($request);
+
+        $articles = $repository->search((array)$searchForm->getData());
+
+        return $this->render(
+            'admin/article/index.html.twig',
+            [
+                'articles' => $articles,
+                'search_form' => $searchForm->createView(),
+            ]
+            );
     }
 
     /**

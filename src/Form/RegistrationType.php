@@ -50,7 +50,9 @@ class RegistrationType extends AbstractType
                 FileType::class,
                 [
                     'label'=>'Avatar',
-                    'required'=>false
+                    'required'=>false,
+                    'help' => 'L\'avatar doit être du .jpg ou .png, ne doit pas dépasser 600ko,
+                    doit faire au moins 10px de hauteur ou largeur et au maximum 400px de hauteur ou largeur'
                 ]
                 )
             ->add(
@@ -60,7 +62,8 @@ class RegistrationType extends AbstractType
                     'type' => PasswordType::class,
                     'first_options' => [
                         'label' => 'Mot de passe',
-                        'help' => 'Le mot de passe doit faire entre 6 et 10 caractères et peut comporter des lettres, des chiffres et des caractères spéciaux'
+                        'help' => 'Le mot de passe doit faire entre 6 et 10 caractères et peut comporter des lettres, 
+                        des chiffres et des caractères spéciaux'
                     ],
                     'second_options' => [
                         'label' => 'Confirmation du mot de passe'

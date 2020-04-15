@@ -50,6 +50,8 @@ class UserController extends AbstractController
                     );
 
                     $user->setAvatar($filename);
+
+                    dump($user);
                 }
 
                 $manager->persist($user);

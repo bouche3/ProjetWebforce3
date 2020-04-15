@@ -9,4 +9,40 @@ $(function () {//DOM ready
         $(this).next('.custom-file-label').html(fileName);
     });
 
+
+    //Affichage de la liste des pays en fonction du continent sélectionné
+    //dans le module de recherche des articles pour l'administrateur
+    $('#search_article_continent').on('change', function() {
+
+        //Récupérer l'id du continent sélectionné
+        var $continentID = $(this).val();
+        console.log($continentID);
+
+        //Lister toutes les balises option pour les pays
+        var $countries = $('#search_article_country option');
+
+
+        //Modifier la visibilité de l'option en fonction de son continent
+        //Si aucun continent sélectionné, on affiche tous les pays
+        if(!$continentID){
+
+            $countries.each(function () {
+                $this = $(this);
+                $this.show();
+            });
+        }
+        //Si un continent est sélectionné, on n'affiche que les pays du continent
+        else {
+
+            $countries.each(function () {
+                $this = $(this);
+                if($this.data('continent') == $continentID){
+                    $this.show();
+                } else {
+                    $this.hide();
+                }
+            });
+        }
+    })
+
 });
