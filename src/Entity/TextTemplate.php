@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TextTemplateRepository")
@@ -20,6 +21,10 @@ class TextTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $banner;
 
@@ -30,11 +35,19 @@ class TextTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img2;
 
@@ -58,11 +71,6 @@ class TextTemplate
      */
     private $articles;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -73,12 +81,12 @@ class TextTemplate
         return $this->id;
     }
 
-    public function getBanner(): ?string
+    public function getBanner()
     {
         return $this->banner;
     }
 
-    public function setBanner(?string $banner): self
+    public function setBanner($banner): self
     {
         $this->banner = $banner;
 
@@ -97,24 +105,24 @@ class TextTemplate
         return $this;
     }
 
-    public function getImg1(): ?string
+    public function getImg1()
     {
         return $this->img1;
     }
 
-    public function setImg1(?string $img1): self
+    public function setImg1($img1): self
     {
         $this->img1 = $img1;
 
         return $this;
     }
 
-    public function getImg2(): ?string
+    public function getImg2()
     {
         return $this->img2;
     }
 
-    public function setImg2(?string $img2): self
+    public function setImg2($img2): self
     {
         $this->img2 = $img2;
 
@@ -188,15 +196,4 @@ class TextTemplate
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 }

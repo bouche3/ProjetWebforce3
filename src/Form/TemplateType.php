@@ -4,10 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Country;
-use App\Entity\ImageTemplate;
-use App\Entity\MixteTemplate;
 use App\Entity\Template;
-use App\Entity\TextTemplate;
 use App\Entity\TravelCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,7 +21,7 @@ class TemplateType extends AbstractType
                 'city',
                 TextType::class,
                 [
-                    'label'=>'La ville de votre voyage'
+                    'label'=>'Ville(s) de votre voyage'
                 ]
             )
             ->add(

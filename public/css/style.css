@@ -3,8 +3,154 @@
 ****************************** PAR RESSA, ALEXANDRE ET STEPHANE *********************
 *************************************************************************************/
 
-/* DEBUT DE LA PAGE admin/gestion_des_articles/ */
+/* DEBUT DE LA PAGE admin/article/add_edit_article.html.twig */
 
 .form_template img{
     width: 100%;
 }
+
+/* FIN DE LA PAGE admin/article/add_edit_article.html.twig */
+
+/* DEBUT CSS commun à tous les templates */
+
+.banniere{
+    text-align: center;
+    width: 300px;
+}
+.banniere img{
+    max-width: 100%;
+}
+.introduction p{
+    font-size: 13px;
+}
+.conclusion p{
+    font-size: 13px;
+}
+
+/* FIN CSS commun à tous les templates */
+
+/* DEBUT DE LA PAGE article/render_image_template.html.twig */
+
+#template_image h1{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+#template_image h2{
+    text-align: left;
+    font-size: 15px;
+    text-decoration: underline;
+}
+#template_image div .colonne1 div{
+    width: 300px;
+}
+#template_image div .colonne1 div img{
+    max-width: 100%;
+}
+#template_image div .colonne1 div p{
+    text-align: center;
+    font-size: 13px;
+}
+#template_image div .colonne2 div{
+    width: 300px;
+}
+#template_image div .colonne2 div img{
+    max-width: 100%;
+}
+#template_image div .colonne2 div p{
+    text-align: center;
+    font-size: 13px;
+}
+#template_image div .colonne3 div{
+    width: 300px;
+}
+#template_image div .colonne3 div img{
+    max-width: 100%;
+}
+#template_image div .colonne3 div p{
+    text-align: center;
+    font-size: 13px;
+}
+#template_image div .colonne4 div{
+    width: 300px;
+}
+#template_image div .colonne4 div img{
+    max-width: 100%;
+}
+#template_image div .colonne4 div p{
+    text-align: center;
+    font-size: 13px;
+}
+
+#template_text h1{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+#template_text h2 {
+    text-align: left;
+    font-size: 15px;
+    text-decoration: underline;
+}
+#template_text .zone1{
+    width: 300px;
+}
+#template_text .zone1 img{
+    max-width: 100%;
+}
+#template_text .zone1 p{
+    text-align: center;
+    font-size: 13px;
+}
+#template_text .zone2{
+    width: 300px;
+}
+#template_text .zone2 img{
+    max-width: 100%;
+}
+#template_text .zone2 p{
+    text-align: center;
+    font-size: 13px;
+}
+
+#template_mixed h1{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+#template_mixed h2 {
+    text-align: left;
+    font-size: 15px;
+    text-decoration: underline;
+}
+#template_mixed .zone1{
+    width: 300px;
+}
+#template_mixed .zone1 img{
+    max-width: 100%;
+}
+#template_mixed .zone1 p{
+    text-align: center;
+    font-size: 13px;
+}
+#template_mixed .zone2{
+    width: 300px;
+}
+#template_mixed .zone2 img{
+    max-width: 100%;
+}
+#template_mixed .zone2 p{
+    text-align: center;
+    font-size: 13px;
+}
+#template_mixed .zone3{
+    width: 300px;
+}
+#template_mixed .zone3 img{
+    max-width: 100%;
+}
+#template_mixed .zone3 p{
+    text-align: center;
+    font-size: 13px;
+}
+/* FIN DE LA PAGE article/render_image_template.html.twig */

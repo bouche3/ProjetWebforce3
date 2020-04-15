@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MixteTemplateRepository")
@@ -20,6 +21,10 @@ class MixteTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $banner;
 
@@ -30,36 +35,64 @@ class MixteTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $img2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $carouselImg1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $carouselImg2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $carouselImg3;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $carouselImg4;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
+     *     maxSize="600k",
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $carouselImg5;
 
@@ -88,11 +121,6 @@ class MixteTemplate
      */
     private $articles;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -103,12 +131,12 @@ class MixteTemplate
         return $this->id;
     }
 
-    public function getBanner(): ?string
+    public function getBanner()
     {
         return $this->banner;
     }
 
-    public function setBanner(?string $banner): self
+    public function setBanner($banner): self
     {
         $this->banner = $banner;
 
@@ -127,84 +155,84 @@ class MixteTemplate
         return $this;
     }
 
-    public function getImg1(): ?string
+    public function getImg1()
     {
         return $this->img1;
     }
 
-    public function setImg1(?string $img1): self
+    public function setImg1($img1): self
     {
         $this->img1 = $img1;
 
         return $this;
     }
 
-    public function getImg2(): ?string
+    public function getImg2()
     {
         return $this->img2;
     }
 
-    public function setImg2(?string $img2): self
+    public function setImg2($img2): self
     {
         $this->img2 = $img2;
 
         return $this;
     }
 
-    public function getCarouselImg1(): ?string
+    public function getCarouselImg1()
     {
         return $this->carouselImg1;
     }
 
-    public function setCarouselImg1(?string $carouselImg1): self
+    public function setCarouselImg1($carouselImg1): self
     {
         $this->carouselImg1 = $carouselImg1;
 
         return $this;
     }
 
-    public function getCarouselImg2(): ?string
+    public function getCarouselImg2()
     {
         return $this->carouselImg2;
     }
 
-    public function setCarouselImg2(?string $carouselImg2): self
+    public function setCarouselImg2($carouselImg2): self
     {
         $this->carouselImg2 = $carouselImg2;
 
         return $this;
     }
 
-    public function getCarouselImg3(): ?string
+    public function getCarouselImg3()
     {
         return $this->carouselImg3;
     }
 
-    public function setCarouselImg3(?string $carouselImg3): self
+    public function setCarouselImg3($carouselImg3): self
     {
         $this->carouselImg3 = $carouselImg3;
 
         return $this;
     }
 
-    public function getCarouselImg4(): ?string
+    public function getCarouselImg4()
     {
         return $this->carouselImg4;
     }
 
-    public function setCarouselImg4(?string $carouselImg4): self
+    public function setCarouselImg4($carouselImg4): self
     {
         $this->carouselImg4 = $carouselImg4;
 
         return $this;
     }
 
-    public function getCarouselImg5(): ?string
+    public function getCarouselImg5()
     {
         return $this->carouselImg5;
     }
 
-    public function setCarouselImg5(?string $carouselImg5): self
+    public function setCarouselImg5($carouselImg5): self
     {
         $this->carouselImg5 = $carouselImg5;
 
@@ -290,15 +318,4 @@ class MixteTemplate
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 }

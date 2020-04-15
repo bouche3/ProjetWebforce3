@@ -1,0 +1,314 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ article.title }}{% endblock %}
+
+{% block body %}
+
+    {% if article.nameTemplate.id == 1 %}
+        <section id="template_image">
+            {% if templateImage.banner is not null %}
+                <div class="banniere">
+                    <img src="{{ asset('photo/' ~  templateImage.banner ) }}" />
+                </div>
+            {% endif %}
+            <h1>
+                {{ article.title }}
+            </h1>
+            <h2>
+                {{ article.categoryid.categoryName }} {{ article.countryid.countryName }}  écrit par : {{ article.userid.pseudo }}
+            </h2>
+            <h2>
+                Date de l'article : {{ article.date|date('d/m/Y') }}
+            </h2>
+            <h2>
+                Villes visitées : {{ article.city }}
+            </h2>
+            {% if templateImage.introduction is not null %}
+                <div class="introduction">
+                    <p>
+                        {{ templateImage.introduction }}
+                    </p>
+                </div>
+            {% endif %}
+            <div>
+                <div class="colonne1">
+                    {% if templateImage.img1 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img1 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img1 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content1 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img2 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img2 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img2 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content2 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img3 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img3 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img3 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content3 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="colonne2">
+                    {% if templateImage.img4 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img4 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img4 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content4 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img5 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img5 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img5 ) }}"  />
+                            </a>
+                            <p>
+                                {{ templateImage.content5 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img6 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img6 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img6 ) }}"  />
+                            </a>
+                            <p>
+                                {{ templateImage.content6 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="colonne3">
+                    {% if templateImage.img7 is not null %}
+                        <div>
+                            <img src="{{ asset('photo/' ~   templateImage.img7 ) }}" />
+                            <p>
+                                {{ templateImage.content7 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img8 is not null %}
+                        <div>
+                            <img src="{{ asset('photo/' ~   templateImage.img8 ) }}"  />
+                            <p>
+                                {{ templateImage.content8 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img9 is not null %}
+                        <div>
+                            <img src="{{ asset('photo/' ~   templateImage.img9 ) }}" />
+                            <p>
+                                {{ templateImage.content9 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="colonne4">
+                    {% if templateImage.img10 is not null %}
+                        <div>
+                            <img src="{{ asset('photo/' ~   templateImage.img10 ) }}"  />
+                            <p>
+                                {{ templateImage.content10 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img11 is not null %}
+                        <div>
+                            <img src="{{ asset('photo/' ~   templateImage.img11 ) }}" />
+                            <p>
+                                {{ templateImage.content11 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img12 is not null %}
+                        <div>
+                            <img src="{{ asset('photo/' ~   templateImage.img12 ) }}" />
+                            <p>
+                                {{ templateImage.content12 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if templateImage.conclusion is not null %}
+                <div class="conclusion">
+                    <p>
+                        {{ templateImage.conclusion }}
+                    </p>
+                </div>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    {% if article.nameTemplate.id == 2 %}
+        <section id="template_text">
+            {% if templateText.banner is not null %}
+                <div class="banniere">
+                    <img src="{{ asset('photo/' ~  templateText.banner ) }}" />
+                </div>
+            {% endif %}
+            <h1>
+                {{ article.title }}
+            </h1>
+            <h2>
+                {{ article.categoryid.categoryName }} {{ article.countryid.countryName }}  écrit par : {{ article.userid.pseudo }}
+            </h2>
+            <h2>
+                Date de l'article : {{ article.date|date('d/m/Y') }}
+            </h2>
+            <h2>
+                Villes visitées : {{ article.city }}
+            </h2>
+            {% if templateText.introduction is not null %}
+                <div class="introduction">
+                    <p>
+                        {{ templateText.introduction }}
+                    </p>
+                </div>
+            {% endif %}
+            {% if templateText.img1 is not null %}
+                <div class="zone1">
+                    <a href="{{ asset('photo/' ~   templateText.img1 ) }}" target="_blank">
+                        <img src="{{ asset('photo/' ~   templateText.img1 ) }}" />
+                    </a>
+                    <p>
+                        {{ templateText.content1 }}
+                    </p>
+                </div>
+            {% endif %}
+            {% if templateText.img2 is not null %}
+                <div class="zone2">
+                    <p>
+                        {{ templateText.content2 }}
+                    </p>
+                    <a href="{{ asset('photo/' ~   templateText.img2 ) }}" target="_blank">
+                        <img src="{{ asset('photo/' ~   templateText.img2 ) }}" />
+                    </a>
+                </div>
+            {% endif %}
+            {% if templateText.conclusion is not null %}
+                <div class="conclusion">
+                    <p>
+                        {{ templateText.conclusion }}
+                    </p>
+                </div>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    {% if article.nameTemplate.id == 3 %}
+        <section id="template_mixed">
+            {% if templateMixed.banner is not null %}
+                <div class="banniere">
+                    <img src="{{ asset('photo/' ~  templateMixed.banner ) }}" />
+                </div>
+            {% endif %}
+            <h1>
+                {{ article.title }}
+            </h1>
+            <h2>
+                {{ article.categoryid.categoryName }} {{ article.countryid.countryName }}  écrit par : {{ article.userid.pseudo }}
+            </h2>
+            <h2>
+                Date de l'article : {{ article.date|date('d/m/Y') }}
+            </h2>
+            <h2>
+                Villes visitées : {{ article.city }}
+            </h2>
+            {% if templateMixed.introduction is not null %}
+                <div class="introduction">
+                    <p>
+                        {{ templateMixed.introduction }}
+                    </p>
+                </div>
+            {% endif %}
+            {% if templateMixed.img1 is not null %}
+                <div class="zone1">
+                    <a href="{{ asset('photo/' ~   templateMixed.img1 ) }}" target="_blank">
+                        <img src="{{ asset('photo/' ~   templateMixed.img1 ) }}" />
+                    </a>
+                    <p>
+                        {{ templateMixed.content1 }}
+                    </p>
+                </div>
+            {% endif %}
+            {% if templateMixed.carouselImg1 is not null %}
+                <div class="zone2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ asset('photo/' ~   templateMixed.carouselImg1 ) }}" class="d-block w-100" alt="photo_du_carousel">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('photo/' ~   templateMixed.carouselImg2 ) }}" class="d-block w-100" alt="photo_du_carousel">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('photo/' ~   templateMixed.carouselImg3 ) }}" class="d-block w-100" alt="photo_du_carousel">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('photo/' ~   templateMixed.carouselImg4 ) }}" class="d-block w-100" alt="photo_du_carousel">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('photo/' ~   templateMixed.carouselImg5 ) }}" class="d-block w-100" alt="photo_du_carousel">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <p>
+                        {{ templateMixed.carouselContent }}
+                    </p>
+                </div>
+            {% endif %}
+            {% if templateMixed.img2 is not null %}
+                <div class="zone3">
+                    <a href="{{ asset('photo/' ~   templateMixed.img2 ) }}" target="_blank">
+                        <img src="{{ asset('photo/' ~   templateMixed.img2 ) }}" alt=""/>
+                    </a>
+                    <p>
+                        {{ templateMixed.content2 }}
+                    </p>
+                </div>
+            {% endif %}
+            {% if templateMixed.conclusion is not null %}
+                <div class="conclusion">
+                    <p>
+                        {{ templateMixed.conclusion }}
+                    </p>
+                </div>
+            {% endif %}
+        </section>
+    {% endif %}
+
+{% endblock %}
