@@ -120,6 +120,30 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $resetToken;
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     * @return User
+     */
+    public function setResetToken(string $resetToken): User
+    {
+        $this->resetToken = $resetToken;
+        return $this;
+    }
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
