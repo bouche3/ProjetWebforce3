@@ -12,10 +12,6 @@
             {{ form_row(searchForm) }}
 
             <div class="col-md-6">
-               {{ form_row(searchForm.keyword) }}
-            </div>
-
-            <div class="col-md-6">
                 {{ form_row(searchForm.pseudo) }}
             </div>
 
@@ -37,6 +33,7 @@
         </div>
 
     </div>
+
     <table class="table table-striped">
         <tr class="table-dark">
             <th>ID</th>
@@ -46,18 +43,16 @@
         </tr>
             {% for comments in comments  %}
         <tr>
-            <td>{{ comments.id}}</td>
-           {#<td>{{ comments.pseudo}}</td>#}
+            <td>{{ comments.userid.id}}</td>
+           <td>{{ comments.userid.pseudo}}</td>
             <td>{{ comments.comment }}</td>
             <td>
-                <a href=""
-                   class="btn btn-warning">
+                <a href="{{ path('app_admin_comment_modification',{'id':comments.id}) }}" class="btn btn-warning">
                     Modifier
                 </a>
             </td>
             <td>
-                <a href=""
-                   class="btn btn-danger">
+                <a href="{{ path('app_admin_comment_delete',{'id':comments.id})}}" class="btn btn-danger">
                     Supprimer
                 </a>
             </td>
@@ -69,8 +64,6 @@
                     </td>
                 </tr>
             {% endfor %}
-
-
 
     </table>
 

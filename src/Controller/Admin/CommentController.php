@@ -23,9 +23,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 {
     /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/article/{id}")
+     */
+    public function index(article $article)
+    {
+        return $this->render(
+        'admin/comment/index.html.twig',
+        [
+        'article' => $article
+        ]
+        );
+    }
+    /**
      * @Route("/")
      */
-    public function index(Request $request,
+    public function search(Request $request,
                           CommentRepository $repository)
     {
         $searchForm=$this->createForm(CommentsearchType::class);
@@ -42,14 +55,6 @@ class CommentController extends AbstractController
                 'searchForm'=>$searchForm->createView()
             ]
         );
-
-
-        /**return $this->render(
-            'admin/comment/index.html.twig',
-            [
-                'article' => $article
-            ]
-        ); **/
     }
 
     /**
@@ -65,7 +70,7 @@ class CommentController extends AbstractController
         $this->addFlash('success','Le commentaire est supprimé');
 
         return $this->redirectToRoute(
-            'app_admin_article_index',
+            'app_admin_comment_index',
             [
                 'id'=>$comment->getArticleid()->getId()
             ]
@@ -89,6 +94,7 @@ class CommentController extends AbstractController
                 $commentModify
                     ->setUserid($this->getuser())
                     ->setArticleid($article);
+
                 $manager->persist($commentModify);
                 $manager->flush();
 

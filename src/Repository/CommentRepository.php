@@ -19,33 +19,36 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * @param array $filters
+     * @return Comment[]
+     */
 
-    public function search(array $filters=[])
+    public function search(array $filters = [])
     {
-        $builder=$this->createQueryBuilder('a');
-        $builder->orderBy('a.id','DESC');
+        $builder = $this->createQueryBuilder('a');
+        $builder->orderBy('a.id', 'DESC');
 
-              if(!empty($filters['pseudo']))
-              {
-                  $builder
-                      ->leftJoin('a.userid', 'u')
-                      ->andWhere('u.pseudo LIKE :pseudo')
-                      ->setParameter('pseudo', '%' . $filters['pseudo'] . '%')
-                  ;
-              }
-            if(!empty($filters['start_date'])){
-                $builder
-                    ->andWhere('a.date >= :start_date')
-                    ->setParameter('start_date', $filters['start_date'])
-                ;
-            }
+        if (!empty($filters['pseudo'])) {
+            $builder
+                ->leftJoin('a.userid', 'u')
+                ->andWhere('u.pseudo LIKE :pseudo')
+                ->setParameter('pseudo', '%' . $filters['pseudo'] . '%');
+        }
+       /** if (!empty($filters['start_date'])) {
+            $builder
+                ->andWhere('a.date >= :start_date')
+                ->setParameter('start_date', $filters['start_date']);
+        }
 
-            if(!empty($filters['end_date'])){
-                $builder
-                    ->andWhere('a.date <= :end_date')
-                    ->setParameter('end_date', $filters['end_date'])
-                ;
-            }
+        if (!empty($filters['end_date'])) {
+            $builder
+                ->andWhere('a.date <= :end_date')
+                ->setParameter('end_date', $filters['end_date']);
+        } **/
+        $query=$builder->getQuery();
+        return $query->getResult();
+
 
     }
-   }
+}

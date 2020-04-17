@@ -311,15 +311,19 @@
         </section>
     {% endif %}
     {# ******************Commentaire*****************#}
-    <h2>Commnetaires</h2>
+    <h2>Commentaires</h2>
     {% if app.user is null %}
         <div class="alert alert-info">
             Vous devez être connecté pour écrire un commentaire.
         </div>
     {% else %}
+
         {{ form_start(form) }}
+
         {{ form_row(form.comment) }}
+
         <div class="text-right">
+
             <button type="submit" class="btn btn-primary">
                 Comment
             </button>
@@ -328,7 +332,13 @@
     {% endif %}
     {% for comment in comments %}
         <h5>
-            {{ comment.userid }}
+            combien de note pour moi ?
+            <div class="container">
+                <span id="rateMe3"  class="rating-faces"></span>
+            </div>
+
+          Commenté par  {{ comment.userid }}
+
         </h5>
         <div class="card bg-light mb-3">
             <div class="card-body">
@@ -340,14 +350,13 @@
 
         {% else %}
         <div class="form-group " style="text-align:right">
-            <a href="{{ path('app_admin_comment_delete',{'id':comment.id}) }}">suprimer</a>
-            <a href="{{ path('app_admin_comment_modification', {'id': comment.id}) }}">Modifier</a>
+            <a href="{{ path('app_admin_comment_delete',{'id':article.id}) }}">suprimer</a>
+            <a href="{{ path('app_admin_comment_modification', {'id': article.id}) }}">Modifier</a>
         </div>
 
        {% endif %}
 
 
     {% endfor %}
-
 
 {% endblock %}

@@ -36,8 +36,7 @@ class ArticleController extends AbstractController
 {
     /**
      * @Route("/")
-     * @param ArticleRepository $repository
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
      */
     public function index(ArticleRepository $repository, Request $request)
     {

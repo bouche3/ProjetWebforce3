@@ -15,14 +15,7 @@ class CommentsearchType extends AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add(
-                'keyword',
-                TextType::class,
-                [
-                    'label' => 'Mots clés',
-                    'required' => false
-                ]
-            )
+
             ->add(
                 'pseudo',
                 TextType::class,
