@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Commentaires</h1>
+    <a href="{{ path('app_admin_article_index') }}"
+       class="btn btn-outline-primary mb-3">
+        Rédiger un article
+    </a>
+    <div class="card bg-light mb-3">
+        <div class="card-body">
+
+            {{ form_row(searchForm) }}
+
+            <div class="col-md-6">
+               {{ form_row(searchForm.keyword) }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form_row(searchForm.pseudo) }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form_row(searchForm.start_date) }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form_row(searchForm.end_date) }}
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-info">
+                    Rechercher
+                </button>
+            </div>
+
+            {{ form_end(searchForm) }}
+        </div>
+
+    </div>
+    <table class="table table-striped">
+        <tr class="table-dark">
+            <th>ID</th>
+            <th>Utilisateur</th>
+            <th>Commentaire</th>
+            <th width="150px"></th>
+        </tr>
+            {% for comments in comments  %}
+        <tr>
+            <td>{{ comments.id}}</td>
+           {#<td>{{ comments.pseudo}}</td>#}
+            <td>{{ comments.comment }}</td>
+            <td>
+                <a href=""
+                   class="btn btn-warning">
+                    Modifier
+                </a>
+            </td>
+            <td>
+                <a href=""
+                   class="btn btn-danger">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">
+                        Aucun commentaire.!!
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+
+    </table>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
