@@ -8,6 +8,7 @@
     </a>
     <div class="card bg-light mb-3">
         <div class="card-body">
+            {{ form_start(searchForm) }}
 
             {{ form_row(searchForm) }}
 
@@ -39,23 +40,28 @@
             <th>ID</th>
             <th>Utilisateur</th>
             <th>Commentaire</th>
-            <th width="150px"></th>
+            <th>Date</th>
+            <th></th>
+            <th></th>
         </tr>
-            {% for comments in comments  %}
+            {% for comment in comments  %}
         <tr>
-            <td>{{ comments.userid.id}}</td>
-           <td>{{ comments.userid.pseudo}}</td>
-            <td>{{ comments.comment }}</td>
+            <td>{{ comment.id}}</td>
+           <td>{{ comment.userid.pseudo}}</td>
+            <td>{{ comment.comment }}</td>
+            <td>{{ comment.date|date('d/m/Y') }}</td>
             <td>
-                <a href="{{ path('app_admin_comment_modification',{'id':comments.id}) }}" class="btn btn-warning">
+                <a href="{{ path('app_admin_comment_modification',{'id':comment.id}) }}" class="btn btn-warning">
                     Modifier
                 </a>
             </td>
             <td>
-                <a href="{{ path('app_admin_comment_delete',{'id':comments.id})}}" class="btn btn-danger">
+                <a href="{{ path('app_admin_comment_delete',{'id':comment.id})}}" class="btn btn-danger">
                     Supprimer
                 </a>
             </td>
+            <td></td>
+
         </tr>
                 {% else %}
                 <tr>

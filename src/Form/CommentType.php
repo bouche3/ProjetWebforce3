@@ -19,8 +19,8 @@ class CommentType extends AbstractType
                 [
                     'label' => 'Votre commentaire'
                 ]
-            )
-        ;
+            );
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

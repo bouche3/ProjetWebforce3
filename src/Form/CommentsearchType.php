@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,7 +14,6 @@ class CommentsearchType extends AbstractType
     {
         $builder
             ->setMethod('GET')
-
             ->add(
                 'pseudo',
                 TextType::class,
@@ -49,7 +47,7 @@ class CommentsearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Comment::class,
+
         ]);
     }
 }

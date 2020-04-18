@@ -17,6 +17,7 @@ use App\Form\TemplateTextType;
 use App\Form\TemplateType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
+use Doctrine\ORM\Cache\Region\UpdateTimestampCache;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -944,7 +945,10 @@ class ArticleController extends AbstractController
     }
 
     /**
+     *
+     *
      * @Route("/{id}", requirements={"id": "\d+"})
+     * @throws \Exception
      */
     public function RenderImageTemplate(Request $request, EntityManagerInterface $manager,
                                         Article $article,CommentRepository $repository,$id)
@@ -953,8 +957,8 @@ class ArticleController extends AbstractController
         $templateText = $article->getTemplateTextid();
         $templateMixed = $article->getTemplateMixedid();
 
-
         $comment = new Comment();
+        $comment->setDate(new \DateTime('now',timezone_open('Europe/paris')));
 
         $form = $this->createForm(CommentType::class, $comment);
 

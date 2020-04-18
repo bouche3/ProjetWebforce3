@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * class CommentController
  * @package App\Controller\Admin
- * @ROute("/commentaires")
+ * @Route("/commentaires")
  **/
 class CommentController extends AbstractController
 {
@@ -35,26 +35,33 @@ class CommentController extends AbstractController
         ]
         );
     }
+
     /**
+     * @param Request $request
+     * @param CommentRepository $repository
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/")
      */
-    public function search(Request $request,
-                          CommentRepository $repository)
+    public function searchComment(Request $request,CommentRepository $repository)
     {
         $searchForm=$this->createForm(CommentsearchType::class);
         $searchForm->handleRequest($request);
-
+        dump($request->getMethod());
         dump($searchForm->getData());
-        $comments=$repository->findAll();
-        $comment=$repository->search((array)$searchForm->getData());
+        dump($searchForm);
+      //  $comments=$repository->findAll();
+        $comments=$repository->search((array)$searchForm->getData());
+
+        dump($comments);
              return $this->render(
             'admin/comment/commentspage.html.twig',
             [
-                'comment'=>$comment,
+                //'comment'=>$comment,
                 'comments'=>$comments,
                 'searchForm'=>$searchForm->createView()
             ]
         );
+
     }
 
     /**
