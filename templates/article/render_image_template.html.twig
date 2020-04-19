@@ -366,7 +366,7 @@
 {#        {% else %}#}
 {#            Vous devez être connecté#}
 {#        {% endif %}#}
-        {% if user.app is null %}
+        {% if app.user is null %}
             Vous devez être connecté pour supprimer ou modifier votre commentaire.
             {% else %}
                 <div class="form-group " style="text-align:right">#}

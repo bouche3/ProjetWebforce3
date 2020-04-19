@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
@@ -945,8 +943,6 @@ class ArticleController extends AbstractController
     }
 
     /**
-     *
-     *
      * @Route("/{id}", requirements={"id": "\d+"})
      * @throws \Exception
      */
@@ -1199,8 +1195,7 @@ class ArticleController extends AbstractController
 
         $manager->remove($article);
         $manager->flush();
-
-//        $this->addFlash('success', 'L\'article est supprimmée');
+        $this->addFlash('success', 'L\'article est supprimmée');
 
         return $this->redirectToRoute('app_admin_article_index');
 
