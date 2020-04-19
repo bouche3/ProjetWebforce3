@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Index{% endblock %}
+{% block title %}{{ parent() }} - Gestion des membres{% endblock %}
 
 {% block body %}
-    <h1>Gestion membre</h1>
+    <h1>Gestion des membres</h1>
 
     <a href="{{ path('app_admin_member_edit') }}"
        class="btn btn-outline-primary mb-3">
-        Ajouter une membre
+        Ajouter un membre
     </a>
     <div class="card bg-light mb-3">
         <div class="card-body">
@@ -81,7 +81,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Etes-vous sûr de vouloir supprimer cette membre ?</p>
+                    <p>Etes-vous sûr de vouloir supprimer ce membre ?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btn-confirm-delete">Oui</button>

@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"}, message="Cet email est déjà utilisé")
  *
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -28,20 +28,20 @@ class User implements UserInterface
     /**
      * @var string
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Le pseudo est obligatoire")
-     * @Assert\Length(min="2", minMessage="Le pseudo doit avoir au moins {{ limit }} caractères")
+     * @Assert\NotBlank(message="Le pseudo est obligatoire", groups={"infoEdit"})
+     * @Assert\Length(min="2", minMessage="Le pseudo doit avoir au moins {{ limit }} caractères", groups={"infoEdit"})
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\NotBlank(message="Le nom est obligatoire", groups={"infoEdit"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\NotBlank(message="Le prénom est obligatoire", groups={"infoEdit"})
      */
     private $firstname;
 
@@ -52,8 +52,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="L'email est obligatoire")
-     * @Assert\Email(message="L'email n'est pas valide")
+     * @Assert\NotBlank(message="L'email est obligatoire", groups={"infoEdit"})
+     * @Assert\Email(message="L'email n'est pas valide", groups={"infoEdit"})
      */
     private $email;
 
@@ -92,7 +92,8 @@ class User implements UserInterface
      *     mimeTypes={"image/png", "image/jpeg", "image"},
      *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
      *     maxSize="600k",
-     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}",
+     *     groups={"infoEdit"})
      * * @Assert\Image(
      *     minWidth = 10,
      *     minWidthMessage="L'image ne doit pas faire moins de {{ min_width }}px de largeur",
@@ -101,7 +102,8 @@ class User implements UserInterface
      *     minHeight = 10,
      *     minHeightMessage="L'image ne doit pas faire moins de {{ min_height }}px de hauteur",
      *     maxHeight = 400,
-     *     maxHeightMessage="L'image ne doit pas dépasser {{ max_height }}px de hauteur")
+     *     maxHeightMessage="L'image ne doit pas dépasser {{ max_height }}px de hauteur",
+     *     groups={"infoEdit"})
      */
     private $avatar;
 
@@ -353,4 +355,48 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function serialize()
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->pseudo,
+                $this->lastname,
+                $this->firstname,
+                $this->registrationDate,
+                $this->password,
+                $this->status,
+                $this->password,
+                $this->email,
+                $this->status,
+//                $this->plainpassword,
+//                $this->resetToken,
+//                $this->articles,
+//                $this->comments
+            ]
+        );
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->pseudo,
+            $this->lastname,
+            $this->firstname,
+            $this->registrationDate,
+            $this->password,
+            $this->status,
+            $this->password,
+            $this->email,
+            $this->status,
+            ) = unserialize($serialized);
+    }
 }

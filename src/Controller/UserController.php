@@ -3,12 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\PassEditType;
 use App\Form\RegistrationType;
+use App\Form\UserInfoType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +26,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/inscription")
+     * Alexandre
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager)
     {
@@ -81,6 +87,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/connexion")
+     * Alexandre
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
@@ -88,8 +95,6 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
-
-        dump($_POST);
 
         if (!empty($error)){
             $this->addFlash('error', 'Identifiants incorrects');
@@ -102,6 +107,8 @@ class UserController extends AbstractController
             ]
         );
     }
+
+
     /**
      *
      * @Route("/forgotten_password")
@@ -180,6 +187,182 @@ class UserController extends AbstractController
             return $this->render('user/reset_password.html.twig', ['token' => $token]);
         }
 
+    }
+
+    /**
+     * Affichage des informations du membre, pour le membre connecté
+     * @Route("/information/{id}", requirements={"id": "\d+"})
+     * Alexandre
+     */
+    public function info(UserRepository $repository, $id)
+    {
+        //Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_user_login');
+        }
+
+        //On essaye de récupérer les informations de l'utilisateur connecté via son id
+        $user = $repository->findOneBy(['id' => $id]);
+
+        //Si on ne trouve pas de correspondance, on jette une exception
+        if (is_null($user)){
+            throw new NotFoundHttpException();
+        }
+
+
+        return $this->render(
+            'user/information.html.twig',
+            [
+                'user' => $user
+            ]
+        );
+    }
+
+    /**
+     * Modification des informations du membre, pour le membre connecté
+     * @Route("/informations/edit/{id}", requirements={"id": "\d+"})
+     * Alexandre
+     */
+    public function infoEdit(Request $request, EntityManagerInterface $manager, $id)
+    {
+
+        //Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_user_login');
+        }
+
+        //On récupère les informations de l'utilisateur pour alimenter le formulaire
+        $user = $manager->find(User::class, $id);
+
+        //Si on ne trouve pas de correspondance, on jette une exception
+        if (is_null($user)){
+            throw new NotFoundHttpException();
+        }
+
+        //On vérifie s'il y a un avatar existant ou pas
+        $originalAvatar = null;
+        if (!is_null($user->getAvatar())){
+            //S'il existe on le met dans la variable originalAvatar
+            $originalAvatar = $user->getAvatar();
+
+            //Le champ de formulaire attend un objet File
+            $user->setAvatar(
+                new File($this->getParameter('upload_dir') . $user->getAvatar())
+            );
+        }
+
+        $form = $this->createForm(UserInfoType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()){
+            if ($form->isValid()) {
+
+                //Lorsque le formulaire est soumis et validé, on gère l'image uploadée si elle existe
+                /**
+                 * @var UploadedFile|null $avatar
+                 */
+                $avatar = $user->getAvatar();
+                //Si une image a été uploadée
+                if (!is_null($avatar)){
+                    //On renomme le fichier avec un identifiant unique
+                    $filename = uniqid() . '.' . $avatar->guessExtension();
+                    //On sauvegarde ce fichier dans le dossier définit dans les paramètres du projet
+                    $avatar->move(
+                        $this->getParameter('upload_dir'),
+                        $filename
+                    );
+
+                    //pour enregistrer le nom du fichier dans le champ image de la bdd
+                    $user->setAvatar($filename);
+
+                    //Dans le cas d'une modification, si on change l'image, on supprime dans le dossier image
+                    //celle qui avait été uploadée
+                    if (!is_null($originalAvatar)){
+                        unlink($this->getParameter('upload_dir') . $originalAvatar);
+                    }
+                } else {
+                    //Si aucun avatar n'a été uploadé
+                    //on remet le nom de l'image venant de la bdd
+                    $user->setAvatar($originalAvatar);
+                }
+
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash('success', 'Les données ont été modifiées avec succès');
+
+                return $this->redirectToRoute('app_user_info', ['id'=>$id]);
+            } else {
+                $this->addFlash('error', 'Le formulaire contient des erreurs');
+            }
+        }
+
+        return $this->render(
+            'user/information_edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'original_avatar' => $originalAvatar
+            ]
+            );
+
+    }
+
+    /**
+     * Modification du mot de passe pour le membre connecté
+     * @Route("/informations/pass_edit/{id}", requirements={"id": "\d+"})
+     * Alexandre
+     */
+    public function passEdit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder, $id)
+    {
+
+        //On récupère les informations de l'utilisateur via son id
+        $user = $manager->find(User::class, $id);
+
+        //Si on ne trouve pas de correspondance, on jette une exception
+        if (is_null($user)){
+            throw new NotFoundHttpException();
+        }
+
+        $form = $this->createForm(PassEditType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //On récupère le old password saisi
+            $oldPassword = $request->request->get('pass_edit')['oldPassword'];
+
+            // Si l'ancien mot de passe est bon
+            if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
+
+                $newEncodedPassword = $passwordEncoder->encodePassword($user, $user->getPlainpassword());
+
+                $user->setPassword($newEncodedPassword);
+
+                $manager->persist($user);
+
+                $manager->flush();
+
+                $this->addFlash('success', 'Votre mot de passe à bien été changé');
+
+                return $this->redirectToRoute('app_user_info', ['id' => $id]);
+
+            } else {
+
+                $this->addFlash('error', 'Ancien mot de passe incorrect');
+
+            }
+
+        }
+
+        return $this->render(
+            'user/information_pass_edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+
+        );
     }
 
     /**
