@@ -1363,16 +1363,16 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "v5.1.1",
+            "version": "v5.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "086da9cd27262ba45bcaca3a6777e97068fce8de"
+                "reference": "0f31530e2161f23c8d94d47b84a03c68e67f2345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/086da9cd27262ba45bcaca3a6777e97068fce8de",
-                "reference": "086da9cd27262ba45bcaca3a6777e97068fce8de",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/0f31530e2161f23c8d94d47b84a03c68e67f2345",
+                "reference": "0f31530e2161f23c8d94d47b84a03c68e67f2345",
                 "shasum": ""
             },
             "require": {
@@ -1428,7 +1428,7 @@
                 "paginator",
                 "symfony"
             ],
-            "time": "2020-01-21T17:00:39+00:00"
+            "time": "2020-04-18T16:17:09+00:00"
         },
         {
             "name": "monolog/monolog",
