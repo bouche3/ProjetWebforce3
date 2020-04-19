@@ -84,13 +84,14 @@ class CommentController extends AbstractController
         );
     }
     /**
-     * @Route("/edition/{id}", defaults={"id": null}, requirements={"id": "\d+"})
-     */
+     * @Route("/modif/{id}", defaults={"id": null}, requirements={"id": "\d+"})
+     * */
     public function modification(Request $request, EntityManagerInterface $manager,
                                  Article $article,CommentRepository $repository,$id)
     {
 
         $commentModify=$manager->find(Comment::class,$id);
+
 
         $form = $this->createForm(CommentType::class, $commentModify);
 
@@ -119,6 +120,7 @@ class CommentController extends AbstractController
 
         }
         $modifyComments=$repository->findBy(['articleid' =>$id], ['id' => 'DESC']);
+        dump($commentModify);
 
         return $this->render(
             'admin/comment/modification.html.twig',

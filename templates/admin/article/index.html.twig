@@ -50,6 +50,7 @@
         {% else %}
 
             {% for article in articles %}
+
             <ul>
                 <li>{{ article.title }}</li>
                 <li>Publié le <b>{{ article.date|date('d/m/Y H:i') }}</b> par <b>{{ article.userid.pseudo }}</b></li>
@@ -58,6 +59,7 @@
                 <li>{{ article.city }}</li>
                 <li>{{ article.nameTemplate.templateName }}</li>
                 <li>
+
                     {#Ressa#}
                  <a href="{{ path('app_admin_comment_index', {'id': article.id}) }}">{{ article.comments.count }} Comments</a>
                 </li>
@@ -73,6 +75,8 @@
             </ul>
 
             {% endfor %}
+            {#                Ratings #}
+
         {% endif %}
 
 {% endblock %}
