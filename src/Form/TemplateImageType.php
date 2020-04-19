@@ -19,14 +19,16 @@ class TemplateImageType extends AbstractType
                 FileType::class,
                 [
                     'label'=>'Bannière',
-                    'required'=>false
+                    'help'=>'Cette photo sera utilisé pour l\'affichage de votre article',
+                    'required' => false
                 ]
             )
             ->add(
                 'introduction',
                 TextareaType::class,
                 [
-                    'label'=>'Veuillez indiquer une introduction pour votre aventure'
+                    'label'=>'Veuillez indiquer une introduction pour votre aventure',
+                    'required' =>false
                 ]
             )
             ->add(
@@ -129,91 +131,104 @@ class TemplateImageType extends AbstractType
                 'content1',
                 TextareaType::class,
                 [
-                    'label'=>'content1'
+                    'label'=>'content1',
+                    'required' => false
                 ]
             )
             ->add(
                 'content2',
                 TextareaType::class,
                 [
-                    'label'=>'content2'
+                    'label'=>'content2',
+                    'required' => false
                 ]
             )
             ->add(
                 'content3',
                 TextareaType::class,
                 [
-                    'label'=>'content3'
+                    'label'=>'content3',
+                    'required' => false
                 ]
             )
             ->add(
                 'content4',
                 TextareaType::class,
                 [
-                    'label'=>'content4'
+                    'label'=>'content4',
+                    'required' => false
                 ]
             )
             ->add(
                 'content5',
                 TextareaType::class,
                 [
-                    'label'=>'content5'
+                    'label'=>'content5',
+                    'required' => false
                 ]
             )
             ->add(
                 'content6',
                 TextareaType::class,
                 [
-                    'label'=>'content6'
+                    'label'=>'content6',
+                    'required' => false
                 ]
             )
             ->add(
                 'content7',
                 TextareaType::class,
                 [
-                    'label'=>'content7'
+                    'label'=>'content7',
+                    'required' => false
                 ]
             )
             ->add(
                 'content8',
                 TextareaType::class,
                 [
-                    'label'=>'content8'
+                    'label'=>'content8',
+                    'required' => false
                 ]
             )
             ->add(
                 'content9',
                 TextareaType::class,
                 [
-                    'label'=>'content9'
+                    'label'=>'content9',
+                    'required' => false
                 ]
             )
             ->add(
                 'content10',
                 TextareaType::class,
                 [
-                    'label'=>'content10'
+                    'label'=>'content10',
+                    'required' => false
                 ]
             )
             ->add(
                 'content11',
                 TextareaType::class,
                 [
-                    'label'=>'content11'
+                    'label'=>'content11',
+                    'required' => false
                 ]
             )
             ->add(
                 'content12',
                 TextareaType::class,
                 [
-                    'label'=>'content12'
+                    'label'=>'content12',
+                    'required' => false
                 ]
             )
             ->add(
                 'conclusion',
                 TextareaType::class,
                 [
-                    'label'=>'Veuillez indiquer une conclusion pour votre aventure'
+                    'label'=>'Veuillez indiquer une conclusion pour votre aventure',
+                    'required' => false
                 ]
             )
         ;

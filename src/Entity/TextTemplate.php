@@ -20,7 +20,8 @@ class TextTemplate
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="La bannière est obligatoire")
      * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
      *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
      *     maxSize="600k",

@@ -133,7 +133,7 @@ class MemberController extends AbstractController
 
                 $manager->persist($member);
                 $manager->flush();
-                $this->addFlash('success', 'Le member est bien enregistré');
+                $this->addFlash('success', 'Le membre a bien été enregistré');
                 return $this->redirectToRoute('app_admin_member_index');
             }
             else
@@ -166,7 +166,7 @@ class MemberController extends AbstractController
            //suppression en BDD
             $manager->remove($user);
             $manager->flush();
-            $this->addFlash('success',"Le membre est supprimée");
+            $this->addFlash('success',"Le membre a bien été supprimé");
 
         return $this->redirectToRoute('app_admin_member_index');
 

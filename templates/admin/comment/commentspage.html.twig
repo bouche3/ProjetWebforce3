@@ -1,16 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{% endblock %}
+
 {% block body %}
     <h1>Commentaires</h1>
-    <a href="{{ path('app_admin_article_index') }}"
-       class="btn btn-outline-primary mb-3">
-        Retour
-    </a>
     <div class="card bg-light mb-3">
         <div class="card-body">
             {{ form_start(searchForm) }}
-
-            {{ form_row(searchForm) }}
 
             <div class="col-md-6">
                 {{ form_row(searchForm.pseudo) }}
@@ -47,7 +43,7 @@
             {% for comment in comments  %}
         <tr>
             <td>{{ comment.id}}</td>
-           <td>{{ comment.userid.pseudo}}</td>
+            <td>{{ comment.userid.pseudo}}</td>
             <td>{{ comment.comment }}</td>
             <td>{{ comment.date|date('d/m/Y') }}</td>
             <td>
@@ -70,12 +66,5 @@
                     </td>
                 </tr>
             {% endfor %}
-
     </table>
-
 {% endblock %}
-
-{% block title %}
-
-{% endblock %}
-

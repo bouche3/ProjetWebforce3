@@ -19,14 +19,16 @@ class TemplateMixteType extends AbstractType
                 FileType::class,
                 [
                     'label'=>'Bannière',
-                    'required'=>false
+                    'help'=>'Cette photo sera utilisé pour l\'affichage de votre article',
+                    'required' => false
                 ]
             )
             ->add(
                 'introduction',
                 TextareaType::class,
                 [
-                    'label'=>'Veuillez indiquer une introduction pour votre aventure'
+                    'label'=>'Veuillez indiquer une introduction pour votre aventure',
+                    'required' => false
                 ]
             )
             ->add(
@@ -89,28 +91,32 @@ class TemplateMixteType extends AbstractType
                 'carouselContent',
                 TextareaType::class,
                 [
-                    'label'=>'contentCarousel'
+                    'label'=>'contentCarousel',
+                    'required' => false
                 ]
             )
             ->add(
                 'content1',
                 TextareaType::class,
                 [
-                    'label'=>'content1'
+                    'label'=>'content1',
+                    'required' => false
                 ]
             )
             ->add(
                 'content2',
                 TextareaType::class,
                 [
-                    'label'=>'content2'
+                    'label'=>'content2',
+                    'required' => false
                 ]
             )
             ->add(
                 'conclusion',
                 TextareaType::class,
                 [
-                    'label'=>'Veuillez indiquer une conclusion pour votre aventure'
+                    'label'=>'Veuillez indiquer une conclusion pour votre aventure',
+                    'required' => false
                 ]
             )
         ;

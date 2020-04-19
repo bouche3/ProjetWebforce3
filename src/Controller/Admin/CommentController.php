@@ -77,12 +77,13 @@ class CommentController extends AbstractController
         $this->addFlash('success','Le commentaire est supprimé');
 
         return $this->redirectToRoute(
-            'app_admin_comment_index',
+            'app_article_renderimagetemplate',
             [
                 'id'=>$comment->getArticleid()->getId()
             ]
         );
     }
+
     /**
      * @Route("/modif/{id}", defaults={"id": null}, requirements={"id": "\d+"})
      * */
@@ -109,7 +110,7 @@ class CommentController extends AbstractController
                 $this->addFlash('success', 'Votre commentaire est enregistré');
 
                 return $this->redirectToRoute(
-                    'app_admin_article_renderimagetemplate',
+                    'app_article_renderimagetemplate',
                     [
                         'id' => $article->getId()
                     ]
@@ -125,7 +126,6 @@ class CommentController extends AbstractController
         return $this->render(
             'admin/comment/modification.html.twig',
             [
-
                 'article' => $article,
                 'comments'=>$modifyComments,
                 'form' => $form->createView()

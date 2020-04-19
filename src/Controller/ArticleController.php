@@ -1,9 +1,10 @@
 <?php
-namespace App\Controller\Admin;
+
+
+namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\SearchArticleType;
 use App\Entity\ImageTemplate;
@@ -15,7 +16,7 @@ use App\Form\TemplateTextType;
 use App\Form\TemplateType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
-use Doctrine\ORM\Cache\Region\UpdateTimestampCache;
+use App\Repository\MixteTemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -27,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ArticleController
- * @package App\Controller\Admin
+ * @package App\Controller\
  *
  * @Route("/article")
  */
@@ -40,17 +41,21 @@ class ArticleController extends AbstractController
     public function index(ArticleRepository $repository, Request $request)
     {
 
-        $searchForm = $this->createForm(SearchArticleType::class);
+        if (!$this->getUser()){
+            $this->redirectToRoute('app_user_login');
 
+        }
+
+        $searchForm = $this->createForm(SearchArticleType::class);
         $searchForm->handleRequest($request);
 
-        $articles = $repository->search((array)$searchForm->getData());
+        $articles = $repository->search((array)$searchForm->getData(), $this->getUser());
 
         return $this->render(
-            'admin/article/index.html.twig',
+            'article/index.html.twig',
             [
                 'articles' => $articles,
-                'search_form' => $searchForm->createView(),
+                'search_form' => $searchForm->createView()
             ]
         );
     }
@@ -86,32 +91,35 @@ class ArticleController extends AbstractController
 
                 if ($article->getNameTemplate()->getId() == 1) {
                     return $this->redirectToRoute(
-                        'app_admin_article_addeditarticleimage',
+                        'app_article_addeditarticleimage',
                         [
                             'id' => $article->getId()
                         ]
                     );
                 } elseif ($article->getNameTemplate()->getId() == 2) {
                     return $this->redirectToRoute(
-                        'app_admin_article_addeditarticletext',
+                        'app_article_addeditarticletext',
                         [
                             'id' => $article->getId()
                         ]
                     );
                 } elseif ($article->getNameTemplate()->getId() == 3) {
                     return $this->redirectToRoute(
-                        'app_admin_article_addeditarticlemixte',
+                        'app_article_addeditarticlemixte',
                         [
                             'id' => $article->getId()
                         ]
                     );
+                }
+                else{
+                    $this->addFlash('error', 'Le formulaire contient des erreurs');
                 }
 
             }
         }
 
         return $this->render(
-            'admin/article/add_edit_article.html.twig',
+            'article/add_edit_article.html.twig',
             [
                 'form' => $form->createView()
             ]
@@ -137,7 +145,7 @@ class ArticleController extends AbstractController
             $template = new MixteTemplate();
             $article->setTemplateMixedid($template);
         } else {
-
+            dump($template);
             if (!is_null($template->getBanner())) {
                 $originalBanner = $template->getBanner();
 
@@ -197,6 +205,7 @@ class ArticleController extends AbstractController
         }
 
         $form = $this->createForm(TemplateMixteType::class, $template);
+        dump($template);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -367,17 +376,22 @@ class ArticleController extends AbstractController
                 $manager->flush();
                 dump($template);
 
+                $this->addFlash('success', 'L\'article est enregistré');
+
                 return $this->redirectToRoute(
-                    'app_admin_article_renderimagetemplate',
+                    'app_article_renderimagetemplate',
                     [
                         'id' => $article->getId()
                     ]
                 );
             }
+            else{
+                $this->addFlash('error', 'Le formulaire contient des erreurs');
+            }
         }
 
         return $this->render(
-            'admin/article/render_m_article.html.twig',
+            'article/render_m_article.html.twig',
             [
                 'form' => $form->createView(),
                 'original_banner' => $originalBanner,
@@ -501,17 +515,22 @@ class ArticleController extends AbstractController
                 $manager->flush();
                 dump($template);
 
+                $this->addFlash('success', 'L\'article est enregistré');
+
                 return $this->redirectToRoute(
-                    'app_admin_article_renderimagetemplate',
+                    'app_article_renderimagetemplate',
                     [
                         'id' => $article->getId()
                     ]
                 );
             }
+            else{
+                $this->addFlash('error', 'Le formulaire contient des erreurs');
+            }
         }
 
         return $this->render(
-            'admin/article/render_t_article.html.twig',
+            'article/render_t_article.html.twig',
             [
                 'form' => $form->createView(),
                 'original_banner' => $originalBanner,
@@ -912,37 +931,43 @@ class ArticleController extends AbstractController
                 $manager->flush();
                 dump($template);
 
+                $this->addFlash('success', 'L\'article est enregistré');
+
                 return $this->redirectToRoute(
-                    'app_admin_article_renderimagetemplate',
+                    'app_article_renderimagetemplate',
                     [
                         'id' => $article->getId()
                     ]
                 );
             }
+            else{
+                $this->addFlash('error', 'Le formulaire contient des erreurs');
+            }
         }
 
         return $this->render(
-            'admin/article/render_i_article.html.twig',
-            [
-                'form' => $form->createView(),
-                'original_banner' => $originalBanner,
-                'original_image1' => $originalImg1,
-                'original_image2' => $originalImg2,
-                'original_image3' => $originalImg3,
-                'original_image4' => $originalImg4,
-                'original_image5' => $originalImg5,
-                'original_image6' => $originalImg6,
-                'original_image7' => $originalImg7,
-                'original_image8' => $originalImg8,
-                'original_image9' => $originalImg9,
-                'original_image10' => $originalImg10,
-                'original_image11' => $originalImg11,
-                'original_image12' => $originalImg12
-            ]
-        );
+            'article/render_i_article.html.twig',
+        [
+            'form'=>$form->createView(),
+            'original_banner'=>$originalBanner,
+            'original_image1'=>$originalImg1,
+            'original_image2'=>$originalImg2,
+            'original_image3'=>$originalImg3,
+            'original_image4'=>$originalImg4,
+            'original_image5'=>$originalImg5,
+            'original_image6'=>$originalImg6,
+            'original_image7'=>$originalImg7,
+            'original_image8'=>$originalImg8,
+            'original_image9'=>$originalImg9,
+            'original_image10'=>$originalImg10,
+            'original_image11'=>$originalImg11,
+            'original_image12'=>$originalImg12
+        ]);
     }
 
     /**
+     *
+     *
      * @Route("/{id}", requirements={"id": "\d+"})
      * @throws \Exception
      */
@@ -972,7 +997,7 @@ class ArticleController extends AbstractController
                 $this->addFlash('success', 'Votre commentaire est enregistré');
 
                 return $this->redirectToRoute(
-                    'app_admin_article_renderimagetemplate',
+                    'app_article_renderimagetemplate',
                     [
                         'id' => $article->getId()
                     ]
@@ -1007,7 +1032,7 @@ class ArticleController extends AbstractController
 
         $imageTemplateId = $article->getNameTemplate();
         $textTemplateId = $article->getNameTemplate();
-        $mixedTemplateId = $article->getTemplateMixedid();
+        $mixedTemplateId = $article->getNameTemplate();
 
         if ($imageTemplateId->getId() == '1') {
 
@@ -1130,8 +1155,8 @@ class ArticleController extends AbstractController
             }
             $manager->remove($textTemplate);
 
-        } elseif ($mixedTemplateId->getId() == '3') {
-
+        }
+        elseif ($mixedTemplateId->getId() == '3'){
             $mixedTemplate = $article->getTemplateMixedid();
             if (!is_null($mixedTemplate->getBanner())) {
                 $banner = $this->getParameter('upload_dir') . $mixedTemplate->getBanner();
@@ -1190,14 +1215,14 @@ class ArticleController extends AbstractController
                 }
             }
             $manager->remove($mixedTemplate);
-
         }
 
         $manager->remove($article);
         $manager->flush();
-        $this->addFlash('success', 'L\'article est supprimmée');
 
-        return $this->redirectToRoute('app_admin_article_index');
+        $this->addFlash('success', 'L\'article est supprimmé');
+
+        return $this->redirectToRoute('app_article_index');
 
     }
 }

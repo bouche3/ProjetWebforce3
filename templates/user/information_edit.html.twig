@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modifier mes données{% endblock %}
+
+{% block body %}
+
+    <h1>Modifier mes données</h1>
+
+    {{ form_start(form) }}
+
+    {% if original_avatar is not null %}
+        <P>Avatar actuel :</P>
+        <img src="{{ asset('photo/' ~ original_avatar) }}" alt="Avatar actuel" height="150px">
+    {% else %}
+        <div class="message warning">Vous n'avez pas d'avatar pour le moment</div>
+    {% endif %}
+    {{ form_row(form.avatar) }}
+
+    {{ form_row(form.pseudo) }}
+
+    {{ form_row(form.firstname) }}
+
+    {{ form_row(form.lastname) }}
+
+    {{ form_row(form.email) }}
+
+    <button type="submit" class="button standard">Enregistrer</button>
+    <a class="button cancel" href="{{ path('app_user_info', {'id': app.user.id}) }}">Annuler</a>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+
+
