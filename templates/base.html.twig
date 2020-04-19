@@ -28,7 +28,7 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="{{ path('app_index_index') }}">
+                            <a id="top" href="{{ path('app_index_index') }}">
                                 Accueil
                             </a>
                         </li>
@@ -56,9 +56,9 @@
                         </li>
                         {% else %}
                         <li>
-                            <a href="">
+                            <a href="{{ path('app_user_info', {'id': app.user.id}) }}">
                                 {% if app.user.avatar is null %}
-                                    <img src="{{ asset('photo/profile.png') }}" alt="Avatar">
+                                    <img src="{{ asset('photo/profile.png') }}" alt="Aucun Avatar">
                                 {% else %}
                                     <img src="{{ asset('photo/' ~ app.user.avatar) }}" alt="Avatar">
                                 {% endif %}
@@ -76,12 +76,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ path('app_user_info', {'id': app.user.id}) }}">
                                         Mes informations
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ path('app_user_passedit', {'id': app.user.id}) }}">
                                         Modifier mon mot de passe
                                     </a>
                                 </li>
@@ -89,7 +89,7 @@
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li>
-                            <a href="#">
+                            <a href="{{ path('app_admin_article_index') }}">
                                 Administration
                             </a>
                         </li>
@@ -128,13 +128,13 @@
             <div class="container">
                 {# affichage des messages flash #}
                 {% for type, messages in app.session.flashBag.all %}
-                    {# pour la classe alert-danger de bootstrap #}
-                    {% if type == 'error' %}
-                        {% set type = 'danger' %}
-                    {% endif %}
+{#                    #}{# pour la classe alert-danger de bootstrap #}
+{#                    {% if type == 'error' %}#}
+{#                        {% set type = 'danger' %}#}
+{#                    {% endif %}#}
 
                     {% for message in messages %}
-                        <div class="alert alert-{{ type }} mt-2">
+                        <div class="message {{ type }}">
                             {{ message|raw }}
                         </div>
                     {% endfor %}
@@ -146,7 +146,13 @@
 
         <footer>
             <div class="container">
-
+                <nav>
+                    <a href="#top">Haut de la page</a> <span>⋅</span>
+                    <a href="{{ path('app_index_index') }}">Accueil</a> <span>⋅</span>
+                    <a href="{{ path('app_cgu_index') }}">CGU</a> <span>⋅</span>
+                    <a href="{{ path('app_legal_index') }}">Mentions légales et condidentialité</a>
+                </nav>
+                <p><small>BlogTrotter &copy; {{ "now"|date('Y') }}. Tous droits réservés.</small></p>
             </div>
         </footer>
 

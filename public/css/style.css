@@ -3,6 +3,217 @@
 ****************************** PAR RESSA, ALEXANDRE ET STEPHANE *********************
 *************************************************************************************/
 
+/* DEBUT CSS styles communs à toutes les pages*/
+
+* {
+   transition: all 0.4s linear;
+}
+
+
+/* DEBUT CSS styles liens (hors boutons)*/
+a:not(.button) {
+    color: #0779e4;
+}
+
+a:not(.button):hover {
+    text-decoration: underline solid #4cbbb9;
+    color: #4cbbb9;
+}
+/* FIN CSS styles liens (hors boutons)*/
+
+
+/* DEBUT CSS styles boutons*/
+.button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 2px 0;
+    display: inline-block;
+}
+
+.standard {
+    background-color: #4cbbb9;
+    border: 1px solid #4cbbb9;
+    color: white;
+}
+
+.standard:hover {
+    background-color: #0779e4;
+    border: 1px solid #0779e4;
+    color: white;
+    text-decoration: none;
+}
+
+.delete {
+    background-color: #B22222;
+    border: 1px solid #B22222;
+    color: white;
+}
+
+.delete:hover {
+    background-color: #8B0000;
+    border: 1px solid #8B0000;
+    color: white;
+    text-decoration: none;
+}
+
+.cancel {
+    background-color: #eff3c6;
+    border: 1px solid #4cbbb9;
+    color: #4cbbb9;
+}
+
+.cancel:hover {
+    background-color: #0779e4;
+    border: 1px solid #0779e4;
+    color: white;
+    text-decoration: none;
+}
+/* FIN CSS styles boutons*/
+
+
+/* DEBUT CSS styles liste d'items*/
+.table-list {
+    display: none;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.list-item {
+    padding: 5px;
+    border-bottom: 0.5px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.list-item:first-child {
+    padding: 5px;
+}
+
+.list-item:last-child {
+    padding: 7px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #eff3c6;
+    justify-content: center;
+}
+
+.list-item:last-child .list-item-title{
+    display: none;
+}
+
+.list-item:last-child .list-item-value{
+    text-align: center;
+}
+
+.list-item-title {
+    line-height: 1.2em;
+    font-weight: bold;
+    width: 50%;
+}
+
+.list-item-value {
+    line-height: 1.2em;
+    width: 50%;
+}
+/* FIN CSS styles liste d'items*/
+
+/* DEBUT CSS styles messages*/
+.message {
+    text-align: center;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.message.error {
+    color: #8B0000;
+    position: relative;
+    background-color: rgba(178,34,34, 0.2);
+}
+.message.error:before {
+    content: "";
+    border-left: 5px solid #8B0000;
+    border-top: 5px solid #8B0000;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 0;
+}
+.message.error:after {
+    content: "";
+    border-right: 5px solid #8B0000;
+    border-bottom: 5px solid #8B0000;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    bottom: 0;
+    right: 0;
+}
+
+.message.success {
+    color: #4cbbb9;
+    position: relative;
+    background-color: rgba(76,187,185, 0.2);
+}
+.message.success:before {
+    content: "";
+    border-left: 5px solid  #4cbbb9;
+    border-top: 5px solid  #4cbbb9;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 0;
+}
+.message.success:after {
+    content: "";
+    border-right: 5px solid  #4cbbb9;
+    border-bottom: 5px solid  #4cbbb9;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    bottom: 0;
+    right: 0;
+}
+
+.message.warning {
+    color: #0779e4;
+    position: relative;
+    background-color: #eff3c6;
+}
+.message.warning:before {
+    content: "";
+    border-left: 5px solid #0779e4;
+    border-top: 5px solid #0779e4;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 0;
+}
+.message.warning:after {
+    content: "";
+    border-right: 5px solid #0779e4;
+    border-bottom: 5px solid #0779e4;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    bottom: 0;
+    right: 0;
+}
+/* FIN CSS styles messages*/
+
+/* FIN CSS styles communs à toutes les pages*/
+
+
 /* DEBUT DE LA PAGE admin/article/add_edit_article.html.twig */
 
 .form_template img{
@@ -155,4 +366,71 @@
 }
 /* FIN DE LA PAGE article/render_image_template.html.twig */
 
-/*********CSS FOR RATING**********/
+
+/**************************************************************/
+/******************** Responsive ******************************/
+/**************************************************************/
+
+@media screen and (min-width: 576px) {
+
+    .list-item-title {
+        width: 30%;
+
+    }
+
+    .list-item-value {
+        width: 70%;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .list-item-title {
+        width: 25%;
+
+    }
+
+    .list-item-value {
+        width: 75%;
+    }
+
+}
+
+@media screen and (min-width: 992px) {
+
+    /* DEBUT CSS styles liste d'items*/
+    .list {
+        display: none;
+    }
+
+    .table-list {
+        display: block;
+        border-collapse: collapse;
+
+    }
+
+    .table-list th, .table-list td {
+        border-bottom: 1px solid lightgrey;
+        padding: 5px;
+    }
+
+    .table-list th {
+        background-color: #0779e4;
+        color: white;
+    }
+
+    .table-list tr:nth-child(odd) {
+        background-color: #eff3c6;
+    }
+
+    .table-list .button {
+        display: block;
+    }
+    /* FIN CSS styles liste d'items*/
+
+}
+
+@media screen and (min-width: 1200px) {
+
+}
