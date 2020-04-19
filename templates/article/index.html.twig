@@ -5,7 +5,7 @@
 {% block body %}
     <h1>GESTION DES ARTICLES</h1>
 
-    <a href="{{ path('app_admin_article_addeditarticle') }}">Créer un article</a>
+    <a href="{{ path('app_article_addeditarticle') }}">Créer un article</a>
 
     <div class="card bg-light mb-3">
         <div class="card-body">
@@ -51,7 +51,9 @@
 
             {% for article in articles %}
             <ul>
-                <li>{{ article.title }}</li>
+                <li>
+                    <a href="{{ path('app_article_renderimagetemplate', {'id': article.id}) }}">{{ article.title }}</a>
+                </li>
                 <li>Publié le <b>{{ article.date|date('d/m/Y H:i') }}</b> par <b>{{ article.userid.pseudo }}</b></li>
                 <li>{{ article.categoryid.categoryName }}</li>
                 <li>{{ article.countryid.countryName }}</li>
@@ -64,20 +66,13 @@
                     <a href="">Aperçu</a>
                 </li>
                 <li>
-                    <a href="{{ path('app_admin_article_addeditarticle', {'id': article.id}) }}">Modifier</a>
+                    <a href="{{ path('app_article_addeditarticle', {'id': article.id}) }}">Modifier</a>
                 </li>
                 <li>
-                    <a href="">Supprimer</a>
+                    <a href="{{ path('app_article_deletearticletemplate', {'id': article.id}) }}">Supprimer</a>
                 </li>
             </ul>
             {% endfor %}
         {% endif %}
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/script.js') }}">
-
-    </script>
 {% endblock %}

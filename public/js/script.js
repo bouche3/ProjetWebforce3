@@ -1,14 +1,22 @@
 $(function () {//DOM ready
 
-    //Affichage du nom de fichier dans le champ avatar de l'inscription après upload
-    $('#registration_avatar').on('change',function(){
+    //Gestion du menu déroulant de l'index
+    $('.sous_menu').on('click', function (event) {
+        event.preventDefault();
+        $(this).toggleClass('open');
+    });
+    $('.sous_menu ul a').on ('click', function (event) { // stop la propagation sur la balise ciblé "<a>"
+        event.stopPropagation();
+    });
+
+    //Affichage du nom de fichier dans les champs inputs de tout le site après upload
+    $('input').on('change',function(){
         //Récupérer le nom du fichier
         var fileName = $(this).val().replace('C:\\fakepath\\', "");
         console.log(fileName);
         //Insérer le nom du fichier dans le champ
         $(this).next('.custom-file-label').html(fileName);
     });
-
 
     //Affichage de la liste des pays en fonction du continent sélectionné
     //dans le module de recherche des articles pour l'administrateur
@@ -43,7 +51,7 @@ $(function () {//DOM ready
                 }
             });
         }
-    })
+    });
 
 
 

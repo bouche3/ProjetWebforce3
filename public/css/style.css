@@ -2,17 +2,54 @@
 ************************************ CSS PROJET WEB FORCE 3 *************************
 ****************************** PAR RESSA, ALEXANDRE ET STEPHANE *********************
 *************************************************************************************/
+/* DEBUT DE LA PAGE base.html.twig */
+body{
+    min-width: 320px;
+}
+header div.container div{
+    text-align: center;
+}
+header div.container div p{
+    margin: 0;
+    font-size: 20px;
+}
+header div.container div img{
+    width: 100%;
+}
+header div.container div nav{
+    border: #565656 1px solid;
+}
+header div.container div nav ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+header div.container div nav ul li{
+    margin-bottom: 16px;
+}
+header div.container div nav ul li img{
+    margin: 5px 0 5px 0;
+    width: 50%;
+}
+li.sous_menu ul{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.0s;
+}
+li.sous_menu.open ul{
+    margin-top: 10px;
+    max-height: 600px;
+    margin-bottom: 16px;
+}
+/* FIN DE LA PAGE base.html.twig */
 
 /* DEBUT DE LA PAGE admin/article/add_edit_article.html.twig */
-
 .form_template img{
     width: 100%;
 }
-
 /* FIN DE LA PAGE admin/article/add_edit_article.html.twig */
 
 /* DEBUT CSS commun à tous les templates */
-
 .banniere{
     text-align: center;
     width: 300px;
@@ -26,11 +63,9 @@
 .conclusion p{
     font-size: 13px;
 }
-
 /* FIN CSS commun à tous les templates */
 
 /* DEBUT DE LA PAGE article/render_image_template.html.twig */
-
 #template_image h1{
     text-align: center;
     font-weight: bold;
@@ -81,7 +116,6 @@
     text-align: center;
     font-size: 13px;
 }
-
 #template_text h1{
     text-align: center;
     font-weight: bold;
@@ -112,7 +146,6 @@
     text-align: center;
     font-size: 13px;
 }
-
 #template_mixed h1{
     text-align: center;
     font-weight: bold;
@@ -154,3 +187,35 @@
     font-size: 13px;
 }
 /* FIN DE LA PAGE article/render_image_template.html.twig */
+
+/* DEBUT DE LA PAGE index/index.html.twig */
+.article{
+    display: flex;
+    margin-top: 20px;
+}
+#article_index{
+    width: 300px;
+    border-top: #222222 1px solid;
+}
+#article_index h3{
+    font-size: 13px;
+    margin-top: 8px;
+}
+#article_index img{
+    max-width: 100%;
+    border-right: #222222 1px solid;
+    border-left: #222222 1px solid;
+}
+#article_index div.middle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-top: #222222 1px solid;
+    border-right: #222222 1px solid;
+    border-left: #222222 1px solid;
+    border-bottom: #222222 1px solid;
+}
+#article_index div.bottom{
+    text-align: right;
+}
+/* FIN DE LA PAGE index/index.html.twig */

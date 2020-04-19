@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,12 +24,23 @@ class ArticleRepository extends ServiceEntityRepository
      * @param array $filters
      * @return mixed
      */
-    public function search(array $filters = [])
+    public function search(array $filters = [], User $user)
     {
-
         $builder = $this->createQueryBuilder('a');
 
-        $builder->orderBy('a.date', 'DESC');
+        $userid = $user->getId();
+        $userStatus = $user->getStatus();
+
+        if ($userStatus == 'ROLE_USER'){
+            $builder
+                ->orderBy('a.date', 'DESC')
+                ->andWhere('a.userid = :userid')
+                ->setParameter('userid', $userid)
+            ;
+        }
+        elseif ($userStatus == 'ROLE_ADMIN'){
+            $builder->orderBy('a.date', 'DESC');
+        }
 
         if(!empty($filters['categoryid'])){
             $builder
@@ -97,8 +109,34 @@ class ArticleRepository extends ServiceEntityRepository
         $query = $builder->getQuery();
 
         return $query->getResult();
-
     }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function searchIndex(array $filters = [])
+    {
+        $builder = $this->createQueryBuilder('a');
+        $builder->orderBy('a.date', 'DESC');
+
+        if(!empty($filters['categoryid'])){
+            $builder
+                ->andWhere('a.categoryid = :category')
+                ->setParameter('category', $filters['categoryid'])
+            ;
+        }
+        if(!empty($filters['countryid'])){
+            $builder
+                ->andWhere('a.countryid = :country')
+                ->setParameter('country', $filters['countryid'])
+            ;
+        }
+        $query = $builder->getQuery();
+        return $query->getResult();
+    }
+
+
 
     // /**
     //  * @return Article[] Returns an array of Article objects
