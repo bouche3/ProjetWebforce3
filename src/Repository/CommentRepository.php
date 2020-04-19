@@ -19,32 +19,37 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    // /**
-    //  * @return Comment[] Returns an array of Comment objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @param array $filters
+     * @return Comment[]
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Comment
+    public function search(array $filters = [])
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $builder = $this->createQueryBuilder('c');
+        $builder->orderBy('c.id', 'DESC');
+
+        if (!empty($filters['pseudo'])) {
+            $builder
+                ->leftJoin('c.userid', 'u')
+                ->andWhere('u.pseudo LIKE :pseudo')
+                ->setParameter('pseudo', '%' . $filters['pseudo'] . '%');
+        }
+        if (!empty($filters['start_date'])) {
+            $builder
+                ->andWhere('c.date >= :start_date')
+                ->setParameter('start_date', $filters['start_date']);
+        }
+
+        if (!empty($filters['end_date'])) {
+            $builder
+                ->andWhere('c.date <= :end_date')
+                ->setParameter('end_date', $filters['end_date']);
+        }
+
+        $query=$builder->getQuery();
+        return $query->getResult();
+
+
     }
-    */
 }

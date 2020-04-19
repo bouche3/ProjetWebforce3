@@ -9,8 +9,8 @@ $(function () {//DOM ready
         event.stopPropagation();
     });
 
-    //Affichage du nom de fichier dans les champs inputs de tout le site après upload
-    $('input').on('change',function(){
+    //Affichage du nom de fichier dans les champs de type fichier après upload
+    $('input[type="file"]').on('change',function(){
         //Récupérer le nom du fichier
         var fileName = $(this).val().replace('C:\\fakepath\\', "");
         console.log(fileName);
@@ -53,8 +53,6 @@ $(function () {//DOM ready
         }
     });
 
-
-
     // interception du clic
     $('.btn-content').click(function (event) {
         // éviter d'aller vers la page du lien
@@ -74,5 +72,5 @@ $(function () {//DOM ready
             }
         });
     });
-       });
+});
 

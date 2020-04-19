@@ -38,6 +38,17 @@ class Comment
      */
     private $point;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date ;
+
+    public function __construct()
+    {
+        $this->setDate(new \DateTime('now'));
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,4 +101,19 @@ class Comment
 
         return $this;
     }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date =new \DateTime("now");
+
+        return $this;
+    }
+    
+
+
 }

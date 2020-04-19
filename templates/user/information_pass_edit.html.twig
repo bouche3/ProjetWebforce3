@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modifier mot de passe{% endblock %}
+
+{% block body %}
+
+    <h1>Modifier mon mot de passe</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.oldPassword) }}
+
+    {{ form_row(form.plainpassword) }}
+
+    <button type="submit">Enregistrer</button>
+    <a href="{{ path('app_user_info', {'id': app.user.id}) }}">Annuler</a>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+
+

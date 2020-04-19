@@ -24,7 +24,6 @@ class MemberType extends AbstractType
                 [
                     'label'=>'Pseudo'
                 ]
-
             )
             ->add(
                 'lastname',
@@ -46,21 +45,6 @@ class MemberType extends AbstractType
               EmailType::class,
                 [
                     'label'=>'email'
-                ]
-            )
-            ->add(
-                'plainpassword',
-                RepeatedType::class,
-                [
-                    'type' => PasswordType::class,
-                    'first_options' => [
-                        'label' => 'Mot de passe',
-                        'help' => 'Le mot de passe doit faire entre 6 et 10 caractères et peut comporter des lettres, des chiffres et des caractères spéciaux'
-                    ],
-                    'second_options' => [
-                        'label' => 'Confirmation du mot de passe'
-                    ],
-                    'invalid_message' => 'La confirmation ne correspond pas au mot de passe'
                 ]
             )
             ->add(
@@ -87,6 +71,7 @@ class MemberType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups'=>['infoEdit']
         ]);
     }
 }

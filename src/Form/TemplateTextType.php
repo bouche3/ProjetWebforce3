@@ -19,7 +19,8 @@ class TemplateTextType extends AbstractType
                 FileType::class,
                 [
                     'label'=>'Bannière',
-                    'help'=>'Cette photo sera utilisé pour l\'affichage de votre article'
+                    'help'=>'Cette photo sera utilisé pour l\'affichage de votre article',
+                    'required' => false
                 ]
             )
             ->add(
