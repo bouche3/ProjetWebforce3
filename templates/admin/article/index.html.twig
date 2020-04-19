@@ -50,6 +50,7 @@
         {% else %}
 
             {% for article in articles %}
+
             <ul>
                 <li>{{ article.title }}</li>
                 <li>Publié le <b>{{ article.date|date('d/m/Y H:i') }}</b> par <b>{{ article.userid.pseudo }}</b></li>
@@ -58,7 +59,9 @@
                 <li>{{ article.city }}</li>
                 <li>{{ article.nameTemplate.templateName }}</li>
                 <li>
-                    <a href="">{{ article.comments.count }}</a>
+
+                    {#Ressa#}
+                 <a href="{{ path('app_admin_comment_index', {'id': article.id}) }}">{{ article.comments.count }} Comments</a>
                 </li>
                 <li>
                     <a href="">Aperçu</a>
@@ -70,7 +73,10 @@
                     <a href="">Supprimer</a>
                 </li>
             </ul>
+
             {% endfor %}
+            {#                Ratings #}
+
         {% endif %}
 
 {% endblock %}

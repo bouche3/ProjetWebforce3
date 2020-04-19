@@ -310,5 +310,71 @@
             {% endif %}
         </section>
     {% endif %}
+    {# ******************Commentaire*****************#}
+    <h2>Commentaires</h2>
+    {% if app.user is null %}
+        <div class="alert alert-info">
+            Vous devez être connecté pour écrire un commentaire.
+        </div>
+    {% else %}
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.comment) }}
+
+        <div class="text-right">
+
+            <button type="submit" class="btn btn-primary">
+                Comment
+            </button>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+    {% for comment in comments %}
+        <h5>
+
+            <div class="container">
+                <span id="rateMe3"  class="rating-faces"></span>
+            </div>
+
+          Commenté par  {{ comment.userid }}
+          :  {{ "now"|date('Y-m-d H:i:s') }}
+
+
+        </h5>
+        <div class="card bg-light mb-3">
+            <div class="card-body">
+                {{ comment.comment|nl2br }}
+            </div>
+        </div>
+{#        #}{# control sûr supprimer et modifier#}
+
+{#        {% if app.user.id==app.user.id %}#}
+{#        <div class="form-group " style="text-align:right">#}
+{#            <a href="{{ path('app_admin_comment_delete',{'id':article.id}) }}">suprimer</a>#}
+{#            <a href="{{ path('app_admin_comment_modification', {'id': article.id}) }}">Modifier</a>#}
+
+{#        </div>#}
+{#        {% elseif  app.user.roles=="ROLE_ADMIN" %}#}
+
+{#        <div class="form-group " style="text-align:right">#}
+{#            <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>#}
+{#            <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>#}
+{#        </div>#}
+{#        {% elseif app.user is null  %}#}
+{#            Vous devez être connecté pour supprimer ou modifier votre commentaire.#}
+{#        {% else %}#}
+{#            Vous devez être connecté#}
+{#        {% endif %}#}
+        {% if user.app is null %}
+            Vous devez être connecté pour supprimer ou modifier votre commentaire.
+            {% else %}
+                <div class="form-group " style="text-align:right">#}
+                            <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>
+                            <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+                </div>
+
+        {% endif %}
+    {% endfor %}
 
 {% endblock %}

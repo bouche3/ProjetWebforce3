@@ -64,7 +64,8 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('a.pseudo LIKE :pseudo')
              ->setParameter('pseudo','%'.$filters['pseudo'].'%');
         }
-        if(!empty($filters['email']))
+
+         if(!empty($filters['email']))
         {
             $builder
                 ->andWhere('a.email =:email')
@@ -82,6 +83,7 @@ class UserRepository extends ServiceEntityRepository
                 ->andWhere('a.registrationDate <= :end_date')
                 ->setParameter('end_date',$filters['end_date']);
         }
+
     //object Query generated
         $query=$builder->getQuery();
         //return an array of objects members/users

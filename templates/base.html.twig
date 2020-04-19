@@ -10,6 +10,11 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js">
+
+
+            <!-- rating.js file -->
+
         {% endblock %}
 
     </head>
@@ -33,7 +38,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ path('app_index_contact') }}">
                                 Contact
                             </a>
                         </li>
@@ -95,7 +100,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ path('app_admin_comment_searchcomment')}}">
                                         Gestion des commentaires
                                     </a>
                                 </li>

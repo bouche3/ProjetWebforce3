@@ -43,8 +43,7 @@ $(function () {//DOM ready
                 }
             });
         }
-    })
-
+    });
 
 
     // interception du clic
@@ -66,5 +65,7 @@ $(function () {//DOM ready
             }
         });
     });
+
+
        });
 
