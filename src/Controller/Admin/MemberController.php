@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\MemberEditType;
 use App\Form\MemberType;
 use App\Form\SearchMemberType;
+use App\Form\UserInfoType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +21,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  *class MemberController
  * @package App\Controller\Admin
  * @route("/member")
+ *
  */
 class MemberController extends AbstractController
 {
@@ -26,9 +29,9 @@ class MemberController extends AbstractController
     /**
      * @Route("/")
      */
-    public function index(Request $request,UserRepository $repository)
+    public function index(Request $request, UserRepository $repository)
     {
-        $searchForm=$this->createForm(SearchMemberType::class);
+        $searchForm = $this->createForm(SearchMemberType::class);
 
         $searchForm->handleRequest($request);
 
@@ -36,15 +39,15 @@ class MemberController extends AbstractController
         dump($searchForm->getData());
 
         // toutes les members triées sur l'id
-       //$memberDetails = $repository->findBy([], ['id' => 'ASC']);
-        $memberDetails=$repository->search((array)$searchForm->getData());
+        //$memberDetails = $repository->findBy([], ['id' => 'ASC']);
+        $memberDetails = $repository->search((array)$searchForm->getData());
 
         return $this->render(
             'admin/member/index.html.twig',
 
             [
                 'memberDetails' => $memberDetails,
-                'search_form'=>$searchForm->createView()
+                'search_form' => $searchForm->createView()
             ]
         );
     }
@@ -52,65 +55,42 @@ class MemberController extends AbstractController
     /**
      * @Route("/edition/{id}", defaults={"id": null}, requirements={"id": "\d+"})
      */
-    public function edit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder,$id)
+    public function addEdit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder, $id)
     {
         $originalImage = null;
-        if (is_null($id))
-        {
+        if (is_null($id)) {
             //creation of the new member
             $member = new User();
             dump($member);
 
         }
-        else
-            {
-            //Modification of the member
-            $member = $manager->find(User::class, $id);
-            //if the id doesnt exist in the database
-            if (is_null($member))
-            {
-                //404 - page not found error
-                throw new NotFoundHttpException();
-            }
-            if(!is_null($member->getAvatar()))
-            {
-                //nom du fichier venant de la bdd
-                $originalImage=$member->getAvatar();
-                //le champ de formulaire attend un object file
-                $member->setAvatar(
-                    new File(
-                        $this->getParameter('upload_dir').$member->getAvatar()
-                    ));
-            }
-        }
+
 
         //creation of the form
-        $form = $this->createForm(MemberType::class, $member);
+        $form = $this->createForm(MemberType::class, $member,["validation_groups"=>['Default','create']]);
         //analysis of the query
-        $form -> handleRequest($request);
+        $form->handleRequest($request);
         dump($member);
         //if the form is submitted
 
-        if ($form->isSubmitted())
-        {
-            if ($form->isValid())
-            {
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
 
                 $encodedPassword = $passwordEncoder->encodePassword(
                     $member,
                     $member->getPlainpassword()
                 );
 
-               $member->setPassword($encodedPassword);
+                $member->setPassword($encodedPassword);
                 //On enregistre l'avatar s'il y en a un qui a été uploadé
                 /**
                  * @var UploadedFile|null $avatar
                  */
-               $avatar = $member->getAvatar();
+                $avatar = $member->getAvatar();
 
 
                 //Si une avatar a été uploadée
-                if (!is_null($avatar)){
+                if (!is_null($avatar)) {
                     $filename = uniqid() . '.' . $avatar->guessExtension();
 
                     $avatar->move(
@@ -123,33 +103,121 @@ class MemberController extends AbstractController
                     if (!is_null($originalImage)) {
                         unlink($this->getParameter('upload_dir') . $originalImage);
                     }
+                } else {
+                    // pour la modification, sans upload,
+                    // on remet le nom de l'image venant de la bdd
+                    $member->setAvatar($originalImage);
                 }
-             else {
-                // pour la modification, sans upload,
-                // on remet le nom de l'image venant de la bdd
-                $member->setAvatar($originalImage);
-            }
 
 
                 $manager->persist($member);
                 $manager->flush();
                 $this->addFlash('success', 'Le membre a bien été enregistré');
-                return $this->redirectToRoute('app_admin_member_index');
-            }
-            else
-            {
+                return $this->redirectToRoute('app_admin_member_addedit');
+            } else {
                 $this->addFlash('error', 'Le formulaire contient des erreurs');
             }
         }
 
-        return $this->render('admin/member/edit.html.twig',
+        return $this->render('admin/member/addEdit.html.twig',
             [
                 'form' => $form->createView(),
-                'original_image'=>$originalImage
+                'original_image' => $originalImage
             ]
         );
+      //  $form = $this->createForm(MemberType::class, $member)
 
     }
+
+    /**
+     * @Route("/modifyEdit/{id}", defaults={"id": null}, requirements={"id": "\d+"})
+     */
+    public function modifyEdit(Request $request, EntityManagerInterface $manager, $id)
+    {
+
+        //On récupère les informations de l'utilisateur pour alimenter le formulaire
+        $member = $manager->find(User::class, $id);
+
+        //Si on ne trouve pas de correspondance, on jette une exception
+        if (is_null($member))
+        {
+            throw new NotFoundHttpException();
+        }
+
+        //On vérifie s'il y a un avatar existant ou pas
+        $originalAvatar = null;
+        if (!is_null($member->getAvatar()))
+        {
+            //S'il existe on le met dans la variable originalAvatar
+            $originalAvatar = $member->getAvatar();
+
+            //Le champ de formulaire attend un objet File
+            $member->setAvatar(
+                new File($this->getParameter('upload_dir') . $member->getAvatar())
+            );
+        }
+
+        $form = $this->createForm(MemberEditType::class, $member);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            if ($form->isValid())
+            {
+
+                //Lorsque le formulaire est soumis et validé, on gère l'image uploadée si elle existe
+                /**
+                 * @var UploadedFile|null $avatar
+                 */
+                $avatar = $member->getAvatar();
+                //Si une image a été uploadée
+                if (!is_null($avatar)) {
+                    //On renomme le fichier avec un identifiant unique
+                    $filename = uniqid() . '.' . $avatar->guessExtension();
+                    //On sauvegarde ce fichier dans le dossier définit dans les paramètres du projet
+                    $avatar->move(
+                        $this->getParameter('upload_dir'),
+                        $filename
+                    );
+
+                    //pour enregistrer le nom du fichier dans le champ image de la bdd
+                    $member->setAvatar($filename);
+
+                    //Dans le cas d'une modification, si on change l'image, on supprime dans le dossier image
+                    //celle qui avait été uploadée
+                    if (!is_null($originalAvatar)) {
+                        unlink($this->getParameter('upload_dir') . $originalAvatar);
+                    }
+                } else {
+                    //Si aucun avatar n'a été uploadé
+                    //on remet le nom de l'image venant de la bdd
+                    $member->setAvatar($originalAvatar);
+                }
+
+                $manager->persist($member);
+                $manager->flush();
+
+                $this->addFlash('success', 'Les données ont été modifiées avec succès');
+
+                return $this->redirectToRoute('app_admin_member_index', ['id' => $id]);
+            }
+            else
+                {
+                $this->addFlash('error', 'Le formulaire contient des erreurs');
+            }
+
+        }
+        return $this->render(
+            'admin/member/memberEdit.html.twig',
+            [
+                'form' => $form->createView(),
+                'original_avatar' => $originalAvatar
+            ]
+        );
+    }
+
+
     /**
      * @Route("/delete/{id}", requirements={"id": "\d+"})
      */

@@ -978,7 +978,9 @@ class ArticleController extends AbstractController
         $templateText = $article->getTemplateTextid();
         $templateMixed = $article->getTemplateMixedid();
 
+        //to create a form to comment
         $comment = new Comment();
+        //sets the time with timone and saves into BDD
         $comment->setDate(new \DateTime('now',timezone_open('Europe/paris')));
 
         $form = $this->createForm(CommentType::class, $comment);

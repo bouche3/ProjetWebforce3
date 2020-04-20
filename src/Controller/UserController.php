@@ -113,12 +113,14 @@ class UserController extends AbstractController
      *
      * @Route("/forgotten_password")
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     *
      */
     public function forgottenPassword(
         Request $request,
         MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator) :Response
     {
+        //   TokenGeneratorInterface  :Generates CSRF tokens.
         if($request->isMethod('POST'))
         {
             $email=$request->request->get('email');
@@ -130,7 +132,9 @@ class UserController extends AbstractController
                 $this->addFlash('danger','Email Inconnu');
                 // return $this->redirectToRoute('app_user_login');
             }
+            //token is generated t reset the password
             $token=$tokenGenerator->generateToken();
+            //set the token value to the user(ResetToken) , resetToken : variable created in user
             try {
                 $user->setResetToken($token);
                 $entityManager->flush();
@@ -140,8 +144,10 @@ class UserController extends AbstractController
                 $this->addFlash('warning',$e->getMessage());
                 return $this->redirectToRoute('app_user_login');
             }
+            //generating url
             $url=$this->generateUrl('app_reset_password',array('token'=>$token),UrlGeneratorInterface::ABSOLUTE_URL);
             $mail=new email();
+            //sending email to the User with generated resetToken
             $mail
                 ->subject('Forgot password')
                 ->from('janest.demo@gmail.com')
@@ -160,6 +166,7 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/reset_password/{token}", name="app_reset_password")
+     *
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -175,6 +182,7 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('app_user_login');
             }
 
+            //Resetting Password with tht generated token
             $user->setResetToken($token);
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
             $entityManager->flush();

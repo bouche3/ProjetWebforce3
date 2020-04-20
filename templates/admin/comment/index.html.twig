@@ -4,11 +4,11 @@
 
 {% block body %}
     <h2>Commentaires sur l'article"{{ article.title }}"</h2>
-    <a class="btn btn-outline-primary mb-3" href="{{ path('app_article_index') }}">
+    <a class="button standard" href="{{ path('app_article_index') }}">
         Retour aux articles
     </a>
-       <table class="table table-stripped">
-        <tr class="table-dark">
+       <table class="table-list">
+        <tr>
             <th>Utilisateur</th>
             <th>Contenu</th>
             <th width="150px"></th>
@@ -18,27 +18,26 @@
         <tr>
             <td>{{ comment.userid }}</td>
             <td>{{ comment.comment }}</td>
+           {% if app.user is null %}
+               Vous devez être connecté pour supprimer ou modifier votre commentaire.
 
-            <td>
-                <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}"
-                   class="btn btn-warning">
-                    Modifier
-                </a>
-            </td>
-                <td>
-                <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}"
-                   class="btn btn-danger">
-                    Supprimer
-                </a>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="4" class="text-center">
-                Aucun commentaire pour cet article
-            </td>
-        </tr>
+           {% elseif app.user.id==comment.userid.id %}
+               <td>
+                   <a class="button standard" href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>
+                   <a class="button delete" href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+               </td>
+          </tr>
+           {% endif %}
+            {% if comment.comment is null %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Aucun commentaire.!!
+                </td>
+            </tr
+                {% endif %}
+
         {% endfor %}
+
     </table>
 
 {% endblock %}

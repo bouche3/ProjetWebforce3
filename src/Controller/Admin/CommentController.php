@@ -7,12 +7,10 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\CommentsearchType;
 use App\Form\CommentType;
-use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -44,12 +42,14 @@ class CommentController extends AbstractController
      */
     public function searchComment(Request $request,CommentRepository $repository)
     {
+        //create a form
         $searchForm=$this->createForm(CommentsearchType::class);
+        //query analyse
         $searchForm->handleRequest($request);
         dump($request->getMethod());
         dump($searchForm->getData());
         dump($searchForm);
-      //  $comments=$repository->findAll();
+
         $comments=$repository->search((array)$searchForm->getData());
 
         dump($comments);
@@ -88,23 +88,18 @@ class CommentController extends AbstractController
      * @Route("/modif/{id}", defaults={"id": null}, requirements={"id": "\d+"})
      * */
     public function modification(Request $request, EntityManagerInterface $manager,
-                                 Article $article,CommentRepository $repository,$id)
+                                 Comment $comment,CommentRepository $repository)
     {
 
-        $commentModify=$manager->find(Comment::class,$id);
-
-
-        $form = $this->createForm(CommentType::class, $commentModify);
+        $article=$comment->getArticleid();
+        $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                $commentModify
-                    ->setUserid($this->getuser())
-                    ->setArticleid($article);
 
-                $manager->persist($commentModify);
+                $manager->persist($comment);
                 $manager->flush();
 
                 $this->addFlash('success', 'Votre commentaire est enregistré');
@@ -120,14 +115,13 @@ class CommentController extends AbstractController
             }
 
         }
-        $modifyComments=$repository->findBy(['articleid' =>$id], ['id' => 'DESC']);
-        dump($commentModify);
+        dump($comment);
 
         return $this->render(
             'admin/comment/modification.html.twig',
             [
                 'article' => $article,
-                'comments'=>$modifyComments,
+                'comments'=>$comment,
                 'form' => $form->createView()
             ]
 

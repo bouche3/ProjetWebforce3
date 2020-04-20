@@ -63,7 +63,7 @@ class User implements UserInterface, \Serializable
     private $password;
     /**
      * @var string|null
-     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire",groups={"create"})
      * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme")
      *
      */
@@ -151,6 +151,9 @@ class User implements UserInterface, \Serializable
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->registrationDate = new \DateTime();
+
+
+
     }
 
     public function __toString()

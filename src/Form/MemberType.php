@@ -29,14 +29,14 @@ class MemberType extends AbstractType
                 'lastname',
                 TextType::class,
                 [
-                    'label'=>'Lastname'
+                    'label'=>'Nom'
                 ]
             )
             ->add(
                 'firstname',
                 TextType::class,
                 [
-                    'label'=>'firstname'
+                    'label'=>'Prénom'
                 ]
             )
 
@@ -44,8 +44,27 @@ class MemberType extends AbstractType
                 'email',
               EmailType::class,
                 [
-                    'label'=>'email'
+                    'label'=>'Email'
                 ]
+            )->add(
+                'plainpassword',
+                RepeatedType::class,
+
+                [
+
+                    'type' => PasswordType::class,
+
+                    'first_options' => [
+                        'label' => 'Mot de passe',
+                        'help' => 'Le mot de passe doit faire entre 6 et 10 caractères et peut comporter des lettres, 
+                        des chiffres et des caractères spéciaux'
+                    ],
+                    'second_options' => [
+                        'label' => 'Confirmation du mot de passe'
+                    ],
+                    'invalid_message' => 'La confirmation ne correspond pas au mot de passe'
+                ]
+
             )
             ->add(
                 'avatar',
@@ -61,7 +80,7 @@ class MemberType extends AbstractType
                 'status',
                 TextType::class,
                 [
-                    'label'=>'status'
+                    'label'=>'Role'
                 ]
             )
         ;

@@ -324,56 +324,41 @@
 
         <div class="text-right">
 
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="button standard">
                 Comment
             </button>
             {{ form_end(form) }}
         </div>
     {% endif %}
     {% for comment in comments %}
-        <h5>
 
-            <div class="container">
-                <span id="rateMe3"  class="rating-faces"></span>
-            </div>
+         <p id="comment"> Commenté par  {{ comment.userid }}
+             :  {{ "now"|date('Y-m-d H:i:s') }} </p>
 
-          Commenté par  {{ comment.userid }}
-          :  {{ "now"|date('Y-m-d H:i:s') }}
-
-
-        </h5>
         <div class="card bg-light mb-3">
             <div class="card-body">
                 {{ comment.comment|nl2br }}
             </div>
         </div>
-{#        #}{# control sûr supprimer et modifier#}
 
-{#        {% if app.user.id==app.user.id %}#}
-{#        <div class="form-group " style="text-align:right">#}
-{#            <a href="{{ path('app_admin_comment_delete',{'id':article.id}) }}">suprimer</a>#}
-{#            <a href="{{ path('app_admin_comment_modification', {'id': article.id}) }}">Modifier</a>#}
-
-{#        </div>#}
-{#        {% elseif  app.user.roles=="ROLE_ADMIN" %}#}
-
-{#        <div class="form-group " style="text-align:right">#}
-{#            <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>#}
-{#            <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>#}
-{#        </div>#}
-{#        {% elseif app.user is null  %}#}
-{#            Vous devez être connecté pour supprimer ou modifier votre commentaire.#}
-{#        {% else %}#}
-{#            Vous devez être connecté#}
-{#        {% endif %}#}
         {% if app.user is null %}
-            Vous devez être connecté pour supprimer ou modifier votre commentaire.
-            {% else %}
+            <p>Vous devez être connecté pour supprimer ou modifier votre commentaire.</p>
+
+            {% elseif app.user.id== comment.userid.id %}
                 <div class="form-group " style="text-align:right">
-                            <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>
-                            <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+                    <a class="button delete" href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>
+                    <a class="button standard" href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
                 </div>
         {% endif %}
+            {% if comments is null %}
+                <tr>
+                    <td colspan="4" class="text-center">
+                        Aucun commentaire.!!
+                    </td>
+                </tr
+                    {% endif %}
+
+
     {% endfor %}
 
 {% endblock %}

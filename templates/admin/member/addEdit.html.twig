@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Créer ou modifier membre{% endblock %}
+{% block title %}{{ parent() }} - Créer un member{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
@@ -8,15 +8,16 @@
     {{ form_row(form.firstname)}}
     {{ form_row(form.lastname)}}
     {{ form_row(form.email) }}
+    {{ form_row(form.plainpassword) }}
     {{ form_row(form.avatar) }}
     {{ form_row(form.status) }}
 
     <div class="text-right">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="button standard">
             Enregistrer
         </button>
         <a href="{{ path('app_admin_member_index') }}"
-           class="btn btn-outline-secondary">
+           class="button standard">
             Retour
         </a>
     </div>

@@ -85,16 +85,18 @@ class IndexController extends AbstractController
 
                 $this->addFlash('success', 'Votre message est envoyé');
 
-                // return $this->redirectToRoute('app_index_index');
+                 return $this->redirectToRoute('app_index_contact');
             } else {
                 $this->addFlash('error', 'Le formulaire contient des erreurs');
             }
+
         }
 
         return $this->render(
             'index/contact.html.twig',
             [
                 'form' => $form->createView()
+
             ]
         );
     }

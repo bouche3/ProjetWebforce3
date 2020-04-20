@@ -45,12 +45,20 @@ abstract class LoginFormAuthenticatorController extends AbstractFormLoginAuthent
         $this->csrfTokenManager=$csrfTokenManager;
         $this->passwordEncoder=$passwordEncoder;
     }
+    /**
+     * Called on every request to decide if this authenticator should be
+     * used for the request. Returning `false` will cause this authenticator
+     * to be skipped.
+     */
     public function supports(Request $request)
     {
        return 'app_user_register'===$request->attributes->get('route')
            && $request->isMethod('POST');
     }
-
+    /**
+     * Called on every request. Return whatever credentials you want to
+     * be passed to getUser() as $credentials.
+     */
     public function getCredentials(Request $request)
     {
         $credentials=[
@@ -65,9 +73,14 @@ abstract class LoginFormAuthenticatorController extends AbstractFormLoginAuthent
         return $credentials;
     }
 
-
-    public function getUser($credentials, UserProviderInterface $userProvider)
+//UserProviderInterface: Represents a class that loads UserInterface objects from some source for the authentication system.
+// In a typical authentication configuration, a username (i.e. some unique user identifier) credential enters the system
+// (via form login, or any method). The user provider that is configured with that authentication method is asked to load
+// the UserInterface object for the given username (via loadUserByUsername) so that the rest of the process can continue.
+// Internally, a user provider can load users from any source (databases,configuration, web service).
+public function getUser($credentials, UserProviderInterface $userProvider)
     {
+
         $token=new CsrfToken('authenticate',$credentials['csrf_token']);
         if(!$this->csrfTokenManager->isTokenValid($token))
         {
@@ -83,12 +96,13 @@ abstract class LoginFormAuthenticatorController extends AbstractFormLoginAuthent
         return $user;
     }
 
+    //checks if the given credentials are valid
     public function checkCredentials($credentials, UserInterface $user)
     {
         return $this->passwordEncoder->isPasswordValid($user,$credentials['password']);
     }
 
-
+    //if the authentication is success it redirects to the respected url.
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if($targetPath=$this->getTargetPath($request->getSession(),$providerKey))

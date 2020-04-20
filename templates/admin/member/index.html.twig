@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Gestion des membres</h1>
 
-    <a href="{{ path('app_admin_member_edit') }}"
+    <a href="{{ path('app_admin_member_addedit') }}"
        class="btn btn-outline-primary mb-3">
         Ajouter un membre
     </a>
@@ -59,11 +59,11 @@
                 <td>{{ member.status }}</td>
 
             <td>
-                <a class="btn btn-primary"
-                   href="{{ path('app_admin_member_edit',{'id':member.id}) }}">
+                <a class="button standard"
+                   href="{{ path('app_admin_member_modifyedit',{'id':member.id}) }}">
                     Modifier
                 </a>
-                <a class="btn btn-danger"
+                <a class="button delete"
                    href="{{ path('app_admin_member_delete',{'id':member.id}) }}">
                     Supprimer
                 </a>
