@@ -24,8 +24,9 @@ header div.container div img{
 }
 header div.container div nav{
     border: #4cbbb9 1px solid;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     background-color: #4cbbb9;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.5);
 }
 header div.container div nav ul{
     list-style: none;
