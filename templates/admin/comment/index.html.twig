@@ -1,42 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CommentController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
     <h2>Commentaires sur l'article"{{ article.title }}"</h2>
+    <a class="button standard" href="{{ path('app_article_index') }}">
+        Retour aux articles
+    </a>
+    {% for comment in article.comments %}
+        <ul class="list">
+            <li class="list-item">
+                <div class="list-item-title">Utilisateur</div>
+                <div class="list-item-value">{{ comment.userid }}</div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-title">Contenu</div>
+                <div class="list-item-value">{{ comment.comment }}</div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-title">Actions</div>
+                <div class="list-item-value">
+                    <a class="button standard" href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+                    <a class="button delete" href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">Supprimer</a>
+                </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="list">
+            <li class="list-item">Aucun résultat</li>
+        </ul>
+    {% endfor %}
 
-       <table class="table table-stripped">
-        <tr class="table-dark">
+   <table class="table-list">
+        <tr>
             <th>Utilisateur</th>
             <th>Contenu</th>
             <th width="150px"></th>
 
         </tr>
         {% for comment in article.comments %}
-        <tr>
-            <td>{{ comment.userid }}</td>
-            <td>{{ comment.comment }}</td>
-
-            <td>
-                <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}"
-                   class="button standard">
-                    Modifier
-                </a>
-            </td>
+            <tr>
+                <td>{{ comment.userid }}</td>
+                <td>{{ comment.comment }}</td>
                 <td>
-                <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}"
-                   class="button delete">
-                    Supprimer
-                </a>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="4" class="text-center">
-                Aucun commentaire
-            </td>
-        </tr>
+                    <a class="button standard" href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+                    <a class="button delete" href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">Supprimer</a>
+                </td>
+            </tr>
+            {% if comment.comment is null %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Aucun commentaire.!!
+                </td>
+            </tr
+                {% endif %}
+
         {% endfor %}
+
     </table>
 
 {% endblock %}

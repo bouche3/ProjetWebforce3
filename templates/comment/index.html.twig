@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommentController!{% endblock %}
+
+{% block body %}
+    <h2>Commentaires sur l'article"{{ article.title }}"</h2>
+    <a class="button standard" href="{{ path('app_article_index') }}">
+        Retour aux articles
+    </a>
+       <table class="table-list">
+        <tr>
+            <th>Utilisateur</th>
+            <th>Contenu</th>
+            <th width="150px"></th>
+
+        </tr>
+        {% for comment in article.comments %}
+        <tr>
+            <td>{{ comment.userid }}</td>
+            <td>{{ comment.comment }}</td>
+           {% if app.user is null %}
+               Vous devez être connecté pour supprimer ou modifier votre commentaire.
+
+           {% elseif app.user.id==comment.userid.id %}
+               <td>
+                   <a class="button standard" href="{{ path ('app_comment_modificationuser',{'id':comment.id})}}">Modifier</a>
+                   <a class="button delete" href="{{ path ('app_comment_deleteuser',{'id':comment.id})}}">Supprimer</a>
+               </td>
+          </tr>
+           {% endif %}
+            {% if comment.comment is null %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Aucun commentaire.!!
+                </td>
+            </tr
+                {% endif %}
+
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

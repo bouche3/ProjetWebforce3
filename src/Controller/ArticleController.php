@@ -1,5 +1,7 @@
 <?php
-
+/************************************************************************************************************
+ *      Code : Albertini Stéphane -  méthode création suppression et modification d'un article - template   *
+ ************************************************************************************************************/
 
 namespace App\Controller;
 
@@ -16,7 +18,6 @@ use App\Form\TemplateTextType;
 use App\Form\TemplateType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
-use App\Repository\MixteTemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -40,17 +41,21 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $repository, Request $request)
     {
-
+        // on met une restriction sur le user
+        // si user n'existe pas on redirige vers la page de connexion
         if (!$this->getUser()){
             $this->redirectToRoute('app_user_login');
-
         }
 
+        /*
+         * on creer le formulaire a partir du Form relié a son entité
+         */
         $searchForm = $this->createForm(SearchArticleType::class);
         $searchForm->handleRequest($request);
 
         $articles = $repository->search((array)$searchForm->getData(), $this->getUser());
 
+        // retourne un template avec des parametres
         return $this->render(
             'article/index.html.twig',
             [
@@ -60,28 +65,43 @@ class ArticleController extends AbstractController
         );
     }
 
+    /**************************************************************************************************
+     *      Code : Albertini Stéphane -  méthode création et modification d'un article    *
+     **************************************************************************************************/
     /**
      * @Route("/edition/{id}", defaults={"id": null}, requirements={"id": "\d+"})
      */
     public function addEditArticle(Request $request, EntityManagerInterface $manager, $id)
     {
 
+        /*
+         * Si l'id passé en parametre de la methode est null on instancie un nouvelle Article
+         * Sinon on modifie l'article
+         */
         if (is_null($id)) {
             $article = new Article();
-            $article->setUserid($this->getUser());
+            $article->setUserid($this->getUser()); // on recupère l'id de l'user
         } else {
             $article = $manager->find(Article::class, $id);
 
-            if (is_null($article)) {
+            if (is_null($article)) { // on declare une page d'erreur 404 si l'id de l'article est null
                 throw new NotFoundHttpException();
             }
         }
 
+        /*
+         * on creer le formulaire a partir du Form relié a son entité
+         */
         $form = $this->createForm(TemplateType::class, $article);
         $form->handleRequest($request);
 
-        dump($article);
+        dump($article); //  petit controle !
 
+        /*
+         * Si l'utilisateur a cliqué sur le bouton submit et que le formulaire
+         * ne comporte aucune erreur ( par rapport a ce qu'on a déclaré dans l'entité )
+         * On enregistre en base de donnée
+         */
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
 
@@ -89,6 +109,11 @@ class ArticleController extends AbstractController
                 $manager->flush();
                 dump($article);
 
+                /*
+                 * Si l'id du nom du template de l'article est égal a 1, 2 ou 3
+                 * on redirige vers la page qui correspond au template
+                 * en passant l'id de l'article
+                 */
                 if ($article->getNameTemplate()->getId() == 1) {
                     return $this->redirectToRoute(
                         'app_article_addeditarticleimage',
@@ -111,26 +136,29 @@ class ArticleController extends AbstractController
                         ]
                     );
                 }
-                else{
+                else{// Message de confirmation ou d'erreur
                     $this->addFlash('error', 'Le formulaire contient des erreurs');
                 }
-
             }
         }
-
+        // retourne un template avec des parametres
         return $this->render(
             'article/add_edit_article.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $form->createView() // on passe le rendu du form dans les parametres du render
             ]
         );
     }
 
+    /**************************************************************************************************
+     *      Code : Albertini Stéphane -  méthode création et modification du template mixte           *
+     **************************************************************************************************/
     /**
      * @Route("/edition/m/{id}", requirements={"id": "\d+"})
      */
     public function addEditArticleMixte(Request $request, EntityManagerInterface $manager, Article $article)
     {
+        // on declare des variables qui représente les inputs image a vide
         $originalBanner = null;
         $originalImg1 = null;
         $originalImg2 = null;
@@ -139,11 +167,21 @@ class ArticleController extends AbstractController
         $originalCarouselImg3 = null;
         $originalCarouselImg4 = null;
         $originalCarouselImg5 = null;
-        $template = $article->getTemplateMixedid();
+        $template = $article->getTemplateMixedid();// on récupère l'id du template mixte
 
+
+        /*
+         * Si la variable template est null on instancie un nouvelle template
+         * Sinon on modifie le template
+         */
         if (is_null($template)) {
             $template = new MixteTemplate();
+            /*
+             * on creer le formulaire a partir du Form relié a son entité
+             */
             $article->setTemplateMixedid($template);
+            $form = $this->createForm(TemplateMixteType::class, $template, ["validation_groups"=>["Default", "create"]]); // groupe de validation qui permet d'isolé un champ de l'entité
+                                                                                                                            //  pour la rendre obligatoire dans un cas et pas dans un autre
         } else {
             dump($template);
             if (!is_null($template->getBanner())) {
@@ -202,9 +240,9 @@ class ArticleController extends AbstractController
                     new File($this->getParameter('upload_dir') . $template->getCarouselImg5())
                 );
             }
+            $form = $this->createForm(TemplateMixteType::class, $template);
         }
 
-        $form = $this->createForm(TemplateMixteType::class, $template);
         dump($template);
         $form->handleRequest($request);
 
@@ -415,10 +453,12 @@ class ArticleController extends AbstractController
         $originalImg1 = null;
         $originalImg2 = null;
         $template = $article->getTemplateTextid();
+        dump($template);
 
         if (is_null($template)) {
             $template = new TextTemplate();
             $article->setTemplateTextid($template);
+            $form = $this->createForm(TemplateTextType::class, $template, ["validation_groups"=>["Default", "create"]]);
         } else {
 
             if (!is_null($template->getBanner())) {
@@ -442,9 +482,10 @@ class ArticleController extends AbstractController
                     new File($this->getParameter('upload_dir') . $template->getImg2())
                 );
             }
+            $form = $this->createForm(TemplateTextType::class, $template);
         }
 
-        $form = $this->createForm(TemplateTextType::class, $template);
+        dump($template);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -563,6 +604,7 @@ class ArticleController extends AbstractController
         if (is_null($template)) {
             $template = new ImageTemplate();
             $article->setTemplateImageid($template);
+            $form = $this->createForm(TemplateImageType::class, $template, ["validation_groups"=>["Default", "create"]]);
         } else {
 
             if (!is_null($template->getBanner())) {
@@ -656,10 +698,11 @@ class ArticleController extends AbstractController
                     new File($this->getParameter('upload_dir') . $template->getImg12())
                 );
             }
+            $form = $this->createForm(TemplateImageType::class, $template);
             dump($template);
         }
 
-        $form = $this->createForm(TemplateImageType::class, $template);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {

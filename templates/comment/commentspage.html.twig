@@ -30,37 +30,8 @@
                 </div>
         </div>
     </section>
-    {% for comment in comments  %}
-        <ul class="list">
-            <li class="list-item">
-                <div class="list-item-title">ID</div>
-                <div class="list-item-value">{{ comment.id }}</div>
-            </li>
-            <li class="list-item">
-                <div class="list-item-title">Utilisateur</div>
-                <div class="list-item-value">{{ comment.userid.pseudo }}</div>
-            </li>
-            <li class="list-item">
-                <div class="list-item-title">Commentaire</div>
-                <div class="list-item-value">{{ comment.comment }}</div>
-            </li>
-            <li class="list-item">
-                <div class="list-item-title">Date</div>
-                <div class="list-item-value">{{ comment.date|date('d/m/Y') }}</div>
-            </li>
-            <li class="list-item">
-                <div class="list-item-title">Actions</div>
-                <div class="list-item-value">
-                    <a class="button delete  " href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}" >Supprimer</a>
-                </div>
-            </li>
-        </ul>
-    {% else %}
-        <ul class="list">
-            <li class="list-item">Aucun résultat</li>
-        </ul>
-    {% endfor %}
     <div class="table-responsive">
+
         <table class="table-list" >
             <tr style="text-align: center">
                 <th>ID</th>

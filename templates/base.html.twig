@@ -14,109 +14,109 @@
     <body>
         <header>
             <div class="container">
-                <div>
-                    <img src="{{ asset('img/logo_site.png') }}" alt="logo_du_site">
-                    <h1>Blog-Trotter</h1>
-                    <p>Le monde à portée de clic</p>
+                <div class="header_top">
+                    <div class="header_middle">
+                        <img src="{{ asset('img/logo_site.png') }}" alt="logo_du_site">
+                        <div>
+                            <h1>Blog-Trotter</h1>
+                            <p>Le monde à portée de clic</p>
+                        </div>
+                    </div>
                     <nav>
                         <ul>
                             <li>
-                                <a id="top" href="{{ path('app_index_index') }}">
+                                <a class="button" id="top" href="{{ path('app_index_index') }}">
                                     Accueil
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('app_about_index') }}">
+                                <a class="button" href="{{ path('app_about_index') }}">
                                     A propos
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('app_index_contact') }}">
+                                <a class="button" href="{{ path('app_index_contact') }}">
                                     Contact
                                 </a>
                             </li>
                             {# app.user = l'utilisateur connecté #}
                             {% if app.user is null %}
-                                <li>
-                                    <a href="{{ path('app_user_register') }}">
-                                        Inscription
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('app_user_login') }}">
-                                        Connexion
-                                    </a>
-                                </li>
+                            <li>
+                                <a class="button" href="{{ path('app_user_register') }}">
+                                    Inscription
+                                </a>
+                            </li>
+                            <li>
+                                <a class="button" href="{{ path('app_user_login') }}">
+                                    Connexion
+                                </a>
+                            </li>
                             {% else %}
-                                <li>
-                                    <ul>
-                                        <li class="sous_menu">
-                                            <span>
-                                                <a>
-                                                    {% if app.user.avatar is null %}
-                                                        <img src="{{ asset('photo/profile.png') }}" alt="Avatar">
-                                                    {% else %}
-                                                        <img src="{{ asset('photo/' ~ app.user.avatar) }}" alt="Avatar">
-                                                    {% endif %}
-                                                    {{ app.user.pseudo }}
-                                                </a>
-                                            </span>
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ path('app_article_addeditarticle') }}">
-                                                        Créer un article
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ path('app_article_index') }}">
-                                                        Mes articles
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ path('app_user_info', {'id': app.user.id}) }}">
-                                                        Mes informations
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ path('app_user_passedit', {'id': app.user.id}) }}">
-                                                        Modifier mon mot de passe
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li class="sous_menu">
-                                        <span>
-                                            <a href="#">
-                                                Administration
-                                            </a>
-                                        </span>
-                                        <ul>
-                                            <li>
-                                                <a href="{{ path('app_article_index') }}">
-                                                    Gestion des articles
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('app_admin_comment_searchcomment')}}">
-                                                    Gestion des commentaires
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('app_admin_member_index') }}">
-                                                    Gestion des membres
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                {% endif %}
-                                <li>
-                                    <a href="{{ path('app_user_logout') }}">
-                                        Déconnexion
+                            <li class="sous_menu">
+                                <span>
+                                    <a class="button" href="#">
+                                        {% if app.user.avatar is null %}
+                                            <img src="{{ asset('photo/profile.png') }}" alt="Avatar">
+                                        {% else %}
+                                            <img src="{{ asset('photo/' ~ app.user.avatarFileName) }}" alt="Avatar">
+                                        {% endif %}
+                                        {{ app.user.pseudo }}
                                     </a>
-                                </li>
+                                </span>
+                                <ul>
+                                    <li>
+                                        <a class="button" href="{{ path('app_article_addeditarticle') }}">
+                                            Créer un article
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="button" href="{{ path('app_article_index') }}">
+                                            Mes articles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="button" href="{{ path('app_user_info', {'id': app.user.id}) }}">
+                                            Mes informations
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="button" href="{{ path('app_user_passedit', {'id': app.user.id}) }}">
+                                            Modifier mon mot de passe
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <li class="sous_menu">
+                                <span>
+                                    <a class="button" href="#">
+                                        Administration
+                                    </a>
+                                </span>
+                                <ul>
+                                    <li>
+                                        <a class="button" href="{{ path('app_article_index') }}">
+                                            Gestion des articles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="button" href="{{ path('app_admin_comment_searchcomment')}}">
+                                            Gestion des commentaires
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="button" href="{{ path('app_admin_member_index') }}">
+                                            Gestion des membres
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a class="button" href="{{ path('app_user_logout') }}">
+                                    Déconnexion
+                                </a>
+                            </li>
                             {% endif %}
                         </ul>
                     </nav>

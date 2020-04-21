@@ -21,10 +21,10 @@ class ImageTemplate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="La bannière est obligatoire")
+     * @Assert\NotBlank(message="La bannière est obligatoire", groups={"create"})
      * @Assert\File(mimeTypes={"image/png", "image/jpeg"},
      *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
-     *     maxSize="600k",
+     *     maxSize="1000k",
      *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      */
     private $banner;

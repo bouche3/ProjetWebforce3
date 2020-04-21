@@ -500,12 +500,24 @@
 {#            Vous devez être connecté#}
 {#        {% endif %}#}
         {% if app.user is null %}
-            Vous devez être connecté pour supprimer ou modifier votre commentaire.
-            {% else %}
-                <div class="form-group " style="text-align:right">
-                    <a class="button standard" href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
-                    <a class="button delete" href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">Supprimer</a>
-                </div>
+            <p>Vous devez être connecté pour supprimer ou modifier votre commentaire.</p>
+
+        {% elseif app.user.id == comment.userid.id %}
+            <div class="form-group " style="text-align:right">
+                <a class="button standard" href="{{ path ('app_comment_modificationuser',{'id':comment.id})}}">Modifier</a>
+                <a class="button delete" href="{{ path ('app_comment_deleteuser',{'id':comment.id})}}">Supprimer</a>
+            </div>
+        {% elseif is_granted("ROLE_ADMIN") %}
+            <div class="form-group " style="text-align:right">
+                <a class="button delete" href="{{ path ('app_comment_deleteuser',{'id':comment.id})}}">Supprimer</a>
+            </div>
+        {% endif %}
+        {% if comments is null %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Aucun commentaire.!!
+                </td>
+            </tr
         {% endif %}
     {% endfor %}
 

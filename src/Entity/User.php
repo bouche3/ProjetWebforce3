@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -65,7 +66,6 @@ class User implements UserInterface, \Serializable
      * @var string|null
      * @Assert\NotBlank(message="Le mot de passe est obligatoire", groups={"register"})
      * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme", groups={"register"})
-     *
      */
     private $plainpassword;
 
@@ -397,4 +397,15 @@ class User implements UserInterface, \Serializable
             $this->status,
             ) = unserialize($serialized);
     }
+
+    public function avatarFileName()
+    {
+        if ($this->getAvatar() instanceof File){
+            return basename($this->getAvatar());
+        }
+        else{
+            return $this->getAvatar();
+        }
+    }
+
 }

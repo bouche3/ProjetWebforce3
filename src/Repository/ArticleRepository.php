@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,35 @@ class ArticleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Article::class);
+    }
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function lastArticle()
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id', 'id');
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createNativeQuery('SELECT * FROM `article` ORDER BY date DESC LIMIT 1', $rsm);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function topMembre()
+    {
+       $rsm = new ResultSetMapping();
+       $rsm->addScalarResult('userid_id', 'user');
+       $rsm->addScalarResult('topMember', 'topMember');
+       $entityManager = $this->getEntityManager();
+       $query = $entityManager->createNativeQuery('SELECT userid_id, COUNT(*) AS topMember FROM article GROUP BY userid_id ORDER BY topMember DESC LIMIT 1', $rsm);
+
+       return $query->getOneOrNullResult();
     }
 
     /**

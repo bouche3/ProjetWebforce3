@@ -3,28 +3,80 @@
 ****************************** PAR RESSA, ALEXANDRE ET STEPHANE *********************
 *************************************************************************************/
 /* DEBUT CSS styles communs à toutes les pages*/
-
 * {
     transition: all 0.4s linear;
 }
-
-body {
+/* DEBUT DE LA PAGE base.html.twig */
+body{
+    min-width: 320px;
     background-color: #eff3c6;
 }
-
+header div.container div.header_top{
+    text-align: center;
+}
+header div.container div p{
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
+header div.container div img{
+    width: 100%;
+}
+header div.container div nav{
+    border: #4cbbb9 1px solid;
+    border-radius: 5px;
+    background-color: #4cbbb9;
+}
+header div.container div nav ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+header div.container div nav ul li{
+    margin-bottom: 16px;
+}
+header div.container div nav ul li a{
+    color: white;
+}
+header div.container div nav ul li img{
+    margin: 5px 0 5px 0;
+    width: 25px;
+}
+li.sous_menu ul{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.0s;
+}
+li.sous_menu.open ul{
+    margin-top: 10px;
+    max-height: 600px;
+    margin-bottom: 16px;
+}
 h1, h2 {
     color: #0779e4;
 }
-
 h3 {
     color: #4cbbb9;
 }
-
 h4 {
     color: #77d8d8;
 }
+footer div.container{
+    background-color: #4cbbb9;
+    text-align: center;
+}
+footer div.container p{
+    margin: 0;
+}
+footer div.container nav a{
+    color: white;
+}
+/* FIN DE LA PAGE base.html.twig */
 
-
+/* DEBUT CSS styles communs à toutes les pages*/
+* {
+   transition: all 0.4s linear;
+}
 /* DEBUT CSS styles liens (hors boutons)*/
 a:not(.button) {
     color: #0779e4;
@@ -36,7 +88,6 @@ a:not(.button):hover {
 }
 /* FIN CSS styles liens (hors boutons)*/
 
-
 /* DEBUT CSS styles boutons*/
 .button {
     padding: 5px 10px;
@@ -45,39 +96,33 @@ a:not(.button):hover {
     margin: 2px 0;
     display: inline-block;
 }
-
 .standard {
     background-color: #4cbbb9;
     border: 1px solid #4cbbb9;
     color: white;
 }
-
 .standard:hover {
     background-color: #0779e4;
     border: 1px solid #0779e4;
     color: white;
     text-decoration: none;
 }
-
 .delete {
     background-color: #B22222;
     border: 1px solid #B22222;
     color: white;
 }
-
 .delete:hover {
     background-color: #8B0000;
     border: 1px solid #8B0000;
     color: white;
     text-decoration: none;
 }
-
 .cancel {
     background-color: #eff3c6;
     border: 1px solid #4cbbb9;
     color: #4cbbb9;
 }
-
 .cancel:hover {
     background-color: #0779e4;
     border: 1px solid #0779e4;
@@ -86,12 +131,10 @@ a:not(.button):hover {
 }
 /* FIN CSS styles boutons*/
 
-
 /* DEBUT CSS styles liste d'items*/
 .table-list {
     display: none;
 }
-
 .list {
     list-style-type: none;
     padding: 0;
@@ -101,40 +144,33 @@ a:not(.button):hover {
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     background-color: white;
 }
-
 .list-item {
     padding: 5px;
     border-bottom: 0.5px solid lightgray;
     display: flex;
     align-items: center;
 }
-
 .list-item:first-child {
     padding: 5px;
 }
-
 .list-item:last-child {
     padding: 7px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     justify-content: start;
 }
-
 .list-item-title {
     line-height: 1.2em;
     font-weight: bold;
     width: 50%;
 }
-
 .list-item:last-child .list-item-title{
     display: none;
 }
-
 .list-item-value {
     line-height: 1.2em;
     width: 50%;
 }
-
 .list-item:last-child .list-item-value{
     width: 100%;
 }
@@ -146,7 +182,6 @@ a:not(.button):hover {
     padding: 15px;
     margin: 10px 0;
 }
-
 .message.error {
     color: #8B0000;
     position: relative;
@@ -172,7 +207,6 @@ a:not(.button):hover {
     bottom: 0;
     right: 0;
 }
-
 .message.success {
     color: #4cbbb9;
     position: relative;
@@ -198,7 +232,6 @@ a:not(.button):hover {
     bottom: 0;
     right: 0;
 }
-
 .message.warning {
     color: #0779e4;
     position: relative;
@@ -225,53 +258,12 @@ a:not(.button):hover {
     right: 0;
 }
 /* FIN CSS styles messages*/
-
 /* FIN CSS styles communs à toutes les pages*/
 
-
-/* DEBUT DE LA PAGE base.html.twig */
-body{
-    min-width: 320px;
-}
-header div.container div{
+/* DEBUT DE LA PAGE admin/article/add_edit_article.html.twig */
+.form_head{
     text-align: center;
 }
-header div.container div p{
-    margin: 0;
-    font-size: 20px;
-}
-header div.container div img{
-    width: 100%;
-}
-header div.container div nav{
-    border: #565656 1px solid;
-}
-header div.container div nav ul{
-    list-style: none;
-    padding: 0;
-    margin-top: 16px;
-}
-header div.container div nav ul li{
-    margin-bottom: 16px;
-}
-header div.container div nav ul li img{
-    margin: 5px 0 5px 0;
-    width: 50%;
-}
-li.sous_menu ul{
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 1.0s;
-}
-li.sous_menu.open ul{
-    margin-top: 10px;
-    max-height: 600px;
-    margin-bottom: 16px;
-}
-/* FIN DE LA PAGE base.html.twig */
-
-
-/* DEBUT DE LA PAGE admin/article/add_edit_article.html.twig */
 .form_template img{
     width: 100%;
 }
@@ -286,7 +278,6 @@ li.sous_menu.open ul{
     background-size: cover;
     margin-bottom: 15px;
 }
-
 .introduction p{
     font-size: 13px;
     margin: 20px 0;
@@ -349,8 +340,6 @@ li.sous_menu.open ul{
 #template_text .zone2 p{
     font-size: 13px;
 }
-
-
 #template_mixed h1{
     text-align: center;
     font-weight: bold;
@@ -393,37 +382,74 @@ li.sous_menu.open ul{
 /* FIN DE LA PAGE article/render_image_template.html.twig */
 
 /* DEBUT DE LA PAGE index/index.html.twig */
-.article{
+#carouselExampleCaptions .carousel_image{
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#carouselExampleCaptions h5{
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    text-shadow: rgb(255, 255, 255) 1px 0px 0px, rgb(255, 255, 255) 0.540302px 0.841471px 0px,
+                rgb(255, 255, 255) -0.416147px 0.909297px 0px, rgb(255, 255, 255) -0.989992px 0.14112px 0px,
+                rgb(255, 255, 255) -0.653644px -0.756802px 0px, rgb(255, 255, 255) 0.283662px -0.958924px 0px,
+                rgb(255, 255, 255) 0.96017px -0.279415px 0px;
+}
+#carouselExampleCaptions p{
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    text-shadow: rgb(255, 255, 255) 1px 0px 0px, rgb(255, 255, 255) 0.540302px 0.841471px 0px,
+                rgb(255, 255, 255) -0.416147px 0.909297px 0px, rgb(255, 255, 255) -0.989992px 0.14112px 0px,
+                rgb(255, 255, 255) -0.653644px -0.756802px 0px, rgb(255, 255, 255) 0.283662px -0.958924px 0px,
+                rgb(255, 255, 255) 0.96017px -0.279415px 0px;
+}
+#index h1{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 8px;
+}
+#index2 h2{
+    text-align: center;
+    font-size: 20px;
+}
+#article{
     display: flex;
+    flex-direction: column;
     margin-top: 20px;
+    align-items: center;
+    justify-content: space-around;
 }
 #article_index{
     width: 300px;
-    border-top: #222222 1px solid;
+}
+#article_index div.top_image{
+    max-width: 100%;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#article_index div.top{
+    border: #4cbbb9 1px solid;
+    text-align: center;
 }
 #article_index h3{
     font-size: 13px;
     margin-top: 8px;
-}
-#article_index img{
-    max-width: 100%;
-    border-right: #222222 1px solid;
-    border-left: #222222 1px solid;
+    text-decoration: underline;
 }
 #article_index div.middle{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border-top: #222222 1px solid;
-    border-right: #222222 1px solid;
-    border-left: #222222 1px solid;
-    border-bottom: #222222 1px solid;
 }
 #article_index div.bottom{
     text-align: right;
 }
 /* FIN DE LA PAGE index/index.html.twig */
-
 
 /* DEBUT DE LA PAGE about/index.html.twig */
 #about .about-card {
@@ -431,11 +457,9 @@ li.sous_menu.open ul{
     margin: 10px 0;
     padding: 10px;
 }
-
 #about .about-card p {
     text-align: justify;
 }
-
 #about .about-card img {
     background-color: white;
     border: 7px solid white;
@@ -446,7 +470,6 @@ li.sous_menu.open ul{
 }
 /* FIN DE LA PAGE about/index.html.twig */
 
-
 /* DEBUT DE LA PAGE user/information.html.twig */
 #member-info .member-card {
     border: 1px solid lightgrey;
@@ -455,25 +478,16 @@ li.sous_menu.open ul{
     max-width: 450px;
     margin: 0 auto;
 }
-
 #member-info .member-card .member-avatar {
     border-bottom: 1px solid lightgrey;
     padding: 10px;
     text-align: center;
-    /*background: #4cbbb9; !* Old browsers *!*/
-    /*background: -moz-linear-gradient(top,  #4cbbb9 0%, #4cbbb9 50%, #77d8d8 51%, #77d8d8 100%); !* FF3.6-15 *!*/
-    /*background: -webkit-linear-gradient(top,  #4cbbb9 0%,#4cbbb9 50%,#77d8d8 51%,#77d8d8 100%); !* Chrome10-25,Safari5.1-6 *!*/
-    /*background: linear-gradient(to bottom,  #4cbbb9 0%,#4cbbb9 50%,#77d8d8 51%,#77d8d8 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
-    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4cbbb9', endColorstr='#77d8d8',GradientType=0 ); !* IE6-9 *!*/
-
     background: #0779e4; /* Old browsers */
     background: -moz-linear-gradient(top,  #0779e4 0%, #0779e4 50%, #4cbbb9 51%, #4cbbb9 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top,  #0779e4 0%,#0779e4 50%,#4cbbb9 51%,#4cbbb9 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom,  #0779e4 0%,#0779e4 50%,#4cbbb9 51%,#4cbbb9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0779e4', endColorstr='#4cbbb9',GradientType=0 ); /* IE6-9 */
-
 }
-
 #member-info .member-card .member-avatar img {
     background-color: white;
     border: 7px solid white;
@@ -482,13 +496,11 @@ li.sous_menu.open ul{
     max-width: 150px;
     margin: 5px;
 }
-
 #member-info .member-card .member-info {
     padding: 10px;
     background-color: white;
 }
 /* FIN DE LA PAGE user/information.html.twig */
-
 
 /**************************************************************/
 /******************** Responsive ******************************/
@@ -497,198 +509,243 @@ li.sous_menu.open ul{
 @media screen and (min-width: 576px) {
 
     /* DEBUT CSS styles liste d'items*/
-    .list-item-title {
-        width: 30%;
-
-    }
-
-    .list-item-value {
-        width: 70%;
-    }
+        .list-item-title {
+            width: 30%;
+        }
+        .list-item-value {
+            width: 70%;
+        }
     /* FIN CSS styles liste d'items*/
 
     /* DEBUT DE LA PAGE article/render_image_template.html.twig */
-    #template_mixed .zone2 img{
-        height: 300px;
-    }
+        #template_mixed .zone2 img{
+            height: 300px;
+        }
     /* FIN DE LA PAGE article/render_image_template.html.twig */
-
 }
-
 @media screen and (min-width: 768px) {
 
+    /* DEBUT DE LA PAGE article/add_edit_article.html.twig */
+        .form_head{
+            display: flex;
+        }
+    /* FIN DE LA PAGE article/add_edit_article.html.twig */
+
+    /* DEBUT DE LA PAGE base.html.twig */
+        header div.container div.header_top{
+            position: relative;
+            z-index: 1000;
+        }
+        header div.container div.header_top div.header_middle{
+            display: flex;
+            align-items: center;
+        }
+        header div.container div img{
+            width: 20%;
+        }
+        header div.container div nav ul{
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            flex-flow: row nowrap;
+        }
+        header div.container div nav ul li{
+            margin-bottom: 0;
+            padding: 0;
+            position: relative;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+        }
+        header div.container div nav ul li img{
+            margin: 5px 0 5px 0;
+            width: 25px;
+        }
+        header div.container div nav ul .sous_menu ul{
+            display: block;
+            position: absolute;
+            top: 100%;
+            width: 200px;
+            background-color: #4cbbb9;
+            margin: 0;
+            border-radius: 0 0 5px 5px;
+            left: 50%;
+            margin-left: -100px;
+        }
+    /* FIN DE LA PAGE base.html.twig */
+
+    /* DEBUT DE LA PAGE index/index.html.twig */
+        #article{
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        #article_index{
+            margin: 10px;
+        }
+    /* FIN DE LA PAGE index/index.html.twig */
+
     /* DEBUT CSS styles liste d'items*/
-    .list-item-title {
-        width: 25%;
+        .list-item-title {
+            width: 25%;
+        }
+        .list-item-value {
+            width: 75%;
+        }
+        /* FIN CSS styles liste d'items*/
 
-    }
-    .list-item-value {
-        width: 75%;
-    }
-    /* FIN CSS styles liste d'items*/
-
-
-
-    /* DEBUT DE LA PAGE article/render_image_template.html.twig */
-    #template_image .image-insta-mobile {
-        display: none;
-    }
-    #template_image .image-insta-pc p{
-        text-align: center;
-        font-size: 13px;
-    }
-    #template_image .image-insta-pc img {
-        width: 100%
-    }
-    #template_image .image-insta-pc {
-        display: flex;
-        justify-content: space-between;
-    }
-    #template_image .column1, .column2, .column3 {
-        width: 30%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    #template_text .zone1{
-        text-align: justify;
-    }
-    #template_text .zone1::after{
-        content: "";
-        display: table;
-        clear: both;
-    }
-    #template_text .zone1 img{
-        width: 40%;
-        float: left;
-        margin-right: 10px;
-    }
-    #template_text .zone1 p{
-        font-size: 13px;
-    }
-    #template_text .zone2{
-        text-align: justify;
-    }
-    #template_text .zone2::after{
-        content: "";
-        display: table;
-        clear: both;
-    }
-    #template_text .zone2 img{
-        width: 40%;
-        float: right;
-        margin-left: 10px;
-    }
-    #template_text .zone2 p{
-        font-size: 13px;
-    }
-
-    #template_mixed .zone1{
-        text-align: justify;
-    }
-    #template_mixed .zone1::after{
-        content: "";
-        display: table;
-        clear: both;
-    }
-    #template_mixed .zone1 img{
-        width: 40%;
-        float: left;
-        margin-right: 10px;
-    }
-    #template_mixed .zone2{
-        text-align: center;
-    }
-    #template_mixed .zone2 img{
-        height: 400px;
-    }
-    #template_mixed .zone3{
-        text-align: justify;
-    }
-    #template_mixed .zone3::after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-    #template_mixed .zone3 img{
-        width: 40%;
-        float: right;
-        margin-left: 10px;
-    }
+        /* DEBUT DE LA PAGE article/render_image_template.html.twig */
+        #template_image .image-insta-mobile {
+            display: none;
+        }
+        #template_image .image-insta-pc p{
+            text-align: center;
+            font-size: 13px;
+        }
+        #template_image .image-insta-pc img {
+            width: 100%
+        }
+        #template_image .image-insta-pc {
+            display: flex;
+            justify-content: space-between;
+        }
+        #template_image .column1, .column2, .column3 {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #template_text .zone1{
+            text-align: justify;
+        }
+        #template_text .zone1::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+        #template_text .zone1 img{
+            width: 40%;
+            float: left;
+            margin-right: 10px;
+        }
+        #template_text .zone1 p{
+            font-size: 13px;
+        }
+        #template_text .zone2{
+            text-align: justify;
+        }
+        #template_text .zone2::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+        #template_text .zone2 img{
+            width: 40%;
+            float: right;
+            margin-left: 10px;
+        }
+        #template_text .zone2 p{
+            font-size: 13px;
+        }
+        #template_mixed .zone1{
+            text-align: justify;
+        }
+        #template_mixed .zone1::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+        #template_mixed .zone1 img{
+            width: 40%;
+            float: left;
+            margin-right: 10px;
+        }
+        #template_mixed .zone2{
+            text-align: center;
+        }
+        #template_mixed .zone2 img{
+            height: 400px;
+        }
+        #template_mixed .zone3{
+            text-align: justify;
+        }
+        #template_mixed .zone3::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        #template_mixed .zone3 img{
+            width: 40%;
+            float: right;
+            margin-left: 10px;
+        }
     /* FIN DE LA PAGE article/render_image_template.html.twig */
 
-
     /* DEBUT DE LA PAGE about/index.html.twig */
-    #about .about-card-group {
-        display: flex;
-        justify-content: space-between;
-    }
-    #about .about-card {
-        flex-basis: 30%;
-    }
-    #about .about-card img {
-        width: unset;
-        max-width: unset;
-        max-height: 250px;
-    }
+        #about .about-card-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        #about .about-card {
+            flex-basis: 30%;
+        }
+        #about .about-card img {
+            width: unset;
+            max-width: unset;
+            max-height: 250px;
+        }
     /* FIN DE LA PAGE about/index.html.twig */
 }
-
 @media screen and (min-width: 992px) {
 
     /* DEBUT CSS styles liste d'items*/
-    .list {
-        display: none;
-    }
-
-    .table-list {
-        display: table;
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .table-list th, .table-list td {
-        border-bottom: 1px solid lightgrey;
-        padding: 5px;
-    }
-
-    .table-list th {
-        background-color: #0779e4;
-        color: white;
-    }
-
-    .table-list tr {
-        background-color: white;
-    }
-
-    .table-list .button {
-        display: block;
-    }
+        .list {
+            display: none;
+        }
+        .table-list {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-list th, .table-list td {
+            border-bottom: 1px solid lightgrey;
+            padding: 5px;
+        }
+        .table-list th {
+            background-color: #0779e4;
+            color: white;
+        }
+        .table-list tr {
+            background-color: white;
+        }
+        .table-list .button {
+            display: block;
+        }
     /* FIN CSS styles liste d'items*/
 
-
-
     /* DEBUT CSS commun à tous les templates */
-    .banniere{
-        height: 300px;
-    }
+        .banniere{
+            height: 300px;
+        }
     /* FIN CSS commun à tous les templates */
 
     /* DEBUT DE LA PAGE article/render_image_template.html.twig */
-    #template_mixed .zone2 img{
-        height: 500px;
-    }
+        #template_mixed .zone2 img{
+            height: 500px;
+        }
     /* FIN DE LA PAGE article/render_image_template.html.twig */
-
-
 }
-
 @media screen and (min-width: 1200px) {
 
     /* DEBUT DE LA PAGE article/render_image_template.html.twig */
-    #template_mixed .zone2 img{
-        height: 600px;
-    }
+        #template_mixed .zone2 img{
+            height: 600px;
+        }
+    /* FIN DE LA PAGE article/render_image_template.html.twig */
 
+    /* DEBUT DE LA PAGE index/index.html.twig */
+        #article{
+            justify-content: space-between;
+        }
+    /* FIN DE LA PAGE index/index.html.twig */
 }

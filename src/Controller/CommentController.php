@@ -1,23 +1,19 @@
 <?php
-
-
-namespace App\Controller\Admin;
+namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\CommentsearchType;
 use App\Form\CommentType;
-use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * class CommentController
- * @package App\Controller\Admin
+ * class UserCommentController
+ * @package App\Controller
  * @Route("/commentaires")
  **/
 class CommentController extends AbstractController
@@ -29,10 +25,10 @@ class CommentController extends AbstractController
     public function index(article $article)
     {
         return $this->render(
-        'admin/comment/index.html.twig',
-        [
-        'article' => $article
-        ]
+            'admin/comment/index.html.twig',
+            [
+                'article' => $article
+            ]
         );
     }
 
@@ -44,16 +40,18 @@ class CommentController extends AbstractController
      */
     public function searchComment(Request $request,CommentRepository $repository)
     {
+        //create a form
         $searchForm=$this->createForm(CommentsearchType::class);
+        //query analyse
         $searchForm->handleRequest($request);
         dump($request->getMethod());
         dump($searchForm->getData());
         dump($searchForm);
-      //  $comments=$repository->findAll();
+
         $comments=$repository->search((array)$searchForm->getData());
 
         dump($comments);
-             return $this->render(
+        return $this->render(
             'admin/comment/commentspage.html.twig',
             [
                 //'comment'=>$comment,
@@ -70,26 +68,30 @@ class CommentController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/supression/{id}")
      */
-    public function delete(EntityManagerInterface $manager,Comment $comment)
+    public function deleteUser(EntityManagerInterface $manager,Comment $comment)
     {
         $manager->remove($comment);
         $manager->flush();
         $this->addFlash('success','Le commentaire est supprimé');
 
         return $this->redirectToRoute(
-            'app_admin_comment_searchcomment'
+            'app_article_renderimagetemplate',
+            [
+                'id'=>$comment->getArticleid()->getId()
+            ]
         );
     }
 
     /**
      * @Route("/modif/{id}", defaults={"id": null}, requirements={"id": "\d+"})
-     *
-     */
-    public function modification(Request $request, EntityManagerInterface $manager,
+     * */
+    public function modificationUser(Request $request, EntityManagerInterface $manager,
                                  Comment $comment,CommentRepository $repository)
     {
-        $article = $comment->getArticleid();
+
+        $article=$comment->getArticleid();
         $form = $this->createForm(CommentType::class, $comment);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -116,8 +118,8 @@ class CommentController extends AbstractController
         return $this->render(
             'admin/comment/modification.html.twig',
             [
-                'comments'=>$comment,
                 'article' => $article,
+                'comments'=>$comment,
                 'form' => $form->createView()
             ]
 
@@ -125,4 +127,4 @@ class CommentController extends AbstractController
 
     }
 
-   }
+}
