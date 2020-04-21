@@ -7,8 +7,7 @@
     {% if article.nameTemplate.id == 1 %}
         <section id="template_image">
             {% if templateImage.banner is not null %}
-                <div class="banniere">
-                    <img src="{{ asset('photo/' ~  templateImage.banner ) }}" />
+                <div class="banniere" style="background-image: url('{{ asset('photo/' ~  templateImage.banner ) }}')">
                 </div>
             {% endif %}
             <h1>
@@ -30,8 +29,131 @@
                     </p>
                 </div>
             {% endif %}
-            <div>
-                <div class="colonne1">
+            <div class="image-insta-mobile">
+                {% if templateImage.img1 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img1 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateImage.img1 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content1 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img2 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img2 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateImage.img2 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content2 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img3 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img3 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateImage.img3 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content3 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img4 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img4 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateImage.img4 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content4 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img5 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img5 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateImage.img5 ) }}"  />
+                        </a>
+                        <p>
+                            {{ templateImage.content5 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img6 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img6 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateImage.img6 ) }}"  />
+                        </a>
+                        <p>
+                            {{ templateImage.content6 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img7 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img7 ) }}">
+                            <img src="{{ asset('photo/' ~   templateImage.img7 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content7 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img8 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img8 ) }}">
+                            <img src="{{ asset('photo/' ~   templateImage.img8 ) }}"  />
+                        </a>
+                        <p>
+                            {{ templateImage.content8 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img9 is not null %}
+                    <div>
+                        <a href="">
+                            <img src="{{ asset('photo/' ~   templateImage.img9 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content9 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img10 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img10 ) }}">
+                            <img src="{{ asset('photo/' ~   templateImage.img10 ) }}"  />
+                        </a>
+                        <p>
+                            {{ templateImage.content10 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img11 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img11 ) }}">
+                            <img src="{{ asset('photo/' ~   templateImage.img11 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content11 }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% if templateImage.img12 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img12 ) }}">
+                            <img src="{{ asset('photo/' ~   templateImage.img12 ) }}" />
+                        </a>
+                        <p>
+                            {{ templateImage.content12 }}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="image-insta-pc">
+                <div class="column1">
                     {% if templateImage.img1 is not null %}
                         <div>
                             <a href="{{ asset('photo/' ~   templateImage.img1 ) }}" target="_blank">
@@ -42,28 +164,6 @@
                             </p>
                         </div>
                     {% endif %}
-                    {% if templateImage.img2 is not null %}
-                        <div>
-                            <a href="{{ asset('photo/' ~   templateImage.img2 ) }}" target="_blank">
-                                <img src="{{ asset('photo/' ~   templateImage.img2 ) }}" />
-                            </a>
-                            <p>
-                                {{ templateImage.content2 }}
-                            </p>
-                        </div>
-                    {% endif %}
-                    {% if templateImage.img3 is not null %}
-                        <div>
-                            <a href="{{ asset('photo/' ~   templateImage.img3 ) }}" target="_blank">
-                                <img src="{{ asset('photo/' ~   templateImage.img3 ) }}" />
-                            </a>
-                            <p>
-                                {{ templateImage.content3 }}
-                            </p>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="colonne2">
                     {% if templateImage.img4 is not null %}
                         <div>
                             <a href="{{ asset('photo/' ~   templateImage.img4 ) }}" target="_blank">
@@ -71,6 +171,38 @@
                             </a>
                             <p>
                                 {{ templateImage.content4 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img7 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img7 ) }}">
+                                <img src="{{ asset('photo/' ~   templateImage.img7 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content7 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img10 is not null %}
+                    <div>
+                        <a href="{{ asset('photo/' ~   templateImage.img10 ) }}">
+                            <img src="{{ asset('photo/' ~   templateImage.img10 ) }}"  />
+                        </a>
+                        <p>
+                            {{ templateImage.content10 }}
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="column2">
+                    {% if templateImage.img2 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img2 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img2 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content2 }}
                             </p>
                         </div>
                     {% endif %}
@@ -84,6 +216,38 @@
                             </p>
                         </div>
                     {% endif %}
+                    {% if templateImage.img8 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img8 ) }}">
+                                <img src="{{ asset('photo/' ~   templateImage.img8 ) }}"  />
+                            </a>
+                            <p>
+                                {{ templateImage.content8 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if templateImage.img11 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img11 ) }}">
+                                <img src="{{ asset('photo/' ~   templateImage.img11 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content11 }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="column3">
+                    {% if templateImage.img3 is not null %}
+                        <div>
+                            <a href="{{ asset('photo/' ~   templateImage.img3 ) }}" target="_blank">
+                                <img src="{{ asset('photo/' ~   templateImage.img3 ) }}" />
+                            </a>
+                            <p>
+                                {{ templateImage.content3 }}
+                            </p>
+                        </div>
+                    {% endif %}
                     {% if templateImage.img6 is not null %}
                         <div>
                             <a href="{{ asset('photo/' ~   templateImage.img6 ) }}" target="_blank">
@@ -94,53 +258,21 @@
                             </p>
                         </div>
                     {% endif %}
-                </div>
-                <div class="colonne3">
-                    {% if templateImage.img7 is not null %}
-                        <div>
-                            <img src="{{ asset('photo/' ~   templateImage.img7 ) }}" />
-                            <p>
-                                {{ templateImage.content7 }}
-                            </p>
-                        </div>
-                    {% endif %}
-                    {% if templateImage.img8 is not null %}
-                        <div>
-                            <img src="{{ asset('photo/' ~   templateImage.img8 ) }}"  />
-                            <p>
-                                {{ templateImage.content8 }}
-                            </p>
-                        </div>
-                    {% endif %}
                     {% if templateImage.img9 is not null %}
                         <div>
-                            <img src="{{ asset('photo/' ~   templateImage.img9 ) }}" />
+                            <a href="">
+                                <img src="{{ asset('photo/' ~   templateImage.img9 ) }}" />
+                            </a>
                             <p>
                                 {{ templateImage.content9 }}
                             </p>
                         </div>
                     {% endif %}
-                </div>
-                <div class="colonne4">
-                    {% if templateImage.img10 is not null %}
-                        <div>
-                            <img src="{{ asset('photo/' ~   templateImage.img10 ) }}"  />
-                            <p>
-                                {{ templateImage.content10 }}
-                            </p>
-                        </div>
-                    {% endif %}
-                    {% if templateImage.img11 is not null %}
-                        <div>
-                            <img src="{{ asset('photo/' ~   templateImage.img11 ) }}" />
-                            <p>
-                                {{ templateImage.content11 }}
-                            </p>
-                        </div>
-                    {% endif %}
                     {% if templateImage.img12 is not null %}
                         <div>
-                            <img src="{{ asset('photo/' ~   templateImage.img12 ) }}" />
+                            <a href="{{ asset('photo/' ~   templateImage.img12 ) }}">
+                                <img src="{{ asset('photo/' ~   templateImage.img12 ) }}" />
+                            </a>
                             <p>
                                 {{ templateImage.content12 }}
                             </p>
@@ -148,6 +280,7 @@
                     {% endif %}
                 </div>
             </div>
+
             {% if templateImage.conclusion is not null %}
                 <div class="conclusion">
                     <p>
@@ -161,8 +294,7 @@
     {% if article.nameTemplate.id == 2 %}
         <section id="template_text">
             {% if templateText.banner is not null %}
-                <div class="banniere">
-                    <img src="{{ asset('photo/' ~  templateText.banner ) }}" />
+                <div class="banniere" style="background-image: url('{{ asset('photo/' ~  templateText.banner ) }}')">
                 </div>
             {% endif %}
             <h1>
@@ -186,9 +318,11 @@
             {% endif %}
             {% if templateText.img1 is not null %}
                 <div class="zone1">
-                    <a href="{{ asset('photo/' ~   templateText.img1 ) }}" target="_blank">
-                        <img src="{{ asset('photo/' ~   templateText.img1 ) }}" />
-                    </a>
+                    <p>
+                        <a href="{{ asset('photo/' ~   templateText.img1 ) }}" target="_blank">
+                            <img src="{{ asset('photo/' ~   templateText.img1 ) }}" />
+                        </a>
+                    </p>
                     <p>
                         {{ templateText.content1 }}
                     </p>
@@ -196,12 +330,12 @@
             {% endif %}
             {% if templateText.img2 is not null %}
                 <div class="zone2">
-                    <p>
-                        {{ templateText.content2 }}
-                    </p>
                     <a href="{{ asset('photo/' ~   templateText.img2 ) }}" target="_blank">
                         <img src="{{ asset('photo/' ~   templateText.img2 ) }}" />
                     </a>
+                    <p>
+                        {{ templateText.content2 }}
+                    </p>
                 </div>
             {% endif %}
             {% if templateText.conclusion is not null %}
@@ -217,8 +351,7 @@
     {% if article.nameTemplate.id == 3 %}
         <section id="template_mixed">
             {% if templateMixed.banner is not null %}
-                <div class="banniere">
-                    <img src="{{ asset('photo/' ~  templateMixed.banner ) }}" />
+                <div class="banniere" style="background-image: url('{{ asset('photo/' ~  templateMixed.banner ) }}')">
                 </div>
             {% endif %}
             <h1>
@@ -279,11 +412,11 @@
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
+                            <span class="sr-only">Précédent</span>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
+                            <span class="sr-only">Suivant</span>
                         </a>
                     </div>
                     <p>
@@ -313,7 +446,7 @@
     {# ******************Commentaire*****************#}
     <h2>Commentaires</h2>
     {% if app.user is null %}
-        <div class="alert alert-info">
+        <div class="message warning">
             Vous devez être connecté pour écrire un commentaire.
         </div>
     {% else %}
@@ -324,8 +457,8 @@
 
         <div class="text-right">
 
-            <button type="submit" class="btn btn-primary">
-                Comment
+            <button type="submit" class="button standard">
+                Ajouter
             </button>
             {{ form_end(form) }}
         </div>
@@ -370,8 +503,8 @@
             Vous devez être connecté pour supprimer ou modifier votre commentaire.
             {% else %}
                 <div class="form-group " style="text-align:right">
-                            <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">suprimer</a>
-                            <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+                    <a class="button standard" href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}">Modifier</a>
+                    <a class="button delete" href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}">Supprimer</a>
                 </div>
         {% endif %}
     {% endfor %}

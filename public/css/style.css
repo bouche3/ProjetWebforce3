@@ -2,51 +2,26 @@
 ************************************ CSS PROJET WEB FORCE 3 *************************
 ****************************** PAR RESSA, ALEXANDRE ET STEPHANE *********************
 *************************************************************************************/
-/* DEBUT DE LA PAGE base.html.twig */
-body{
-    min-width: 320px;
-}
-header div.container div{
-    text-align: center;
-}
-header div.container div p{
-    margin: 0;
-    font-size: 20px;
-}
-header div.container div img{
-    width: 100%;
-}
-header div.container div nav{
-    border: #565656 1px solid;
-}
-header div.container div nav ul{
-    list-style: none;
-    padding: 0;
-    margin-top: 16px;
-}
-header div.container div nav ul li{
-    margin-bottom: 16px;
-}
-header div.container div nav ul li img{
-    margin: 5px 0 5px 0;
-    width: 50%;
-}
-li.sous_menu ul{
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 1.0s;
-}
-li.sous_menu.open ul{
-    margin-top: 10px;
-    max-height: 600px;
-    margin-bottom: 16px;
-}
-/* FIN DE LA PAGE base.html.twig */
-
 /* DEBUT CSS styles communs à toutes les pages*/
 
 * {
-   transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+
+body {
+    background-color: #eff3c6;
+}
+
+h1, h2 {
+    color: #0779e4;
+}
+
+h3 {
+    color: #4cbbb9;
+}
+
+h4 {
+    color: #77d8d8;
 }
 
 
@@ -124,6 +99,7 @@ a:not(.button):hover {
     border: 1px solid lightgray;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    background-color: white;
 }
 
 .list-item {
@@ -141,16 +117,7 @@ a:not(.button):hover {
     padding: 7px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #eff3c6;
-    justify-content: center;
-}
-
-.list-item:last-child .list-item-title{
-    display: none;
-}
-
-.list-item:last-child .list-item-value{
-    text-align: center;
+    justify-content: start;
 }
 
 .list-item-title {
@@ -159,9 +126,17 @@ a:not(.button):hover {
     width: 50%;
 }
 
+.list-item:last-child .list-item-title{
+    display: none;
+}
+
 .list-item-value {
     line-height: 1.2em;
     width: 50%;
+}
+
+.list-item:last-child .list-item-value{
+    width: 100%;
 }
 /* FIN CSS styles liste d'items*/
 
@@ -227,7 +202,7 @@ a:not(.button):hover {
 .message.warning {
     color: #0779e4;
     position: relative;
-    background-color: #eff3c6;
+    background-color: rgba(7,121,228, 0.2);
 }
 .message.warning:before {
     content: "";
@@ -254,6 +229,48 @@ a:not(.button):hover {
 /* FIN CSS styles communs à toutes les pages*/
 
 
+/* DEBUT DE LA PAGE base.html.twig */
+body{
+    min-width: 320px;
+}
+header div.container div{
+    text-align: center;
+}
+header div.container div p{
+    margin: 0;
+    font-size: 20px;
+}
+header div.container div img{
+    width: 100%;
+}
+header div.container div nav{
+    border: #565656 1px solid;
+}
+header div.container div nav ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+header div.container div nav ul li{
+    margin-bottom: 16px;
+}
+header div.container div nav ul li img{
+    margin: 5px 0 5px 0;
+    width: 50%;
+}
+li.sous_menu ul{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.0s;
+}
+li.sous_menu.open ul{
+    margin-top: 10px;
+    max-height: 600px;
+    margin-bottom: 16px;
+}
+/* FIN DE LA PAGE base.html.twig */
+
+
 /* DEBUT DE LA PAGE admin/article/add_edit_article.html.twig */
 .form_template img{
     width: 100%;
@@ -263,16 +280,20 @@ a:not(.button):hover {
 /* DEBUT CSS commun à tous les templates */
 .banniere{
     text-align: center;
-    width: 300px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 15px;
 }
-.banniere img{
-    max-width: 100%;
-}
+
 .introduction p{
     font-size: 13px;
+    margin: 20px 0;
 }
 .conclusion p{
     font-size: 13px;
+    margin: 20px 0;
 }
 /* FIN CSS commun à tous les templates */
 
@@ -287,46 +308,17 @@ a:not(.button):hover {
     font-size: 15px;
     text-decoration: underline;
 }
-#template_image div .colonne1 div{
-    width: 300px;
-}
-#template_image div .colonne1 div img{
-    max-width: 100%;
-}
-#template_image div .colonne1 div p{
+#template_image .image-insta-mobile p {
     text-align: center;
     font-size: 13px;
 }
-#template_image div .colonne2 div{
-    width: 300px;
+#template_image .image-insta-mobile img {
+    width: 100%
 }
-#template_image div .colonne2 div img{
-    max-width: 100%;
+#template_image .image-insta-pc {
+    display: none;
 }
-#template_image div .colonne2 div p{
-    text-align: center;
-    font-size: 13px;
-}
-#template_image div .colonne3 div{
-    width: 300px;
-}
-#template_image div .colonne3 div img{
-    max-width: 100%;
-}
-#template_image div .colonne3 div p{
-    text-align: center;
-    font-size: 13px;
-}
-#template_image div .colonne4 div{
-    width: 300px;
-}
-#template_image div .colonne4 div img{
-    max-width: 100%;
-}
-#template_image div .colonne4 div p{
-    text-align: center;
-    font-size: 13px;
-}
+
 #template_text h1{
     text-align: center;
     font-weight: bold;
@@ -338,25 +330,27 @@ a:not(.button):hover {
     text-decoration: underline;
 }
 #template_text .zone1{
-    width: 300px;
+    text-align: center;
+    margin: 10px 0;
 }
 #template_text .zone1 img{
-    max-width: 100%;
+    width: 100%;
 }
 #template_text .zone1 p{
-    text-align: center;
     font-size: 13px;
 }
 #template_text .zone2{
-    width: 300px;
+    text-align: center;
+    margin: 10px 0;
 }
 #template_text .zone2 img{
-    max-width: 100%;
+    width: 100%;
 }
 #template_text .zone2 p{
-    text-align: center;
     font-size: 13px;
 }
+
+
 #template_mixed h1{
     text-align: center;
     font-weight: bold;
@@ -368,33 +362,32 @@ a:not(.button):hover {
     text-decoration: underline;
 }
 #template_mixed .zone1{
-    width: 300px;
+    text-align: center;
+    margin: 10px 0;
 }
 #template_mixed .zone1 img{
-    max-width: 100%;
+    width: 100%;
 }
 #template_mixed .zone1 p{
-    text-align: center;
     font-size: 13px;
 }
 #template_mixed .zone2{
-    width: 300px;
+    text-align: center;
 }
 #template_mixed .zone2 img{
-    max-width: 100%;
+    height: 200px;
 }
 #template_mixed .zone2 p{
-    text-align: center;
     font-size: 13px;
 }
 #template_mixed .zone3{
-    width: 300px;
+    text-align: center;
+    margin: 10px 0;
 }
 #template_mixed .zone3 img{
-    max-width: 100%;
+    width: 100%;
 }
 #template_mixed .zone3 p{
-    text-align: center;
     font-size: 13px;
 }
 /* FIN DE LA PAGE article/render_image_template.html.twig */
@@ -429,6 +422,73 @@ a:not(.button):hover {
 #article_index div.bottom{
     text-align: right;
 }
+/* FIN DE LA PAGE index/index.html.twig */
+
+
+/* DEBUT DE LA PAGE about/index.html.twig */
+#about .about-card {
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+#about .about-card p {
+    text-align: justify;
+}
+
+#about .about-card img {
+    background-color: white;
+    border: 7px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 10px;
+}
+/* FIN DE LA PAGE about/index.html.twig */
+
+
+/* DEBUT DE LA PAGE user/information.html.twig */
+#member-info .member-card {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+#member-info .member-card .member-avatar {
+    border-bottom: 1px solid lightgrey;
+    padding: 10px;
+    text-align: center;
+    /*background: #4cbbb9; !* Old browsers *!*/
+    /*background: -moz-linear-gradient(top,  #4cbbb9 0%, #4cbbb9 50%, #77d8d8 51%, #77d8d8 100%); !* FF3.6-15 *!*/
+    /*background: -webkit-linear-gradient(top,  #4cbbb9 0%,#4cbbb9 50%,#77d8d8 51%,#77d8d8 100%); !* Chrome10-25,Safari5.1-6 *!*/
+    /*background: linear-gradient(to bottom,  #4cbbb9 0%,#4cbbb9 50%,#77d8d8 51%,#77d8d8 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4cbbb9', endColorstr='#77d8d8',GradientType=0 ); !* IE6-9 *!*/
+
+    background: #0779e4; /* Old browsers */
+    background: -moz-linear-gradient(top,  #0779e4 0%, #0779e4 50%, #4cbbb9 51%, #4cbbb9 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #0779e4 0%,#0779e4 50%,#4cbbb9 51%,#4cbbb9 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #0779e4 0%,#0779e4 50%,#4cbbb9 51%,#4cbbb9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0779e4', endColorstr='#4cbbb9',GradientType=0 ); /* IE6-9 */
+
+}
+
+#member-info .member-card .member-avatar img {
+    background-color: white;
+    border: 7px solid white;
+    transform: rotate(-2deg);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    max-width: 150px;
+    margin: 5px;
+}
+
+#member-info .member-card .member-info {
+    padding: 10px;
+    background-color: white;
+}
+/* FIN DE LA PAGE user/information.html.twig */
+
 
 /**************************************************************/
 /******************** Responsive ******************************/
@@ -436,6 +496,7 @@ a:not(.button):hover {
 
 @media screen and (min-width: 576px) {
 
+    /* DEBUT CSS styles liste d'items*/
     .list-item-title {
         width: 30%;
 
@@ -444,20 +505,134 @@ a:not(.button):hover {
     .list-item-value {
         width: 70%;
     }
+    /* FIN CSS styles liste d'items*/
+
+    /* DEBUT DE LA PAGE article/render_image_template.html.twig */
+    #template_mixed .zone2 img{
+        height: 300px;
+    }
+    /* FIN DE LA PAGE article/render_image_template.html.twig */
 
 }
 
 @media screen and (min-width: 768px) {
 
+    /* DEBUT CSS styles liste d'items*/
     .list-item-title {
         width: 25%;
 
     }
-
     .list-item-value {
         width: 75%;
     }
+    /* FIN CSS styles liste d'items*/
 
+
+
+    /* DEBUT DE LA PAGE article/render_image_template.html.twig */
+    #template_image .image-insta-mobile {
+        display: none;
+    }
+    #template_image .image-insta-pc p{
+        text-align: center;
+        font-size: 13px;
+    }
+    #template_image .image-insta-pc img {
+        width: 100%
+    }
+    #template_image .image-insta-pc {
+        display: flex;
+        justify-content: space-between;
+    }
+    #template_image .column1, .column2, .column3 {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #template_text .zone1{
+        text-align: justify;
+    }
+    #template_text .zone1::after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    #template_text .zone1 img{
+        width: 40%;
+        float: left;
+        margin-right: 10px;
+    }
+    #template_text .zone1 p{
+        font-size: 13px;
+    }
+    #template_text .zone2{
+        text-align: justify;
+    }
+    #template_text .zone2::after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    #template_text .zone2 img{
+        width: 40%;
+        float: right;
+        margin-left: 10px;
+    }
+    #template_text .zone2 p{
+        font-size: 13px;
+    }
+
+    #template_mixed .zone1{
+        text-align: justify;
+    }
+    #template_mixed .zone1::after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    #template_mixed .zone1 img{
+        width: 40%;
+        float: left;
+        margin-right: 10px;
+    }
+    #template_mixed .zone2{
+        text-align: center;
+    }
+    #template_mixed .zone2 img{
+        height: 400px;
+    }
+    #template_mixed .zone3{
+        text-align: justify;
+    }
+    #template_mixed .zone3::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    #template_mixed .zone3 img{
+        width: 40%;
+        float: right;
+        margin-left: 10px;
+    }
+    /* FIN DE LA PAGE article/render_image_template.html.twig */
+
+
+    /* DEBUT DE LA PAGE about/index.html.twig */
+    #about .about-card-group {
+        display: flex;
+        justify-content: space-between;
+    }
+    #about .about-card {
+        flex-basis: 30%;
+    }
+    #about .about-card img {
+        width: unset;
+        max-width: unset;
+        max-height: 250px;
+    }
+    /* FIN DE LA PAGE about/index.html.twig */
 }
 
 @media screen and (min-width: 992px) {
@@ -468,9 +643,9 @@ a:not(.button):hover {
     }
 
     .table-list {
-        display: block;
+        display: table;
+        width: 100%;
         border-collapse: collapse;
-
     }
 
     .table-list th, .table-list td {
@@ -483,8 +658,8 @@ a:not(.button):hover {
         color: white;
     }
 
-    .table-list tr:nth-child(odd) {
-        background-color: #eff3c6;
+    .table-list tr {
+        background-color: white;
     }
 
     .table-list .button {
@@ -492,9 +667,28 @@ a:not(.button):hover {
     }
     /* FIN CSS styles liste d'items*/
 
+
+
+    /* DEBUT CSS commun à tous les templates */
+    .banniere{
+        height: 300px;
+    }
+    /* FIN CSS commun à tous les templates */
+
+    /* DEBUT DE LA PAGE article/render_image_template.html.twig */
+    #template_mixed .zone2 img{
+        height: 500px;
+    }
+    /* FIN DE LA PAGE article/render_image_template.html.twig */
+
+
 }
 
 @media screen and (min-width: 1200px) {
 
+    /* DEBUT DE LA PAGE article/render_image_template.html.twig */
+    #template_mixed .zone2 img{
+        height: 600px;
+    }
+
 }
->>>>>>> c25044d5910b33f3ca2b9ac4c0ab0f55e41ce2d6

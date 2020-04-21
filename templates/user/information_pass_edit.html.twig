@@ -12,8 +12,8 @@
 
     {{ form_row(form.plainpassword) }}
 
-    <button type="submit">Enregistrer</button>
-    <a href="{{ path('app_user_info', {'id': app.user.id}) }}">Annuler</a>
+    <button type="submit" class="button standard">Enregistrer</button>
+    <a class="button cancel" href="{{ path('app_user_info', {'id': app.user.id}) }}">Annuler</a>
 
     {{ form_end(form) }}
 

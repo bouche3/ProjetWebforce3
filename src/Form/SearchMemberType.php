@@ -20,7 +20,7 @@ class SearchMemberType extends AbstractType
                 TextType::class,
                 [
                     'label'=>'Pseudo',
-                    'required'=>'false'
+                    'required'=>false
                 ]
             )
             ->add(

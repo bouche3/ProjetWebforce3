@@ -6,77 +6,126 @@
     <h1>Gestion des membres</h1>
 
     <a href="{{ path('app_admin_member_edit') }}"
-       class="btn btn-outline-primary mb-3">
+       class="button standard">
         Ajouter un membre
     </a>
-    <div class="card bg-light mb-3">
-        <div class="card-body">
-            {{ form_start(search_form) }}
+    <section id="members-search">
+        <div class="card bg-light mb-3">
+            <div class="card-body">
+                {{ form_start(search_form) }}
 
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(search_form.pseudo) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(search_form.pseudo) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(search_form.email) }}
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    {{ form_row(search_form.email) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(search_form.start_date) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(search_form.end_date) }}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(search_form.start_date) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_row(search_form.end_date) }}
-                </div>
-            </div>
 
-            <div class="text-right">
-                <button type="submit" class="btn btn-info">
-                    Rechercher
-                </button>
-            </div>
+                <div class="text-right">
+                    <button type="submit" class="button standard">
+                        Rechercher
+                    </button>
+                </div>
 
-            {{ form_end(search_form) }}
+                {{ form_end(search_form) }}
+            </div>
         </div>
-    </div>
-    <table class="table table-stripped">
-        <tr>
-            <th>Id</th>
-            <th>Pseudo</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th width="250px"></th>
-        </tr>
+    </section>
+
+    <section id="members-list">
         {% for member in memberDetails  %}
-            <tr>
-                <td>{{ member.id }}</td>
-                <td>{{ member.pseudo }}</td>
-                <td>{{ member.firstname}}</td>
-                <td>{{ member.lastname }}</td>
-                <td>{{ member.email }}</td>
-                <td>{{ member.status }}</td>
-
-            <td>
-                <a class="btn btn-primary"
-                   href="{{ path('app_admin_member_edit',{'id':member.id}) }}">
-                    Modifier
-                </a>
-                <a class="btn btn-danger"
-                   href="{{ path('app_admin_member_delete',{'id':member.id}) }}">
-                    Supprimer
-                </a>
-
-            </td>
-            </tr>
+            <ul class="list">
+                <li class="list-item">
+                    <div class="list-item-title">ID</div>
+                    <div class="list-item-value">{{ member.id }}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Pseudo</div>
+                    <div class="list-item-value">{{ member.pseudo }}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Prénom</div>
+                    <div class="list-item-value">{{ member.firstname}}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Nom</div>
+                    <div class="list-item-value">{{ member.lastname }}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Email</div>
+                    <div class="list-item-value">{{ member.email }}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Date d'inscription</div>
+                    <div class="list-item-value">{{ member.registrationDate|date('d/m/Y') }}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Rôle</div>
+                    <div class="list-item-value">{{ member.status }}</div>
+                </li>
+                <li class="list-item">
+                    <div class="list-item-title">Actions</div>
+                    <div class="list-item-value">
+                        <a class="button standard" href="{{ path('app_admin_member_edit', {'id': member.id}) }}">Modifier</a>
+                        <a class="button delete" href="{{ path('app_admin_member_delete', {'id': member.id}) }}">Supprimer</a>
+                    </div>
+                </li>
+            </ul>
         {% else %}
-            <tr>
-                <td colspan="7" class="text-center">Aucun résultat</td>
-            </tr>
+            <ul class="list">
+                <li class="list-item">Aucun résultat</li>
+            </ul>
         {% endfor %}
 
-    </table>
+        <table class="table-list">
+            <tr>
+                <th>ID</th>
+                <th>Pseudo</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Date d'inscription</th>
+                <th>Rôle</th>
+                <th>Actions</th>
+            </tr>
+            {% for member in memberDetails  %}
+                <tr>
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.pseudo }}</td>
+                    <td>{{ member.firstname}}</td>
+                    <td>{{ member.lastname }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>{{ member.registrationDate|date('d/m/Y') }}</td>
+                    <td>{{ member.status }}</td>
+                    <td>
+                        <a class="button standard"
+                           href="{{ path('app_admin_member_edit',{'id':member.id}) }}">
+                            Modifier
+                        </a>
+                        <a class="button delete"
+                           href="{{ path('app_admin_member_delete',{'id':member.id}) }}">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">Aucun résultat</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
     <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -96,7 +145,7 @@
 
     <script>
         $(function () {
-            $('.btn-delete').click(function(event){
+            $('.button.delete').click(function(event){
                 event.preventDefault();
                 var $btn=$(this);
                 $('#modal-delete').modal('show');

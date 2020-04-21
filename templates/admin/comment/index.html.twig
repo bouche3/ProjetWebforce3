@@ -4,9 +4,7 @@
 
 {% block body %}
     <h2>Commentaires sur l'article"{{ article.title }}"</h2>
-    <a class="btn btn-outline-primary mb-3" href="{{ path('app_article_index') }}">
-        Retour aux articles
-    </a>
+
        <table class="table table-stripped">
         <tr class="table-dark">
             <th>Utilisateur</th>
@@ -21,13 +19,13 @@
 
             <td>
                 <a href="{{ path ('app_admin_comment_modification',{'id':comment.id})}}"
-                   class="btn btn-warning">
+                   class="button standard">
                     Modifier
                 </a>
             </td>
                 <td>
                 <a href="{{ path ('app_admin_comment_delete',{'id':comment.id})}}"
-                   class="btn btn-danger">
+                   class="button delete">
                     Supprimer
                 </a>
             </td>
@@ -35,7 +33,7 @@
         {% else %}
         <tr>
             <td colspan="4" class="text-center">
-                Aucun commentaire pour cet article
+                Aucun commentaire
             </td>
         </tr>
         {% endfor %}

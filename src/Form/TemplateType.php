@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Country;
 use App\Entity\Template;
 use App\Entity\TravelCategory;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +22,7 @@ class TemplateType extends AbstractType
                 'city',
                 TextType::class,
                 [
-                    'label'=>'Ville(s) de votre voyage'
+                    'label'=>'Ville(s) / Région(s) de votre voyage'
                 ]
             )
             ->add(
@@ -38,6 +39,10 @@ class TemplateType extends AbstractType
                     'label'=>'Le pays de votre voyage',
                     'class'=>Country::class,
                     'choice_label'=>'country_name',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('cy')
+                            ->orderBy('cy.countryName', 'ASC');
+                    },
                     'placeholder'=>'Choisissez un pays'
                 ]
             )

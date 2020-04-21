@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Commnetaires</h2>
+    <h2>Commentaires</h2>
     {% if app.user is null %}
-        <div class="alert alert-info">
-            Vous devez être connecté pour écrire un commentaire.
+        <div class="message warning">
+            Vous devez être connecté pour écrire un commentaire
         </div>
     {% else %}
         {{ form_start(form) }}
         {{ form_row(form.comment) }}
         <div class="text-right">
-            <button type="submit" class="btn btn-primary">
-                Comment
+            <button type="submit" class="button standard">
+                Enregistrer
             </button>
             {{ form_end(form) }}
         </div>

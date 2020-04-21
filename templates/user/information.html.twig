@@ -6,27 +6,30 @@
 
     <h1>Mes informations</h1>
 
-    <div>
-        <div>
-            {% if user.avatar is null %}
-                <img src="{{ asset('photo/profile.png') }}" alt="Aucun Avatar">
-            {% else %}
-                <img src="{{ asset('photo/' ~ user.avatar) }}" alt="Avatar">
-            {% endif %}
+    <section id="member-info">
+
+        <div class="member-card">
+            <div class="member-avatar">
+                {% if user.avatar is null %}
+                    <img src="{{ asset('photo/profile.png') }}" alt="Aucun Avatar">
+                {% else %}
+                    <img src="{{ asset('photo/' ~ user.avatar) }}" alt="Avatar">
+                {% endif %}
+            </div>
+            <div class="member-info">
+                <p><b>Pseudo : </b>{{ user.pseudo }}</p>
+                <p><b>Inscrit depuis le : </b>{{ user.registrationDate|date('d/m/Y') }}</p>
+                <p><b>Prénom : </b>{{ user.firstname }}</p>
+                <p><b>Nom : </b>{{ user.lastname }}</p>
+                <p><b>Email : </b>{{ user.email }}</p>
+
+                <a class="button standard" href="{{ path('app_user_infoedit', {'id': user.id}) }}">Modifier mes données</a>
+                <a class="button standard" href="{{ path('app_user_passedit', {'id': user.id }) }}">Modifier mon mot de passe</a>
+            </div>
         </div>
-        <div>
 
-            <p><b>Pseudo : </b>{{ user.pseudo }}</p>
-            <p><b>Inscrit depuis le : </b>{{ user.registrationDate|date('d/m/Y') }}</p>
-            <p><b>Prénom : </b>{{ user.firstname }}</p>
-            <p><b>Nom : </b>{{ user.lastname }}</p>
-            <p><b>Email : </b>{{ user.email }}</p>
+    </section>
 
-            <a class="button standard" href="{{ path('app_user_infoedit', {'id': user.id}) }}">Modifier mes données</a>
-            <a class="button standard" href="{{ path('app_user_passedit', {'id': user.id }) }}">Modifier mon mot de passe</a>
-
-        </div>
-    </div>
 
 {% endblock %}
 
