@@ -1,15 +1,82 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}{{ parent() }} - Index{% endblock %}
-
 {% block body %}
-    <h1>INDEX</h1>
-
-        <section>
-            <h2>Effectuer une recherche</h2>
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel_image" style='background-image: url("{{ asset('img/reussite.jpg')}}")'></div>
+                    <div class="carousel-caption d-none d-block">
+                        <h5>Bravo à {{ top_user.pseudo }}</h5>
+                        <p>Qui à actuellement le plus grand nombre d'article écrit. Merci pour ces moments de partage.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    {% if top_article.nameTemplate.id == '1' %}
+                        <a href="{{ path('app_article_renderimagetemplate', {'id': top_article.id}) }}">
+                            <div class="carousel_image" style='background-image: url("{{ asset('photo/' ~ top_article.templateImageid.banner ) }}")'></div>
+                        </a>
+                    {% endif %}
+                    {% if top_article.nameTemplate.id == '2' %}
+                        <a href="{{ path('app_article_renderimagetemplate', {'id': top_article.id}) }}">
+                            <div class="carousel_image" style='background-image: url("{{ asset('photo/' ~ top_article.templateTextid.banner ) }}")'></div>
+                        </a>
+                    {% endif %}
+                    {% if top_article.nameTemplate.id == '3' %}
+                        <a href="{{ path('app_article_renderimagetemplate', {'id': top_article.id}) }}">
+                            <div class="carousel_image" style='background-image: url("{{ asset('photo/' ~ top_article.templateMixedid.banner ) }}")'></div>
+                        </a>
+                    {% endif %}
+                    <div class="carousel-caption d-none d-block">
+                        <h5>{{ top_article.title }}</h5>
+                        <p>
+                            Cette article créer par {{ top_article.userid.pseudo }} est le plus populaire actuellement.
+                            Laissez vous tenter !
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    {% if last_article.nameTemplate.id == '1' %}
+                        <a href="{{ path('app_article_renderimagetemplate', {'id': last_article.id}) }}">
+                            <div class="carousel_image" style='background-image: url("{{ asset('photo/' ~ last_article.templateImageid.banner ) }}")'></div>
+                        </a>
+                    {% endif %}
+                    {% if last_article.nameTemplate.id == '2' %}
+                        <a href="{{ path('app_article_renderimagetemplate', {'id': last_article.id}) }}">
+                            <div class="carousel_image" style='background-image: url("{{ asset('photo/' ~ last_article.templateTextid.banner ) }}")'></div>
+                        </a>
+                    {% endif %}
+                    {% if last_article.nameTemplate.id == '3' %}
+                        <a href="{{ path('app_article_renderimagetemplate', {'id': last_article.id}) }}">
+                            <div class="carousel_image" style='background-image: url("{{ asset('photo/' ~ last_article.templateMixedid.banner ) }}")'></div>
+                        </a>
+                    {% endif %}
+                    <div class="carousel-caption d-none d-block">
+                        <h5>{{ last_article.title}}</h5>
+                        <p>
+                            Voici le dernier article posté par {{ last_article.userid.pseudo }}.
+                            Laissez vous tenter !
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <section id="index">
+            <h1>Rechercher un article</h1>
             <div class="card bg-light mb-3">
                 <div class="card-body">
-
                     {{ form_start(search_form) }}
                     <div class="row">
                         <div class="col-md-6">
@@ -25,49 +92,39 @@
                         </button>
                     </div>
                     {{ form_end(search_form) }}
-
                 </div>
             </div>
         </section>
-
-        <section>
-            <h2>DERNIER ARTICLES POSTE</h2>
+        <section id="index2">
+            <h2>Dernier article postés</h2>
             {% if articles is empty %}
             <p>Aucun résultat</p>
             {% else %}
+                <div id="article">
                 {% for article in articles %}
-
-                    <div class="article">
-                        <article id="article_index">
+                    <article id="article_index">
+                        <div class="top bg-light">
                             {% if article.nameTemplate.id == '1' %}
-                                <a href="{{ path('app_article_renderimagetemplate', {'id': article.id}) }}">
-                                    <img src="{{ asset('photo/' ~ article.templateImageid.banner ) }}" alt="photo_de_l'article" />
-                                </a>
+                                <div class="top_image" style='background-image: url("{{ asset('photo/' ~ article.templateImageid.banner ) }}")'></div>
                             {% endif %}
                             {% if article.nameTemplate.id == '2' %}
-                                <a href="{{ path('app_article_renderimagetemplate', {'id': article.id}) }}">
-                                    <img src="{{ asset('photo/' ~ article.templateTextid.banner ) }}" alt="photo_de_l'article" />
-                                </a>
+                                <div class="top_image" style='background-image: url("{{ asset('photo/' ~ article.templateTextid.banner ) }}")'></div>
                             {% endif %}
                             {% if article.nameTemplate.id == '3' %}
-                                <a href="{{ path('app_article_renderimagetemplate', {'id': article.id}) }}">
-                                    <img src="{{ asset('photo/' ~ article.templateMixedid.banner ) }}" alt="photo_de_l'article" />
-                                </a>
+                                <div class="top_image" style='background-image: url("{{ asset('photo/' ~ article.templateMixedid.banner ) }}")'></div>
                             {% endif %}
                             <div class="middle">
-                                <h3>Voyage en : {{ article.countryid.countryName }}</h3>
-                                <h3>Posté par : {{ article.userid.pseudo }}</h3>
+                                <h3>Destination : <small>{{ article.countryid.countryName }}</small></h3>
+                                <h3>Posté par : <small>{{ article.userid.pseudo }}</small></h3>
                             </div>
-                            <div class="bottom">
-                                <a href="{{ path('app_article_renderimagetemplate', {'id': article.id}) }}" class="btn btn-primary mt-1">Voir</a>
-                            </div>
-                        </article>
-                    </div>
+                        </div>
+                        <div class="bottom">
+                            <a href="{{ path('app_article_renderimagetemplate', {'id': article.id}) }}" class="button standard mt-1">Voir</a>
+                        </div>
+                    </article>
                 {% endfor %}
+                </div>
             {% endif %}
-
             {{ knp_pagination_render(articles) }}
-
         </section>
-
 {% endblock %}

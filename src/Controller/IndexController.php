@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\SearchArticleIndexType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,19 +19,34 @@ class IndexController extends AbstractController
     /**
      * @Route("/")
      */
-    public function index(Request $request, ArticleRepository $repository, PaginatorInterface $paginator)
+    public function index(Request $request, ArticleRepository $repository, CommentRepository $repositoryComment, PaginatorInterface $paginator, UserRepository $repositoryUser )
     {
+        $lastArticle = $repository->lastArticle();
+        dump($lastArticle);
+        $last_article = $repository->find($lastArticle['id']);
+        dump($last_article);
+
+        $topMember = $repository->topMembre();
+        dump($topMember);
+        $top_user = $repositoryUser->find($topMember['user']);
+        dump($top_user);
+
+        $topArticle = $repositoryComment->topArticle();
+        dump($topArticle);
+        $top_article = $repository->find($topArticle['article']);
+        dump($top_article);
+
         $searchForm = $this->createForm(SearchArticleIndexType::class);
         $searchForm->handleRequest($request);
         dump($searchForm->getData());
 
         $donnees = $repository->searchIndex((array)$searchForm->getData());
-
+        dump($donnees);
 
         $articles = $paginator->paginate(
             $donnees, // on passe les données
             $request->query->getInt('page', 1), //  si jamais il n'y as pas de page en cour, page 1 par défaut
-            2
+            9
         );
         dump($articles);
 
@@ -37,6 +54,9 @@ class IndexController extends AbstractController
             'index/index.html.twig',
             [
                 'articles'=>$articles,
+                'last_article'=>$last_article,
+                'top_article'=>$top_article,
+                'top_user'=>$top_user,
                 'search_form'=>$searchForm->createView()
             ]
         );

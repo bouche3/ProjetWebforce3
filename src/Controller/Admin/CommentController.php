@@ -86,25 +86,19 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/modif/{id}", defaults={"id": null}, requirements={"id": "\d+"})
-     * */
+     *
+     */
     public function modification(Request $request, EntityManagerInterface $manager,
-                                 Article $article,CommentRepository $repository,$id)
+                                 Comment $comment,CommentRepository $repository)
     {
-
-        $commentModify=$manager->find(Comment::class,$id);
-
-
-        $form = $this->createForm(CommentType::class, $commentModify);
-
+        $article = $comment->getArticleid();
+        $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                $commentModify
-                    ->setUserid($this->getuser())
-                    ->setArticleid($article);
 
-                $manager->persist($commentModify);
+                $manager->persist($comment);
                 $manager->flush();
 
                 $this->addFlash('success', 'Votre commentaire est enregistré');
@@ -120,14 +114,12 @@ class CommentController extends AbstractController
             }
 
         }
-        $modifyComments=$repository->findBy(['articleid' =>$id], ['id' => 'DESC']);
-        dump($commentModify);
+        dump($comment);
 
         return $this->render(
             'admin/comment/modification.html.twig',
             [
                 'article' => $article,
-                'comments'=>$modifyComments,
                 'form' => $form->createView()
             ]
 

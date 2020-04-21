@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,20 +29,20 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Le pseudo est obligatoire", groups={"infoEdit"})
-     * @Assert\Length(min="2", minMessage="Le pseudo doit avoir au moins {{ limit }} caractères", groups={"infoEdit"})
+     * @Assert\NotBlank(message="Le pseudo est obligatoire")
+     * @Assert\Length(min="2", minMessage="Le pseudo doit avoir au moins {{ limit }} caractères")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le nom est obligatoire", groups={"infoEdit"})
+     * @Assert\NotBlank(message="Le nom est obligatoire")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le prénom est obligatoire", groups={"infoEdit"})
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $firstname;
 
@@ -52,8 +53,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="L'email est obligatoire", groups={"infoEdit"})
-     * @Assert\Email(message="L'email n'est pas valide", groups={"infoEdit"})
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="L'email n'est pas valide")
      */
     private $email;
 
@@ -63,9 +64,8 @@ class User implements UserInterface, \Serializable
     private $password;
     /**
      * @var string|null
-     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
-     * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme")
-     *
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire", groups={"register"})
+     * @Assert\Regex("/^[a-zA-Z0-9\W]{6,10}$/", message="Mot de passe non conforme", groups={"register"})
      */
     private $plainpassword;
 
@@ -92,8 +92,7 @@ class User implements UserInterface, \Serializable
      *     mimeTypes={"image/png", "image/jpeg", "image"},
      *     mimeTypesMessage="Le fichier doit être une image JPG ou PNG",
      *     maxSize="600k",
-     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}",
-     *     groups={"infoEdit"})
+     *     maxSizeMessage="L'image ne doit pas dépasser {{ limit }}{{ suffix }}")
      * * @Assert\Image(
      *     minWidth = 10,
      *     minWidthMessage="L'image ne doit pas faire moins de {{ min_width }}px de largeur",
@@ -102,8 +101,7 @@ class User implements UserInterface, \Serializable
      *     minHeight = 10,
      *     minHeightMessage="L'image ne doit pas faire moins de {{ min_height }}px de hauteur",
      *     maxHeight = 400,
-     *     maxHeightMessage="L'image ne doit pas dépasser {{ max_height }}px de hauteur",
-     *     groups={"infoEdit"})
+     *     maxHeightMessage="L'image ne doit pas dépasser {{ max_height }}px de hauteur")
      */
     private $avatar;
 
@@ -168,7 +166,7 @@ class User implements UserInterface, \Serializable
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setPseudo(?string $pseudo): self
     {
         $this->pseudo = $pseudo;
 
@@ -180,7 +178,7 @@ class User implements UserInterface, \Serializable
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -192,7 +190,7 @@ class User implements UserInterface, \Serializable
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 
@@ -216,7 +214,7 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -252,7 +250,7 @@ class User implements UserInterface, \Serializable
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 
@@ -399,4 +397,15 @@ class User implements UserInterface, \Serializable
             $this->status,
             ) = unserialize($serialized);
     }
+
+    public function avatarFileName()
+    {
+        if ($this->getAvatar() instanceof File){
+            return basename($this->getAvatar());
+        }
+        else{
+            return $this->getAvatar();
+        }
+    }
+
 }
